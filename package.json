@@ -1,0 +1,62 @@
+{
+  "name": "nano-string-utils",
+  "version": "0.1.0",
+  "description": "Ultra-lightweight string utilities with zero dependencies",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zheruel/nano-string-utils.git"
+  },
+  "keywords": [
+    "string",
+    "utils",
+    "utilities",
+    "lightweight",
+    "zero-dependencies",
+    "slugify",
+    "camelCase",
+    "snakeCase",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zheruel/nano-string-utils/issues"
+  },
+  "homepage": "https://github.com/Zheruel/nano-string-utils#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
