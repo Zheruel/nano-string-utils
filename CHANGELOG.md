@@ -1,0 +1,43 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.1.0] - 2025-08-31
+
+### Added
+- Initial release with 15 essential string utilities
+- `slugify` - Convert strings to URL-safe slugs
+- `truncate` - Truncate strings with ellipsis
+- `capitalize` - Capitalize first letter
+- `camelCase` - Convert to camelCase
+- `snakeCase` - Convert to snake_case
+- `kebabCase` - Convert to kebab-case
+- `pascalCase` - Convert to PascalCase
+- `stripHtml` - Remove HTML tags from strings
+- `escapeHtml` - Escape HTML special characters
+- `randomString` - Generate random strings
+- `hashString` - Simple string hashing
+- `reverse` - Reverse string characters
+- `isEmail` - Email validation
+- `isUrl` - URL validation
+- `wordCount` - Count words in text
+- Full TypeScript support with type definitions
+- Dual ESM/CJS builds for maximum compatibility
+- Tree-shakeable exports for optimal bundle size
+- Zero runtime dependencies
+- Comprehensive test suite with 202 tests
+- Detailed JSDoc documentation for all functions
+
+### Technical Details
+- Built with TypeScript 5.9
+- Supports Node.js 18+
+- Bundle size < 1KB (minified + gzipped)
+- 100% test coverage for utility functions
+- Modern build tooling with tsup and Vitest
+
+[0.1.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.1.0
