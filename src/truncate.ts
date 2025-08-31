@@ -8,7 +8,14 @@
  * truncate('Long text here', 10) // 'Long te...'
  * truncate('Short', 10) // 'Short'
  */
-export const truncate = (str: string, length: number, suffix: string = '...'): string => {
-  if (str.length <= length) return str;
-  return str.slice(0, length - suffix.length) + suffix;
+export const truncate = (
+  str: string,
+  length: number,
+  suffix: string = "..."
+): string => {
+  const chars = Array.from(str);
+  if (chars.length <= length) return str;
+  if (length <= suffix.length) return suffix;
+  const truncatedChars = chars.slice(0, length - suffix.length);
+  return truncatedChars.join("") + suffix;
 };

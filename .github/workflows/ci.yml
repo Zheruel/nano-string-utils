@@ -1,0 +1,139 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel in-progress runs when a new run is triggered on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type checking
+        run: npm run typecheck
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Generate coverage report
+        if: matrix.node-version == 20
+        run: npm run test:coverage
+
+      - name: Upload coverage reports
+        if: matrix.node-version == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [typecheck, test]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the library
+        run: npm run build
+
+      - name: Verify build outputs
+        run: |
+          echo "Checking build outputs..."
+          ls -la dist/
+          
+          # Verify expected files exist
+          if [[ ! -f "dist/index.js" ]]; then
+            echo "Error: dist/index.js not found"
+            exit 1
+          fi
+          
+          if [[ ! -f "dist/index.cjs" ]]; then
+            echo "Error: dist/index.cjs not found"
+            exit 1
+          fi
+          
+          if [[ ! -f "dist/index.d.ts" ]]; then
+            echo "Error: dist/index.d.ts not found"
+            exit 1
+          fi
+          
+          echo "✅ All build outputs verified successfully"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
+
+  # Summary job to ensure all checks pass
+  ci-success:
+    name: CI Success
+    runs-on: ubuntu-latest
+    needs: [typecheck, test, build]
+    if: always()
+    
+    steps:
+      - name: Check all jobs status
+        run: |
+          if [[ "${{ needs.typecheck.result }}" != "success" || \
+                "${{ needs.test.result }}" != "success" || \
+                "${{ needs.build.result }}" != "success" ]]; then
+            echo "❌ One or more CI checks failed"
+            echo "TypeCheck: ${{ needs.typecheck.result }}"
+            echo "Test: ${{ needs.test.result }}"
+            echo "Build: ${{ needs.build.result }}"
+            exit 1
+          fi
+          echo "✅ All CI checks passed successfully!"

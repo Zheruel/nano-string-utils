@@ -1,0 +1,80 @@
+# Dependabot configuration for automatic dependency updates
+version: 2
+updates:
+  # Enable version updates for npm packages
+  - package-ecosystem: "npm"
+    # Look for package.json and package-lock.json in the root directory
+    directory: "/"
+    # Check for updates weekly (daily can be too aggressive for a library)
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Target the main branch for pull requests
+    target-branch: "main"
+    # Allow up to 5 open pull requests for npm dependencies
+    open-pull-requests-limit: 5
+    # Group updates for easier management
+    groups:
+      # Group all development dependencies together
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group TypeScript-related updates
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group testing-related updates
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Automatically rebase open PRs when conflicts occur
+    rebase-strategy: "auto"
+    # Add labels to PRs
+    labels:
+      - "dependencies"
+      - "automated"
+    # Commit message prefix for consistency
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+  
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Target the main branch for pull requests
+    target-branch: "main"
+    # Allow up to 5 open pull requests for Actions updates
+    open-pull-requests-limit: 5
+    # Group all Action updates together
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    # Add labels to PRs
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    # Commit message prefix for consistency
+    commit-message:
+      prefix: "chore"
+      include: "scope"

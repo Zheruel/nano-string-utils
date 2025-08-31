@@ -8,15 +8,18 @@
  * randomString(5, 'abc123') // '3a1bc'
  */
 export const randomString = (
-  length: number, 
-  charset: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  length: number,
+  charset: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 ): string => {
-  let result = '';
+  const len = Math.floor(length);
+  if (len <= 0) return "";
+
+  let result = "";
   const charsetLength = charset.length;
-  
-  for (let i = 0; i < length; i++) {
+
+  for (let i = 0; i < len; i++) {
     result += charset.charAt(Math.floor(Math.random() * charsetLength));
   }
-  
+
   return result;
 };

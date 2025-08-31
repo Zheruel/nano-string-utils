@@ -7,5 +7,5 @@
  * stripHtml('<div>Test</div>') // 'Test'
  */
 export const stripHtml = (str: string): string => {
-  return str.replace(/<[^>]*>/g, '');
+  return str.replace(/<[^>]*>/g, "");
 };

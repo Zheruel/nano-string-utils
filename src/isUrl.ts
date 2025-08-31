@@ -9,7 +9,19 @@
  */
 export const isUrl = (str: string): boolean => {
   try {
-    new URL(str);
+    const url = new URL(str);
+
+    // Check for valid protocols
+    const validProtocols = ["http:", "https:", "ftp:", "ftps:"];
+    if (!validProtocols.includes(url.protocol)) {
+      return false;
+    }
+
+    // Check for consecutive dots in hostname
+    if (url.hostname.includes("..")) {
+      return false;
+    }
+
     return true;
   } catch {
     return false;
