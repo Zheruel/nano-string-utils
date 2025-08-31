@@ -8,6 +8,17 @@
  * isEmail('test@domain.co.uk') // true
  */
 export const isEmail = (str: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(str);
+  // More strict email validation
+  // - No consecutive dots
+  // - Limited special characters in local part
+  // - No trailing dots
+  const emailRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // Additional checks
+  if (!emailRegex.test(str)) return false;
+  if (str.includes("..")) return false;
+  if (str.endsWith(".")) return false;
+  if (str.includes("#") || str.includes("$") || str.includes("%")) return false;
+
+  return true;
 };

@@ -9,5 +9,5 @@
  */
 export const wordCount = (str: string): number => {
   const words = str.trim().split(/\s+/);
-  return words[0] === '' ? 0 : words.length;
+  return words[0] === "" ? 0 : words.length;
 };

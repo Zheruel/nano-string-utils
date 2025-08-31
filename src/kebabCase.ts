@@ -8,10 +8,19 @@
  * kebabCase('hello_world') // 'hello-world'
  */
 export const kebabCase = (str: string): string => {
-  return str
-    .replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
-    .replace(/[^a-z0-9]+/gi, '-')
-    .replace(/^-+|-+$/g, '')
-    .replace(/-+/g, '-')
-    .toLowerCase();
+  return (
+    str
+      .trim()
+      // Add hyphen between lowercase/number and uppercase
+      .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+      // Add hyphen between number and letter
+      .replace(/([0-9])([a-zA-Z])/g, "$1-$2")
+      // Replace non-alphanumeric with hyphen
+      .replace(/[^a-z0-9]+/gi, "-")
+      // Remove leading/trailing hyphens
+      .replace(/^-+|-+$/g, "")
+      // Replace multiple hyphens with single
+      .replace(/-+/g, "-")
+      .toLowerCase()
+  );
 };
