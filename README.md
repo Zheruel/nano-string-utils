@@ -3,6 +3,7 @@
 Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully typed, and optimized for modern JavaScript.
 
 [![npm version](https://img.shields.io/npm/v/nano-string-utils.svg)](https://www.npmjs.com/package/nano-string-utils)
+[![JSR](https://jsr.io/badges/@zheruel/nano-string-utils)](https://jsr.io/@zheruel/nano-string-utils)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/nano-string-utils)](https://bundlephobia.com/package/nano-string-utils)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue.svg)](https://www.typescriptlang.org/)
 [![CI/CD](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml/badge.svg)](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml)
@@ -21,6 +22,7 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 
 ## Installation
 
+### From npm
 ```bash
 npm install nano-string-utils
 ```
@@ -31,6 +33,15 @@ yarn add nano-string-utils
 
 ```bash
 pnpm add nano-string-utils
+```
+
+### From JSR
+```bash
+npx jsr add @zheruel/nano-string-utils
+```
+
+```bash
+deno add @zheruel/nano-string-utils
 ```
 
 ## Usage
