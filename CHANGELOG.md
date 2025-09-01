@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2025-08-31
+## [0.1.0] - 2025-09-01
 
 ### Added
 - Initial release with 15 essential string utilities
