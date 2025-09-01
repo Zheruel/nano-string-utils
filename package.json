@@ -19,7 +19,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "sideEffects": false,
   "scripts": {
@@ -48,7 +49,7 @@
     "snakeCase",
     "typescript"
   ],
-  "author": "",
+  "author": "Tin Zeljar <tinzeljar@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zheruel/nano-string-utils/issues"
