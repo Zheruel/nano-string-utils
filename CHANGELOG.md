@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-09-02
+
 ### Added
 - `template` - String interpolation with variables and nested object support
 - `templateSafe` - HTML-escaped version of template for safe rendering
@@ -53,4 +55,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.2.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.1.0
