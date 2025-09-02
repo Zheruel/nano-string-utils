@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `template` - String interpolation with variables and nested object support
+- `templateSafe` - HTML-escaped version of template for safe rendering
+- `pad` - Pad string on both sides to target length
+- `padStart` - Pad string on the left to target length
+- `padEnd` - Pad string on the right to target length
+- `deburr` - Remove diacritics/accents from Latin characters
+- `titleCase` - Proper title capitalization with customizable exceptions
+- `constantCase` - Convert to CONSTANT_CASE format
+- `dotCase` - Convert to dot.case format
+- `pathCase` - Convert to path/case format
+- `sentenceCase` - Capitalize first letter of each sentence
+
 ## [0.1.0] - 2025-09-01
 
 ### Added
