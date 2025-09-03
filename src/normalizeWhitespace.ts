@@ -16,6 +16,33 @@ export interface NormalizeWhitespaceOptions {
   preserveNewlines?: boolean;
 }
 
+// Pre-compiled regex patterns for better performance
+// Unicode whitespace characters to normalize:
+// \u00A0 - Non-breaking space
+// \u1680 - Ogham space mark
+// \u2000-\u200B - Various spaces (en space, em space, thin space, etc.)
+// \u2028 - Line separator
+// \u2029 - Paragraph separator
+// \u202F - Narrow non-breaking space
+// \u205F - Medium mathematical space
+// \u3000 - Ideographic space
+// \uFEFF - Zero-width non-breaking space (BOM)
+
+// Single-pass regex: collapse all whitespace including Unicode
+const COLLAPSE_ALL_WHITESPACE =
+  /[\s\u00A0\u1680\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF]+/g;
+
+// Just replace Unicode spaces (no collapse)
+const UNICODE_SPACES =
+  /[\s\u00A0\u1680\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF]/g;
+
+// Preserve newlines: collapse all non-newline whitespace
+const COLLAPSE_NON_NEWLINE = /[^\S\n]+/g;
+
+// Replace Unicode spaces except newlines
+const UNICODE_SPACES_NO_NEWLINE =
+  /[\u00A0\u1680\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF\t\r\f\v]/g;
+
 /**
  * Normalizes various Unicode whitespace characters to regular spaces
  * @param str - The string to normalize
@@ -38,41 +65,26 @@ export function normalizeWhitespace(
 
   if (!str) return str;
 
-  let result = str;
+  let result: string;
 
-  // Unicode whitespace characters to normalize:
-  // \u00A0 - Non-breaking space
-  // \u1680 - Ogham space mark
-  // \u2000-\u200A - Various spaces (en space, em space, thin space, etc.)
-  // \u2028 - Line separator
-  // \u2029 - Paragraph separator
-  // \u202F - Narrow non-breaking space
-  // \u205F - Medium mathematical space
-  // \u3000 - Ideographic space
-  // \uFEFF - Zero-width non-breaking space (BOM)
-  // \u200B - Zero-width space
-
+  // Optimize for common cases with single-pass regex
   if (preserveNewlines) {
-    // Replace all Unicode spaces except newlines with regular space
-    result = result.replace(
-      /[\u00A0\u1680\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF\t\r\f\v]/g,
-      " "
-    );
-
     if (collapse) {
-      // Collapse multiple spaces (but not newlines) into one
-      result = result.replace(/[^\S\n]+/g, " ");
+      // Single pass: replace Unicode spaces AND collapse non-newline whitespace
+      result = str
+        .replace(UNICODE_SPACES_NO_NEWLINE, " ")
+        .replace(COLLAPSE_NON_NEWLINE, " ");
+    } else {
+      // Just replace Unicode spaces, preserve spacing
+      result = str.replace(UNICODE_SPACES_NO_NEWLINE, " ");
     }
   } else {
-    // Replace all whitespace characters including newlines with regular space
-    result = result.replace(
-      /[\s\u00A0\u1680\u2000-\u200B\u2028\u2029\u202F\u205F\u3000\uFEFF]/g,
-      " "
-    );
-
     if (collapse) {
-      // Collapse multiple spaces into one
-      result = result.replace(/\s+/g, " ");
+      // Most common case: single-pass regex to collapse all whitespace
+      result = str.replace(COLLAPSE_ALL_WHITESPACE, " ");
+    } else {
+      // Replace Unicode spaces without collapsing
+      result = str.replace(UNICODE_SPACES, " ");
     }
   }
 

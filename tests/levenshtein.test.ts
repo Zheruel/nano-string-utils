@@ -153,4 +153,31 @@ describe("levenshtein", () => {
       expect(levenshtein("Test", "test")).toBe(1);
     });
   });
+
+  describe("prefix/suffix optimization", () => {
+    it("optimizes strings with common prefixes", () => {
+      expect(levenshtein("hello world", "hello mars")).toBe(4); // "world" vs "mars"
+      expect(levenshtein("/path/to/file.js", "/path/to/other.js")).toBe(4); // "file" vs "other"
+      expect(levenshtein("prefixAAA", "prefixBBB")).toBe(3);
+    });
+
+    it("optimizes strings with common suffixes", () => {
+      expect(levenshtein("testing", "resting")).toBe(1);
+      expect(levenshtein("file.test.js", "component.test.js")).toBe(8); // "file" vs "component"
+      expect(levenshtein("AAAsufix", "BBBsufix")).toBe(3);
+    });
+
+    it("optimizes strings with both prefix and suffix", () => {
+      expect(levenshtein("startMIDDLEend", "startOTHERend")).toBe(6); // "MIDDLE" vs "OTHER"
+      expect(levenshtein("___ABC___", "___XYZ___")).toBe(3);
+      expect(levenshtein("<div>content</div>", "<div>other</div>")).toBe(5); // "content" vs "other"
+    });
+
+    it("handles edge cases with prefix/suffix", () => {
+      expect(levenshtein("abc", "abcdef")).toBe(3); // One is prefix of other
+      expect(levenshtein("abcdef", "abc")).toBe(3); // One is prefix of other
+      expect(levenshtein("same", "same")).toBe(0); // Identical
+      expect(levenshtein("", "test")).toBe(4); // Empty string
+    });
+  });
 });

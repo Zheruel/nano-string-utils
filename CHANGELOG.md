@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2025-09-03
+
+### Performance
+
+- **hashString**: Replaced weak hash algorithm with FNV-1a implementation for better distribution
+- **levenshtein**: Added prefix/suffix trimming optimization to reduce computation
+- **deburr**: Consolidated 14+ regex operations into single pre-compiled pattern
+- **fuzzyMatch**: Added progressive threshold checking and short-circuit evaluation
+- **toASCII**: Replaced 155+ regex operations with single-pass Map lookup (O(n\*m) to O(n))
+- **normalizeWhitespace**: Pre-compiled patterns and single-pass regex for common cases
+- **removeNonPrintable**: Replaced 4 regex passes with single-pass range comparisons
+
+### Changed
+
+- Bundle size remains under 6KB (5.13 kB ESM / 5.48 kB CJS)
+- All optimizations maintain backward compatibility
+
 ## [0.4.0] - 2025-09-03
 
 ### Added
@@ -98,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.4.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.4.1
 [0.4.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.4.0
 [0.3.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.2.0

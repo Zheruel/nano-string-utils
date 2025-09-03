@@ -24,8 +24,8 @@ export function levenshtein(
   // Fast path: identical strings
   if (a === b) return 0;
 
-  const aLen = a.length;
-  const bLen = b.length;
+  let aLen = a.length;
+  let bLen = b.length;
 
   // Fast path: empty string cases
   if (aLen === 0) return bLen;
@@ -37,16 +37,58 @@ export function levenshtein(
     if (minDistance > maxDistance) return Infinity;
   }
 
+  // Trim common prefix
+  let prefixLen = 0;
+  const minLen = Math.min(aLen, bLen);
+  while (
+    prefixLen < minLen &&
+    a.charCodeAt(prefixLen) === b.charCodeAt(prefixLen)
+  ) {
+    prefixLen++;
+  }
+
+  // If one string is a prefix of the other
+  if (prefixLen === minLen) {
+    return Math.abs(aLen - bLen);
+  }
+
+  // Trim common suffix after prefix
+  let suffixLen = 0;
+  const maxSuffixLen = Math.min(aLen - prefixLen, bLen - prefixLen);
+  while (
+    suffixLen < maxSuffixLen &&
+    a.charCodeAt(aLen - 1 - suffixLen) === b.charCodeAt(bLen - 1 - suffixLen)
+  ) {
+    suffixLen++;
+  }
+
+  // Extract the different middle parts
+  const aStart = prefixLen;
+  const aEnd = aLen - suffixLen;
+  const bStart = prefixLen;
+  const bEnd = bLen - suffixLen;
+
+  aLen = aEnd - aStart;
+  bLen = bEnd - bStart;
+
+  // If the middle parts are empty, strings are equal
+  if (aLen === 0) return bLen;
+  if (bLen === 0) return aLen;
+
   // Swap to ensure we use less memory (iterate over shorter string)
   let shorter = a;
   let longer = b;
+  let shorterStart = aStart;
   let shorterLen = aLen;
+  let longerStart = bStart;
   let longerLen = bLen;
 
   if (aLen > bLen) {
     shorter = b;
     longer = a;
+    shorterStart = bStart;
     shorterLen = bLen;
+    longerStart = aStart;
     longerLen = aLen;
   }
 
@@ -70,7 +112,10 @@ export function levenshtein(
 
       // Calculate cost (0 if characters match, 1 if substitution needed)
       const cost =
-        shorter.charCodeAt(i - 1) === longer.charCodeAt(j - 1) ? 0 : 1;
+        shorter.charCodeAt(shorterStart + i - 1) ===
+        longer.charCodeAt(longerStart + j - 1)
+          ? 0
+          : 1;
 
       // Take minimum of three operations
       prevRow[i] = Math.min(
