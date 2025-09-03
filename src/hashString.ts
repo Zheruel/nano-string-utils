@@ -3,19 +3,18 @@
  * @param str - The input string to hash
  * @returns A numeric hash value
  * @example
- * hashString('hello') // 99162322
- * hashString('world') // 113318802
+ * hashString('hello') // 1335831723
+ * hashString('world') // 3582672807
  */
 export const hashString = (str: string): number => {
-  let hash = 0;
+  let hash = 2166136261; // FNV offset basis
 
-  if (str.length === 0) return hash;
+  if (str.length === 0) return hash >>> 0;
 
   for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32-bit integer
+    hash ^= str.charCodeAt(i);
+    hash = (hash * 16777619) >>> 0; // FNV prime with unsigned right shift
   }
 
-  return Math.abs(hash);
+  return hash;
 };

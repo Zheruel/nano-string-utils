@@ -57,6 +57,9 @@ export function fuzzyMatch(
   if (!query) return { matched: false, score: 0 };
   if (!target) return null;
 
+  // Early rejection if query is longer than target
+  if (query.length > target.length) return null;
+
   const searchQuery = caseSensitive ? query : query.toLowerCase();
   const searchTarget = caseSensitive ? target : target.toLowerCase();
 
@@ -64,6 +67,13 @@ export function fuzzyMatch(
   if (searchQuery === searchTarget) {
     const score = caseSensitive ? 1.0 : 0.95; // Slight penalty for case-insensitive exact match
     return { matched: true, score };
+  }
+
+  // Check for prefix match early (guarantees high score)
+  const isPrefix = searchTarget.startsWith(searchQuery);
+  if (isPrefix && threshold > 0 && threshold <= 0.85) {
+    // If prefix match and it already exceeds threshold, return early
+    return { matched: true, score: 0.85 };
   }
 
   let queryIndex = 0;
@@ -103,6 +113,14 @@ export function fuzzyMatch(
   const matchRatio = query.length / target.length;
   let finalScore = matchRatio * 0.4; // Base score from match coverage
 
+  // Early threshold check with maximum possible score
+  if (threshold > 0) {
+    const maxPossibleScore = finalScore + 0.25 + 0.1 + 0.35; // All possible bonuses
+    if (maxPossibleScore < threshold) {
+      return null; // Can't possibly meet threshold
+    }
+  }
+
   // Bonus for consecutive matches
   if (consecutiveMatches > 0) {
     finalScore += (consecutiveMatches / query.length) * 0.25;
@@ -116,7 +134,29 @@ export function fuzzyMatch(
     finalScore += positionBonus * 0.1;
   }
 
-  // Bonus for matching at word boundaries
+  // Check if we need to calculate boundary matches
+  // Skip expensive calculation if we already exceed threshold or can't reach it
+  if (threshold > 0) {
+    if (finalScore >= threshold) {
+      // Already exceeds threshold, calculate boundaries only for accurate score
+      if (threshold < 0.75 && !isPrefix) {
+        // Skip boundary calculation, we're already passing
+        finalScore = Math.min(Math.max(finalScore, 0), 1);
+        return {
+          matched: true,
+          score: Math.round(finalScore * 1000) / 1000,
+        };
+      }
+    } else {
+      // Check if boundary bonus could help us reach threshold
+      const maxRemainingBonus = 0.35;
+      if (finalScore + maxRemainingBonus < threshold) {
+        return null; // Can't meet threshold even with boundary bonus
+      }
+    }
+  }
+
+  // Bonus for matching at word boundaries (expensive, do last)
   let boundaryMatches = 0;
   const wordBoundaryChars = /[\s\-_./\\]/;
 
@@ -149,8 +189,8 @@ export function fuzzyMatch(
     finalScore += (boundaryMatches / query.length) * 0.35;
   }
 
-  // Bonus for matching prefix
-  if (searchTarget.startsWith(searchQuery)) {
+  // Bonus for matching prefix (already checked earlier)
+  if (isPrefix) {
     finalScore = Math.max(finalScore, 0.85);
   }
 
