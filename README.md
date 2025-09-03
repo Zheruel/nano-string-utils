@@ -286,6 +286,47 @@ wordCount("Hello world test"); // 3
 wordCount("One-word counts as one"); // 5
 ```
 
+#### `normalizeWhitespace(str: string, options?: NormalizeWhitespaceOptions): string`
+
+Normalizes various Unicode whitespace characters to regular spaces.
+
+```javascript
+normalizeWhitespace("hello   world"); // 'hello world'
+normalizeWhitespace("hello\u00A0world"); // 'hello world' (non-breaking space)
+normalizeWhitespace("  hello  "); // 'hello'
+normalizeWhitespace("hello\n\nworld"); // 'hello world'
+
+// With options
+normalizeWhitespace("  hello  ", { trim: false }); // ' hello '
+normalizeWhitespace("a    b", { collapse: false }); // 'a    b'
+normalizeWhitespace("hello\n\nworld", { preserveNewlines: true }); // 'hello\n\nworld'
+
+// Handles various Unicode spaces
+normalizeWhitespace("café\u2003test"); // 'café test' (em space)
+normalizeWhitespace("hello\u200Bworld"); // 'hello world' (zero-width space)
+normalizeWhitespace("日本\u3000語"); // '日本 語' (ideographic space)
+```
+
+#### `removeNonPrintable(str: string, options?: RemoveNonPrintableOptions): string`
+
+Removes non-printable control characters and formatting characters from strings.
+
+```javascript
+removeNonPrintable("hello\x00world"); // 'helloworld' (removes NULL character)
+removeNonPrintable("hello\nworld"); // 'helloworld' (removes newline by default)
+removeNonPrintable("hello\u200Bworld"); // 'helloworld' (removes zero-width space)
+removeNonPrintable("hello\u202Dworld"); // 'helloworld' (removes directional override)
+
+// With options
+removeNonPrintable("hello\nworld", { keepNewlines: true }); // 'hello\nworld'
+removeNonPrintable("hello\tworld", { keepTabs: true }); // 'hello\tworld'
+removeNonPrintable("hello\r\nworld", { keepCarriageReturns: true }); // 'hello\rworld'
+
+// Preserves emoji with zero-width joiners
+removeNonPrintable("👨‍👩‍👧‍👦"); // '👨‍👩‍👧‍👦' (family emoji preserved)
+removeNonPrintable("text\x1B[32mgreen\x1B[0m"); // 'text[32mgreen[0m' (ANSI escapes removed)
+```
+
 #### `pad(str: string, length: number, chars?: string): string`
 
 Pads a string to a given length by adding characters to both sides (centers the string).
@@ -314,6 +355,32 @@ Pads a string to a given length by adding characters to the right.
 padEnd("Hi", 5, "."); // 'Hi...'
 padEnd("Hi", 6, "=-"); // 'Hi=-=-'
 padEnd("5", 3, "0"); // '500'
+```
+
+#### `graphemes(str: string): string[]`
+
+Splits a string into an array of grapheme clusters, properly handling emojis, combining characters, and complex Unicode.
+
+```javascript
+graphemes("hello"); // ['h', 'e', 'l', 'l', 'o']
+graphemes("👨‍👩‍👧‍👦🎈"); // ['👨‍👩‍👧‍👦', '🎈']
+graphemes("café"); // ['c', 'a', 'f', 'é']
+graphemes("👍🏽"); // ['👍🏽'] - emoji with skin tone
+graphemes("🇺🇸"); // ['🇺🇸'] - flag emoji
+graphemes("hello👋world"); // ['h', 'e', 'l', 'l', 'o', '👋', 'w', 'o', 'r', 'l', 'd']
+```
+
+#### `codePoints(str: string): number[]`
+
+Converts a string into an array of Unicode code points, properly handling surrogate pairs and complex characters.
+
+```javascript
+codePoints("hello"); // [104, 101, 108, 108, 111]
+codePoints("👍"); // [128077]
+codePoints("€"); // [8364]
+codePoints("Hello 👋"); // [72, 101, 108, 108, 111, 32, 128075]
+codePoints("a👍b"); // [97, 128077, 98]
+codePoints("👨‍👩‍👧‍👦"); // [128104, 8205, 128105, 8205, 128103, 8205, 128102]
 ```
 
 ### String Generation
@@ -360,38 +427,87 @@ isUrl("not a url"); // false
 isUrl("ftp://files.com/file.zip"); // true
 ```
 
+#### `isASCII(str: string): boolean`
+
+Checks if a string contains only ASCII characters (code points 0-127).
+
+```javascript
+isASCII("Hello World!"); // true
+isASCII("café"); // false
+isASCII("👍"); // false
+isASCII("abc123!@#"); // true
+isASCII(""); // true
+```
+
+#### `toASCII(str: string, options?: { placeholder?: string }): string`
+
+Converts a string to ASCII-safe representation by removing diacritics, converting common Unicode symbols, and optionally replacing non-ASCII characters.
+
+```javascript
+toASCII("café"); // 'cafe'
+toASCII("Hello "world""); // 'Hello "world"'
+toASCII("em—dash"); // 'em-dash'
+toASCII("€100"); // 'EUR100'
+toASCII("½ + ¼ = ¾"); // '1/2 + 1/4 = 3/4'
+toASCII("→ ← ↑ ↓"); // '-> <- ^ v'
+toASCII("α β γ"); // 'a b g'
+toASCII("Привет"); // 'Privet'
+toASCII("你好"); // '' (removes non-convertible characters)
+toASCII("你好", { placeholder: "?" }); // '??'
+toASCII("Hello 世界", { placeholder: "?" }); // 'Hello ??'
+toASCII("© 2024 Müller™"); // '(c) 2024 Muller(TM)'
+```
+
+Features:
+
+- Removes diacritics/accents (café → cafe)
+- Converts smart quotes to regular quotes
+- Converts Unicode dashes to hyphens
+- Converts mathematical symbols (≈ → ~, ≠ → !=)
+- Converts currency symbols (€ → EUR, £ → GBP)
+- Converts fractions (½ → 1/2)
+- Transliterates common Greek and Cyrillic letters
+- Handles emojis and multi-byte Unicode correctly
+- Optional placeholder for non-convertible characters
+
 ## Bundle Size
 
 Each utility is optimized to be as small as possible:
 
-| Function     | Size (minified) |
-| ------------ | --------------- |
-| slugify      | ~200 bytes      |
-| camelCase    | ~250 bytes      |
-| snakeCase    | ~220 bytes      |
-| kebabCase    | ~200 bytes      |
-| pascalCase   | ~180 bytes      |
-| constantCase | ~230 bytes      |
-| dotCase      | ~210 bytes      |
-| pathCase     | ~210 bytes      |
-| sentenceCase | ~280 bytes      |
-| titleCase    | ~320 bytes      |
-| capitalize   | ~100 bytes      |
-| truncate     | ~150 bytes      |
-| stripHtml    | ~120 bytes      |
-| escapeHtml   | ~180 bytes      |
-| randomString | ~200 bytes      |
-| hashString   | ~150 bytes      |
-| reverse      | ~80 bytes       |
-| deburr       | ~200 bytes      |
-| isEmail      | ~180 bytes      |
-| isUrl        | ~200 bytes      |
-| wordCount    | ~100 bytes      |
-| template     | ~350 bytes      |
-| templateSafe | ~400 bytes      |
-| pad          | ~180 bytes      |
-| padStart     | ~150 bytes      |
-| padEnd       | ~150 bytes      |
+| Function            | Size (minified) |
+| ------------------- | --------------- |
+| slugify             | ~200 bytes      |
+| camelCase           | ~250 bytes      |
+| snakeCase           | ~220 bytes      |
+| kebabCase           | ~200 bytes      |
+| pascalCase          | ~180 bytes      |
+| constantCase        | ~230 bytes      |
+| dotCase             | ~210 bytes      |
+| pathCase            | ~210 bytes      |
+| sentenceCase        | ~280 bytes      |
+| titleCase           | ~320 bytes      |
+| capitalize          | ~100 bytes      |
+| truncate            | ~150 bytes      |
+| stripHtml           | ~120 bytes      |
+| escapeHtml          | ~180 bytes      |
+| randomString        | ~200 bytes      |
+| hashString          | ~150 bytes      |
+| reverse             | ~80 bytes       |
+| deburr              | ~200 bytes      |
+| isEmail             | ~180 bytes      |
+| isUrl               | ~200 bytes      |
+| isASCII             | ~100 bytes      |
+| toASCII             | ~450 bytes      |
+| wordCount           | ~100 bytes      |
+| normalizeWhitespace | ~280 bytes      |
+| removeNonPrintable  | ~200 bytes      |
+| template            | ~350 bytes      |
+| templateSafe        | ~400 bytes      |
+| pad                 | ~180 bytes      |
+| padStart            | ~150 bytes      |
+| padEnd              | ~150 bytes      |
+| graphemes           | ~250 bytes      |
+| codePoints          | ~120 bytes      |
 
 Total package size: **< 5KB** minified + gzipped
 

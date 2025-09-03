@@ -24,3 +24,15 @@ export { titleCase, type TitleCaseOptions } from "./titleCase.js";
 export { constantCase } from "./constantCase.js";
 export { dotCase } from "./dotCase.js";
 export { pathCase } from "./pathCase.js";
+export { graphemes } from "./graphemes.js";
+export { codePoints } from "./codePoints.js";
+export { isASCII } from "./isASCII.js";
+export {
+  normalizeWhitespace,
+  type NormalizeWhitespaceOptions,
+} from "./normalizeWhitespace.js";
+export {
+  removeNonPrintable,
+  type RemoveNonPrintableOptions,
+} from "./removeNonPrintable.js";
+export { toASCII, type ToASCIIOptions } from "./toASCII.js";

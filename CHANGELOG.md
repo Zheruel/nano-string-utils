@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-09-03
+
+### Added
+- `codePoints` - Convert strings into arrays of Unicode code points
+- `graphemes` - Split strings into grapheme clusters (emoji-aware)
+- `isASCII` - Check if string contains only ASCII characters
+- `toASCII` - Convert strings to ASCII-safe representation with transliteration
+- `normalizeWhitespace` - Normalize various Unicode whitespace characters
+- `removeNonPrintable` - Remove control and formatting characters
+
+### Enhanced
+- Comprehensive Unicode support across all new utilities
+- Support for complex emoji sequences and combining characters
+- Configurable options for whitespace normalization and character removal
+- Greek and Cyrillic transliteration in toASCII
+- Smart symbol conversion (quotes, dashes, fractions, currency)
+
 ## [0.2.0] - 2025-09-02
 
 ### Added
@@ -55,5 +72,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.3.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.1.0
