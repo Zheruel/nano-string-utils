@@ -37,3 +37,6 @@ tmp/
 temp/
 # TypeDoc generated documentation
 docs/
+
+# Claude
+CLAUDE.MD
