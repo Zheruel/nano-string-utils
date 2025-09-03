@@ -1,14 +1,9 @@
 {
   "name": "@zheruel/nano-string-utils",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "exports": "./src/index.ts",
   "publish": {
-    "include": [
-      "src/**/*.ts",
-      "README.md", 
-      "LICENSE",
-      "CHANGELOG.md"
-    ],
+    "include": ["src/**/*.ts", "README.md", "LICENSE", "CHANGELOG.md"],
     "exclude": [
       "**/*.test.ts",
       "**/*.spec.ts",
