@@ -277,6 +277,17 @@ escapeHtml('<div>Hello & "world"</div>'); // '&lt;div&gt;Hello &amp; &quot;world
 escapeHtml("It's <b>bold</b>"); // 'It&#x27;s &lt;b&gt;bold&lt;/b&gt;'
 ```
 
+#### `excerpt(str: string, length: number, suffix?: string): string`
+
+Creates a smart excerpt from text with word boundary awareness.
+
+```javascript
+excerpt("The quick brown fox jumps over the lazy dog", 20); // 'The quick brown fox...'
+excerpt("Hello world. This is a test.", 15); // 'Hello world...'
+excerpt("Long technical documentation text here", 25, "…"); // 'Long technical…'
+excerpt("Supercalifragilisticexpialidocious", 10); // 'Supercalif...'
+```
+
 #### `wordCount(str: string): number`
 
 Counts the number of words in a string.
@@ -326,6 +337,165 @@ removeNonPrintable("hello\r\nworld", { keepCarriageReturns: true }); // 'hello\r
 removeNonPrintable("👨‍👩‍👧‍👦"); // '👨‍👩‍👧‍👦' (family emoji preserved)
 removeNonPrintable("text\x1B[32mgreen\x1B[0m"); // 'text[32mgreen[0m' (ANSI escapes removed)
 ```
+
+#### `highlight(str: string, terms: string | string[], options?: HighlightOptions): string`
+
+Highlights search terms in text by wrapping them with markers.
+
+```javascript
+highlight("The quick brown fox", "quick"); // 'The <mark>quick</mark> brown fox'
+highlight("Hello WORLD", "world"); // '<mark>Hello</mark> <mark>WORLD</mark>' (case-insensitive by default)
+
+// Multiple terms
+highlight("The quick brown fox", ["quick", "fox"]); // 'The <mark>quick</mark> brown <mark>fox</mark>'
+
+// Custom wrapper
+highlight("Error: Connection failed", ["error", "failed"], {
+  wrapper: ["**", "**"],
+}); // '**Error**: Connection **failed**'
+
+// Whole word matching
+highlight("Java and JavaScript", "Java", { wholeWord: true }); // '<mark>Java</mark> and JavaScript'
+
+// With CSS class
+highlight("Hello world", "Hello", { className: "highlight" }); // '<mark class="highlight">Hello</mark> world'
+
+// HTML escaping for security
+highlight("<div>Hello</div>", "Hello", { escapeHtml: true }); // '&lt;div&gt;<mark>Hello</mark>&lt;/div&gt;'
+
+// Case-sensitive matching
+highlight("Hello hello", "hello", { caseSensitive: true }); // 'Hello <mark>hello</mark>'
+```
+
+Options:
+
+- `caseSensitive` - Enable case-sensitive matching (default: false)
+- `wholeWord` - Match whole words only (default: false)
+- `wrapper` - Custom wrapper tags (default: ['<mark>', '</mark>'])
+- `className` - CSS class for mark tags
+- `escapeHtml` - Escape HTML in text before highlighting (default: false)
+
+#### `diff(oldStr: string, newStr: string): string`
+
+Computes a simple string diff comparison showing additions and deletions.
+
+```javascript
+diff("hello world", "hello beautiful world"); // 'hello {+beautiful +}world'
+diff("goodbye world", "hello world"); // '[-goodbye-]{+hello+} world'
+diff("v1.0.0", "v1.1.0"); // 'v1.[-0-]{+1+}.0'
+diff("debug: false", "debug: true"); // 'debug: [-fals-]{+tru+}e'
+diff("user@example.com", "admin@example.com"); // '[-user-]{+admin+}@example.com'
+
+// Form field changes
+diff("John Doe", "Jane Doe"); // 'J[-ohn-]{+ane+} Doe'
+
+// Configuration changes
+diff("port: 3000", "port: 8080"); // 'port: [-300-]{+808+}0'
+
+// File extension changes
+diff("app.js", "app.ts"); // 'app.[-j-]{+t+}s'
+
+// No changes
+diff("test", "test"); // 'test'
+
+// Complete replacement
+diff("hello", "world"); // '[-hello-]{+world+}'
+```
+
+Uses a simple prefix/suffix algorithm optimized for readability. The output format uses:
+
+- `[-text-]` for deleted text
+- `{+text+}` for added text
+
+#### `levenshtein(a: string, b: string, maxDistance?: number): number`
+
+Calculates the Levenshtein distance (edit distance) between two strings. Optimized with space-efficient algorithm and early termination support.
+
+```javascript
+levenshtein("cat", "bat"); // 1 (substitution)
+levenshtein("cat", "cats"); // 1 (insertion)
+levenshtein("cats", "cat"); // 1 (deletion)
+levenshtein("kitten", "sitting"); // 3
+levenshtein("example", "exmaple"); // 2 (transposition)
+
+// With maxDistance for early termination
+levenshtein("hello", "helicopter", 3); // Infinity (exceeds max)
+levenshtein("hello", "hallo", 3); // 1 (within max)
+
+// Unicode support
+levenshtein("café", "cafe"); // 1
+levenshtein("😀", "😃"); // 1
+```
+
+#### `levenshteinNormalized(a: string, b: string): number`
+
+Calculates normalized Levenshtein similarity score between 0 and 1. Perfect for fuzzy matching and similarity scoring.
+
+```javascript
+levenshteinNormalized("hello", "hello"); // 1 (identical)
+levenshteinNormalized("cat", "bat"); // 0.667 (fairly similar)
+levenshteinNormalized("hello", "world"); // 0.2 (dissimilar)
+levenshteinNormalized("", "abc"); // 0 (completely different)
+
+// Real-world typo detection
+levenshteinNormalized("necessary", "neccessary"); // 0.9
+levenshteinNormalized("example", "exmaple"); // 0.714
+
+// Fuzzy matching (common threshold: 0.8)
+const threshold = 0.8;
+levenshteinNormalized("test", "tests") >= threshold; // true (0.8)
+levenshteinNormalized("hello", "goodbye") >= threshold; // false (0.143)
+```
+
+#### `fuzzyMatch(query: string, target: string, options?: FuzzyMatchOptions): FuzzyMatchResult | null`
+
+Performs fuzzy string matching with a similarity score, ideal for command palettes, file finders, and search-as-you-type features.
+
+```javascript
+// Basic usage
+fuzzyMatch("gto", "goToLine"); // { matched: true, score: 0.546 }
+fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
+fuzzyMatch("abc", "xyz"); // null (no match)
+
+// Command palette style matching
+fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
+fuzzyMatch("svf", "saveFile"); // { matched: true, score: 0.619 }
+
+// File finder matching
+fuzzyMatch("index", "src/components/index.html"); // { matched: true, score: 0.262 }
+fuzzyMatch("app.js", "src/app.js"); // { matched: true, score: 0.85 }
+
+// Case sensitivity
+fuzzyMatch("ABC", "abc"); // { matched: true, score: 0.95 }
+fuzzyMatch("ABC", "abc", { caseSensitive: true }); // null
+
+// Minimum score threshold
+fuzzyMatch("ab", "a" + "x".repeat(50) + "b", { threshold: 0.5 }); // null (score too low)
+
+// Acronym matching (matches at word boundaries score higher)
+fuzzyMatch("uc", "UserController"); // { matched: true, score: 0.75 }
+fuzzyMatch("gc", "getUserController"); // { matched: true, score: 0.75 }
+```
+
+Options:
+
+- `caseSensitive` - Enable case-sensitive matching (default: false)
+- `threshold` - Minimum score to consider a match (default: 0)
+
+Returns:
+
+- `{ matched: true, score: number }` - When match found (score between 0-1)
+- `{ matched: false, score: 0 }` - For empty query
+- `null` - When no match found or score below threshold
+
+Scoring algorithm prioritizes:
+
+- Exact matches (1.0)
+- Prefix matches (≥0.85)
+- Consecutive character matches
+- Matches at word boundaries (camelCase, snake_case, kebab-case, etc.)
+- Early matches in the string
+- Acronym-style matches
 
 #### `pad(str: string, length: number, chars?: string): string`
 
@@ -470,46 +640,108 @@ Features:
 - Handles emojis and multi-byte Unicode correctly
 - Optional placeholder for non-convertible characters
 
+#### `pluralize(word: string, count?: number): string`
+
+Converts a singular word to its plural form using English pluralization rules. Optionally takes a count to conditionally pluralize.
+
+```javascript
+pluralize("box"); // 'boxes'
+pluralize("baby"); // 'babies'
+pluralize("person"); // 'people'
+pluralize("analysis"); // 'analyses'
+pluralize("cactus"); // 'cacti'
+
+// With count parameter
+pluralize("item", 1); // 'item' (singular for count of 1)
+pluralize("item", 0); // 'items' (plural for count of 0)
+pluralize("item", 5); // 'items' (plural for count > 1)
+
+// Preserves casing
+pluralize("Box"); // 'Boxes'
+pluralize("PERSON"); // 'PEOPLE'
+```
+
+Features:
+
+- Handles common irregular plurals (person→people, child→children, etc.)
+- Supports standard rules (s/es, y→ies, f→ves)
+- Handles Latin/Greek patterns (analysis→analyses, datum→data, cactus→cacti)
+- Preserves original casing
+- Optional count parameter for conditional pluralization
+
+#### `singularize(word: string): string`
+
+Converts a plural word to its singular form using English singularization rules.
+
+```javascript
+singularize("boxes"); // 'box'
+singularize("babies"); // 'baby'
+singularize("people"); // 'person'
+singularize("analyses"); // 'analysis'
+singularize("cacti"); // 'cactus'
+singularize("data"); // 'datum'
+
+// Preserves casing
+singularize("Boxes"); // 'Box'
+singularize("PEOPLE"); // 'PERSON'
+```
+
+Features:
+
+- Reverses common pluralization patterns
+- Handles irregular plural mappings
+- Supports Latin/Greek plural forms
+- Preserves original casing
+- Handles edge cases like unchanged plurals (sheep→sheep)
+
 ## Bundle Size
 
 Each utility is optimized to be as small as possible:
 
-| Function            | Size (minified) |
-| ------------------- | --------------- |
-| slugify             | ~200 bytes      |
-| camelCase           | ~250 bytes      |
-| snakeCase           | ~220 bytes      |
-| kebabCase           | ~200 bytes      |
-| pascalCase          | ~180 bytes      |
-| constantCase        | ~230 bytes      |
-| dotCase             | ~210 bytes      |
-| pathCase            | ~210 bytes      |
-| sentenceCase        | ~280 bytes      |
-| titleCase           | ~320 bytes      |
-| capitalize          | ~100 bytes      |
-| truncate            | ~150 bytes      |
-| stripHtml           | ~120 bytes      |
-| escapeHtml          | ~180 bytes      |
-| randomString        | ~200 bytes      |
-| hashString          | ~150 bytes      |
-| reverse             | ~80 bytes       |
-| deburr              | ~200 bytes      |
-| isEmail             | ~180 bytes      |
-| isUrl               | ~200 bytes      |
-| isASCII             | ~100 bytes      |
-| toASCII             | ~450 bytes      |
-| wordCount           | ~100 bytes      |
-| normalizeWhitespace | ~280 bytes      |
-| removeNonPrintable  | ~200 bytes      |
-| template            | ~350 bytes      |
-| templateSafe        | ~400 bytes      |
-| pad                 | ~180 bytes      |
-| padStart            | ~150 bytes      |
-| padEnd              | ~150 bytes      |
-| graphemes           | ~250 bytes      |
-| codePoints          | ~120 bytes      |
+| Function              | Size (minified) |
+| --------------------- | --------------- |
+| slugify               | ~200 bytes      |
+| camelCase             | ~250 bytes      |
+| snakeCase             | ~220 bytes      |
+| kebabCase             | ~200 bytes      |
+| pascalCase            | ~180 bytes      |
+| constantCase          | ~230 bytes      |
+| dotCase               | ~210 bytes      |
+| pathCase              | ~210 bytes      |
+| sentenceCase          | ~280 bytes      |
+| titleCase             | ~320 bytes      |
+| capitalize            | ~100 bytes      |
+| truncate              | ~150 bytes      |
+| stripHtml             | ~120 bytes      |
+| escapeHtml            | ~180 bytes      |
+| excerpt               | ~220 bytes      |
+| randomString          | ~200 bytes      |
+| hashString            | ~150 bytes      |
+| reverse               | ~80 bytes       |
+| deburr                | ~200 bytes      |
+| isEmail               | ~180 bytes      |
+| isUrl                 | ~200 bytes      |
+| isASCII               | ~100 bytes      |
+| toASCII               | ~450 bytes      |
+| wordCount             | ~100 bytes      |
+| normalizeWhitespace   | ~280 bytes      |
+| removeNonPrintable    | ~200 bytes      |
+| template              | ~350 bytes      |
+| templateSafe          | ~400 bytes      |
+| pad                   | ~180 bytes      |
+| padStart              | ~150 bytes      |
+| padEnd                | ~150 bytes      |
+| graphemes             | ~250 bytes      |
+| codePoints            | ~120 bytes      |
+| highlight             | ~320 bytes      |
+| diff                  | ~280 bytes      |
+| levenshtein           | ~380 bytes      |
+| levenshteinNormalized | ~100 bytes      |
+| fuzzyMatch            | ~500 bytes      |
+| pluralize             | ~350 bytes      |
+| singularize           | ~320 bytes      |
 
-Total package size: **< 5KB** minified + gzipped
+Total package size: **< 6KB** minified + gzipped
 
 ## Requirements
 
@@ -569,7 +801,7 @@ In a world of bloated dependencies, `nano-string-utils` stands out by providing 
 
 | Library           | Bundle Size | Dependencies | Tree-shakeable        | TypeScript |
 | ----------------- | ----------- | ------------ | --------------------- | ---------- |
-| nano-string-utils | < 5KB       | 0            | ✅                    | ✅         |
+| nano-string-utils | < 6KB       | 0            | ✅                    | ✅         |
 | lodash            | ~70KB       | 0            | ⚠️ Requires lodash-es | ✅         |
 | underscore.string | ~20KB       | 0            | ❌                    | ❌         |
 | voca              | ~30KB       | 0            | ❌                    | ✅         |
