@@ -6,6 +6,7 @@ export { snakeCase } from "./snakeCase.js";
 export { kebabCase } from "./kebabCase.js";
 export { stripHtml } from "./stripHtml.js";
 export { escapeHtml } from "./escapeHtml.js";
+export { excerpt } from "./excerpt.js";
 export { randomString } from "./randomString.js";
 export { hashString } from "./hashString.js";
 export { pascalCase } from "./pascalCase.js";
@@ -36,3 +37,14 @@ export {
   type RemoveNonPrintableOptions,
 } from "./removeNonPrintable.js";
 export { toASCII, type ToASCIIOptions } from "./toASCII.js";
+export { highlight, type HighlightOptions } from "./highlight.js";
+export { diff } from "./diff.js";
+export { levenshtein } from "./levenshtein.js";
+export { levenshteinNormalized } from "./levenshteinNormalized.js";
+export {
+  fuzzyMatch,
+  type FuzzyMatchOptions,
+  type FuzzyMatchResult,
+} from "./fuzzyMatch.js";
+export { pluralize } from "./pluralize.js";
+export { singularize } from "./singularize.js";
