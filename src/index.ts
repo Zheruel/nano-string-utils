@@ -48,3 +48,4 @@ export {
 } from "./fuzzyMatch.js";
 export { pluralize } from "./pluralize.js";
 export { singularize } from "./singularize.js";
+export { memoize, type MemoizeOptions } from "./memoize.js";

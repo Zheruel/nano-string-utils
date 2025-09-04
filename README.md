@@ -553,6 +553,64 @@ codePoints("a👍b"); // [97, 128077, 98]
 codePoints("👨‍👩‍👧‍👦"); // [128104, 8205, 128105, 8205, 128103, 8205, 128102]
 ```
 
+### Performance Utilities
+
+#### `memoize<T>(fn: T, options?: MemoizeOptions): T`
+
+Creates a memoized version of a function with LRU (Least Recently Used) cache eviction. Ideal for optimizing expensive string operations like `levenshtein`, `fuzzyMatch`, or `diff` when processing repetitive data.
+
+```javascript
+import { levenshtein, memoize } from "nano-string-utils";
+
+// Basic usage - memoize expensive string operations
+const memoizedLevenshtein = memoize(levenshtein);
+
+// First call computes the result
+memoizedLevenshtein("kitten", "sitting"); // 3 (computed)
+
+// Subsequent calls with same arguments return cached result
+memoizedLevenshtein("kitten", "sitting"); // 3 (cached - instant)
+
+// Custom cache size (default is 100)
+const limited = memoize(levenshtein, { maxSize: 50 });
+
+// Custom key generation for complex arguments
+const processUser = (user) => expensive(user);
+const memoizedProcess = memoize(processUser, {
+  getKey: (user) => user.id, // Cache by user ID only
+});
+
+// Real-world example: Fuzzy search with caching
+import { fuzzyMatch, memoize } from "nano-string-utils";
+
+const cachedFuzzyMatch = memoize(fuzzyMatch);
+const searchResults = items.map((item) => cachedFuzzyMatch(query, item.name));
+
+// Batch processing with deduplication benefits
+const words = ["hello", "world", "hello", "test", "world"];
+const distances = words.map((word) => memoizedLevenshtein("example", word)); // Only computes 3 times instead of 5
+```
+
+Features:
+
+- **LRU cache eviction** - Keeps most recently used results
+- **Configurable cache size** - Control memory usage (default: 100 entries)
+- **Custom key generation** - Support for complex argument types
+- **Type-safe** - Preserves function signatures and types
+- **Zero dependencies** - Pure JavaScript implementation
+
+Best used with:
+
+- `levenshtein()` - Expensive O(n×m) algorithm
+- `fuzzyMatch()` - Complex scoring with boundary detection
+- `diff()` - Character-by-character comparison
+- Any custom expensive string operations
+
+Options:
+
+- `maxSize` - Maximum cached results (default: 100)
+- `getKey` - Custom cache key generator function
+
 ### String Generation
 
 #### `randomString(length: number, charset?: string): string`
@@ -740,6 +798,7 @@ Each utility is optimized to be as small as possible:
 | fuzzyMatch            | ~500 bytes      |
 | pluralize             | ~350 bytes      |
 | singularize           | ~320 bytes      |
+| memoize               | ~400 bytes      |
 
 Total package size: **< 6KB** minified + gzipped
 
