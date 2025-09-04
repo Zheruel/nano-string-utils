@@ -1,3 +1,10 @@
+// Pre-compiled regex patterns for better performance
+const SNAKE_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
+const SNAKE_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
+const SNAKE_NON_ALNUM = /[^a-z0-9]+/gi;
+const SNAKE_TRIM = /^_+|_+$/g;
+const SNAKE_MULTIPLE = /_+/g;
+
 /**
  * Converts a string to snake_case
  * @param str - The input string to convert
@@ -12,15 +19,15 @@ export const snakeCase = (str: string): string => {
     str
       .trim()
       // Add underscore between lowercase/number and uppercase
-      .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+      .replace(SNAKE_LOWERCASE_UPPER, "$1_$2")
       // Add underscore between number and letter
-      .replace(/([0-9])([a-zA-Z])/g, "$1_$2")
+      .replace(SNAKE_NUMBER_LETTER, "$1_$2")
       // Replace non-alphanumeric with underscore
-      .replace(/[^a-z0-9]+/gi, "_")
+      .replace(SNAKE_NON_ALNUM, "_")
       // Remove leading/trailing underscores
-      .replace(/^_+|_+$/g, "")
+      .replace(SNAKE_TRIM, "")
       // Replace multiple underscores with single
-      .replace(/_+/g, "_")
+      .replace(SNAKE_MULTIPLE, "_")
       .toLowerCase()
   );
 };

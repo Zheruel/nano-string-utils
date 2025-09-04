@@ -1,3 +1,11 @@
+// Pre-compiled regex patterns for better performance
+const CONST_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
+const CONST_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
+const CONST_LETTER_NUMBER = /([a-zA-Z])([0-9])/g;
+const CONST_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
+const CONST_NON_ALNUM = /[^a-z0-9]+/gi;
+const CONST_SPLIT = /\s+/;
+
 /**
  * Converts a string to CONSTANT_CASE
  * @param str - The input string to convert
@@ -15,18 +23,18 @@ export const constantCase = (str: string): string => {
   let result = str
     .trim()
     // Handle consecutive uppercase letters (acronyms)
-    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .replace(CONST_ACRONYM, "$1 $2")
     // Handle lowercase or number followed by uppercase
-    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(CONST_LOWERCASE_UPPER, "$1 $2")
     // Add space between letter and number
-    .replace(/([a-zA-Z])([0-9])/g, "$1 $2")
+    .replace(CONST_LETTER_NUMBER, "$1 $2")
     // Add space between number and letter
-    .replace(/([0-9])([a-zA-Z])/g, "$1 $2")
+    .replace(CONST_NUMBER_LETTER, "$1 $2")
     // Replace any non-alphanumeric character with space
-    .replace(/[^a-z0-9]+/gi, " ")
+    .replace(CONST_NON_ALNUM, " ")
     // Trim and split by spaces
     .trim()
-    .split(/\s+/)
+    .split(CONST_SPLIT)
     // Filter empty strings
     .filter(Boolean)
     // Convert to uppercase

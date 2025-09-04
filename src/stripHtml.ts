@@ -1,3 +1,6 @@
+// Pre-compiled regex for better performance
+const HTML_TAG_REGEX = /<[^>]*>/g;
+
 /**
  * Removes HTML tags from a string
  * @param str - The input string containing HTML
@@ -7,5 +10,5 @@
  * stripHtml('<div>Test</div>') // 'Test'
  */
 export const stripHtml = (str: string): string => {
-  return str.replace(/<[^>]*>/g, "");
+  return str.replace(HTML_TAG_REGEX, "");
 };

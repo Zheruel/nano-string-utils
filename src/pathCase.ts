@@ -1,3 +1,12 @@
+// Pre-compiled regex patterns for better performance
+const PATH_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
+const PATH_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
+const PATH_LETTER_NUMBER = /([a-zA-Z])([0-9])/g;
+const PATH_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
+const PATH_NON_ALNUM = /[^a-z0-9]+/gi;
+const PATH_TRIM = /^\/+|\/+$/g;
+const PATH_MULTIPLE = /\/+/g;
+
 /**
  * Converts a string to path/case
  * @param str - The input string to convert
@@ -16,19 +25,19 @@ export const pathCase = (str: string): string => {
     str
       .trim()
       // Handle consecutive uppercase letters (acronyms)
-      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1/$2")
+      .replace(PATH_ACRONYM, "$1/$2")
       // Add slash between lowercase/number and uppercase
-      .replace(/([a-z0-9])([A-Z])/g, "$1/$2")
+      .replace(PATH_LOWERCASE_UPPER, "$1/$2")
       // Add slash between letter and number
-      .replace(/([a-zA-Z])([0-9])/g, "$1/$2")
+      .replace(PATH_LETTER_NUMBER, "$1/$2")
       // Add slash between number and letter
-      .replace(/([0-9])([a-zA-Z])/g, "$1/$2")
+      .replace(PATH_NUMBER_LETTER, "$1/$2")
       // Replace non-alphanumeric with slash
-      .replace(/[^a-z0-9]+/gi, "/")
+      .replace(PATH_NON_ALNUM, "/")
       // Remove leading/trailing slashes
-      .replace(/^\/+|\/+$/g, "")
+      .replace(PATH_TRIM, "")
       // Replace multiple slashes with single
-      .replace(/\/+/g, "/")
+      .replace(PATH_MULTIPLE, "/")
       .toLowerCase()
   );
 };

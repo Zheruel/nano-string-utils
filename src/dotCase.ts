@@ -1,3 +1,12 @@
+// Pre-compiled regex patterns for better performance
+const DOT_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
+const DOT_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
+const DOT_LETTER_NUMBER = /([a-zA-Z])([0-9])/g;
+const DOT_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
+const DOT_NON_ALNUM = /[^a-z0-9]+/gi;
+const DOT_TRIM = /^\.+|\.+$/g;
+const DOT_MULTIPLE = /\.+/g;
+
 /**
  * Converts a string to dot.case
  * @param str - The input string to convert
@@ -16,19 +25,19 @@ export const dotCase = (str: string): string => {
     str
       .trim()
       // Handle consecutive uppercase letters (acronyms)
-      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1.$2")
+      .replace(DOT_ACRONYM, "$1.$2")
       // Add dot between lowercase/number and uppercase
-      .replace(/([a-z0-9])([A-Z])/g, "$1.$2")
+      .replace(DOT_LOWERCASE_UPPER, "$1.$2")
       // Add dot between letter and number
-      .replace(/([a-zA-Z])([0-9])/g, "$1.$2")
+      .replace(DOT_LETTER_NUMBER, "$1.$2")
       // Add dot between number and letter
-      .replace(/([0-9])([a-zA-Z])/g, "$1.$2")
+      .replace(DOT_NUMBER_LETTER, "$1.$2")
       // Replace non-alphanumeric with dot
-      .replace(/[^a-z0-9]+/gi, ".")
+      .replace(DOT_NON_ALNUM, ".")
       // Remove leading/trailing dots
-      .replace(/^\.+|\.+$/g, "")
+      .replace(DOT_TRIM, "")
       // Replace multiple dots with single
-      .replace(/\.+/g, ".")
+      .replace(DOT_MULTIPLE, ".")
       .toLowerCase()
   );
 };

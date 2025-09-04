@@ -72,12 +72,15 @@ export function highlight(
   // Optionally escape HTML in the text first
   let processedText = text;
   if (escapeHtml) {
-    processedText = text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
+    // Use a single regex for all HTML entities for better performance
+    const htmlChars: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    processedText = text.replace(/[&<>"']/g, (m) => htmlChars[m] ?? m);
   }
 
   // Replace matches while preserving original case

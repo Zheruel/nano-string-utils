@@ -1,3 +1,6 @@
+// Pre-compiled regex for better performance
+const WORD_SPLIT = /\s+/;
+
 /**
  * Counts the number of words in a string
  * @param str - The input string to count words from
@@ -8,6 +11,6 @@
  * wordCount('One-word') // 1
  */
 export const wordCount = (str: string): number => {
-  const words = str.trim().split(/\s+/);
+  const words = str.trim().split(WORD_SPLIT);
   return words[0] === "" ? 0 : words.length;
 };

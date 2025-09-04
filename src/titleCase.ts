@@ -1,3 +1,8 @@
+// Pre-compiled regex patterns for better performance
+const TITLE_SPLIT = /(\s+|[^\s\w'-]+)/g;
+const TITLE_HAS_LETTER = /[A-Za-z]/;
+const TITLE_ACRONYM = /^[A-Z]{2,4}$/;
+
 /**
  * Converts a string to title case with proper capitalization rules
  * @param str - The string to convert
@@ -72,15 +77,15 @@ export function titleCase(str: string, options: TitleCaseOptions = {}): string {
     : DEFAULT_EXCEPTIONS;
 
   // Split into tokens preserving delimiters
-  const tokens = str.split(/(\s+|[^\s\w'-]+)/g).filter(Boolean);
+  const tokens = str.split(TITLE_SPLIT).filter(Boolean);
 
   let wordIndex = 0;
-  const wordCount = tokens.filter((t) => /[A-Za-z]/.test(t)).length;
+  const wordCount = tokens.filter((t) => TITLE_HAS_LETTER.test(t)).length;
 
   return tokens
     .map((token) => {
       // If it's not a word (space or punctuation), return as-is
-      if (!/[A-Za-z]/.test(token)) {
+      if (!TITLE_HAS_LETTER.test(token)) {
         return token;
       }
 
@@ -90,7 +95,7 @@ export function titleCase(str: string, options: TitleCaseOptions = {}): string {
 
       // Check if it's likely an acronym (all uppercase with 2-4 letters)
       // Common acronyms are typically short (FBI, CIA, USA, NASA, etc.)
-      if (/^[A-Z]{2,4}$/.test(token)) {
+      if (TITLE_ACRONYM.test(token)) {
         return token;
       }
 
