@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-09-04
+
+### Added
+
+- **`memoize`** - LRU cache wrapper for expensive string operations with configurable size and TTL
+  - Configurable cache size (default: 100 entries)
+  - Optional time-to-live (TTL) for cache entries
+  - Support for multi-argument functions
+  - Automatic cache eviction using LRU strategy
+
 ## [0.4.1] - 2025-09-03
 
 ### Performance
