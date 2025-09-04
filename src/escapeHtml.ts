@@ -1,3 +1,13 @@
+// Pre-compiled regex and lookup table for better performance
+const HTML_ESCAPE_REGEX = /[&<>"']/g;
+const HTML_ENTITIES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
 /**
  * Escapes HTML special characters in a string
  * @param str - The input string to escape
@@ -7,13 +17,8 @@
  * escapeHtml("It's <script>") // 'It&#39;s &lt;script&gt;'
  */
 export const escapeHtml = (str: string): string => {
-  const htmlEntities: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  };
-  
-  return str.replace(/[&<>"']/g, (match) => htmlEntities[match] ?? match);
+  return str.replace(
+    HTML_ESCAPE_REGEX,
+    (match) => HTML_ENTITIES[match] ?? match
+  );
 };

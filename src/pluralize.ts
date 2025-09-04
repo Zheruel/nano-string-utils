@@ -1,3 +1,6 @@
+// Pre-compiled regex for better performance
+const VOWEL_Y = /[aeiou]y$/;
+
 /**
  * Convert a singular word to plural form using English pluralization rules.
  * Optionally takes a count to conditionally pluralize based on the number.
@@ -75,7 +78,7 @@ export function pluralize(word: string, count?: number): string {
     } else {
       result = word + "es";
     }
-  } else if (lowerWord.endsWith("y") && !/[aeiou]y$/.test(lowerWord)) {
+  } else if (lowerWord.endsWith("y") && !VOWEL_Y.test(lowerWord)) {
     // Words ending in consonant + y: change y to ies
     if (isUpperCase) {
       result = word.slice(0, -1) + "IES";

@@ -157,8 +157,9 @@ export function fuzzyMatch(
   }
 
   // Bonus for matching at word boundaries (expensive, do last)
-  let boundaryMatches = 0;
+  // Pre-compiled regex for better performance
   const wordBoundaryChars = /[\s\-_./\\]/;
+  let boundaryMatches = 0;
 
   for (let i = 0; i < matchPositions.length; i++) {
     const pos = matchPositions[i];

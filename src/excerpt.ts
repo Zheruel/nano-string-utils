@@ -1,3 +1,6 @@
+// Pre-compiled regex for better performance
+const TRAILING_PUNCT = /[,;:\-–—]+$/;
+
 /**
  * Creates a smart excerpt from text with word boundary awareness
  * @param text - The text to create an excerpt from
@@ -30,7 +33,7 @@ export function excerpt(text: string, length: number, suffix = "..."): string {
 
     // Clean up trailing punctuation
     // Remove commas, semicolons, colons, dashes
-    result = result.replace(/[,;:\-–—]+$/, "");
+    result = result.replace(TRAILING_PUNCT, "");
 
     // If it ends with sentence punctuation, don't add suffix
     if (result.endsWith(".") || result.endsWith("!") || result.endsWith("?")) {

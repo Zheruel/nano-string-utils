@@ -1,3 +1,10 @@
+// Pre-compiled regex patterns for better performance
+const KEBAB_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
+const KEBAB_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
+const KEBAB_NON_ALNUM = /[^a-z0-9]+/gi;
+const KEBAB_TRIM = /^-+|-+$/g;
+const KEBAB_MULTIPLE = /-+/g;
+
 /**
  * Converts a string to kebab-case
  * @param str - The input string to convert
@@ -12,15 +19,15 @@ export const kebabCase = (str: string): string => {
     str
       .trim()
       // Add hyphen between lowercase/number and uppercase
-      .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+      .replace(KEBAB_LOWERCASE_UPPER, "$1-$2")
       // Add hyphen between number and letter
-      .replace(/([0-9])([a-zA-Z])/g, "$1-$2")
+      .replace(KEBAB_NUMBER_LETTER, "$1-$2")
       // Replace non-alphanumeric with hyphen
-      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(KEBAB_NON_ALNUM, "-")
       // Remove leading/trailing hyphens
-      .replace(/^-+|-+$/g, "")
+      .replace(KEBAB_TRIM, "")
       // Replace multiple hyphens with single
-      .replace(/-+/g, "-")
+      .replace(KEBAB_MULTIPLE, "-")
       .toLowerCase()
   );
 };
