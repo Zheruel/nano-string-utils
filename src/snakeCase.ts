@@ -1,9 +1,4 @@
-// Pre-compiled regex patterns for better performance
-const SNAKE_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
-const SNAKE_NUMBER_LETTER = /([0-9])([a-zA-Z])/g;
-const SNAKE_NON_ALNUM = /[^a-z0-9]+/gi;
-const SNAKE_TRIM = /^_+|_+$/g;
-const SNAKE_MULTIPLE = /_+/g;
+import { words } from "./words.js";
 
 /**
  * Converts a string to snake_case
@@ -15,19 +10,9 @@ const SNAKE_MULTIPLE = /_+/g;
  * snakeCase('hello-world') // 'hello_world'
  */
 export const snakeCase = (str: string): string => {
-  return (
-    str
-      .trim()
-      // Add underscore between lowercase/number and uppercase
-      .replace(SNAKE_LOWERCASE_UPPER, "$1_$2")
-      // Add underscore between number and letter
-      .replace(SNAKE_NUMBER_LETTER, "$1_$2")
-      // Replace non-alphanumeric with underscore
-      .replace(SNAKE_NON_ALNUM, "_")
-      // Remove leading/trailing underscores
-      .replace(SNAKE_TRIM, "")
-      // Replace multiple underscores with single
-      .replace(SNAKE_MULTIPLE, "_")
-      .toLowerCase()
-  );
+  const wordList = words(str);
+
+  if (wordList.length === 0) return "";
+
+  return wordList.map((word) => word.toLowerCase()).join("_");
 };

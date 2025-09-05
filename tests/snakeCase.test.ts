@@ -47,7 +47,7 @@ describe("snakeCase", () => {
   });
 
   it("handles consecutive uppercase letters", () => {
-    expect(snakeCase("HTTPResponse")).toBe("httpresponse");
+    expect(snakeCase("HTTPResponse")).toBe("http_response");
   });
 
   it("handles leading/trailing spaces", () => {

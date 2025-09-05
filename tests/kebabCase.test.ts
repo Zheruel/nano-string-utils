@@ -47,7 +47,7 @@ describe("kebabCase", () => {
   });
 
   it("handles consecutive uppercase letters", () => {
-    expect(kebabCase("HTTPResponse")).toBe("httpresponse");
+    expect(kebabCase("HTTPResponse")).toBe("http-response");
   });
 
   it("handles leading/trailing spaces", () => {

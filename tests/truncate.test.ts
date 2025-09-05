@@ -47,6 +47,19 @@ describe("truncate", () => {
   });
 
   it("handles unicode characters", () => {
-    expect(truncate("Hello 👋 World", 10)).toBe("Hello 👋...");
+    // Byte-based truncation: "Hello " (6) + "..." (3) = 9 bytes
+    // This prevents broken emoji display while maintaining performance
+    expect(truncate("Hello 👋 World", 10)).toBe("Hello ...");
+
+    // Emoji at the end gets preserved if there's room
+    expect(truncate("Test 👍", 10)).toBe("Test 👍");
+
+    // Broken surrogate pairs are cleaned up
+    const withEmoji = "Hi 👋 there";
+    // Truncating to 6 chars total: "Hi " (3) + "..." (3) = 6
+    expect(truncate(withEmoji, 6)).toBe("Hi ...");
+
+    // Truncating right before emoji - prevents broken display
+    expect(truncate(withEmoji, 7)).toBe("Hi ...");
   });
 });

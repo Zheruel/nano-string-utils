@@ -10,33 +10,39 @@
  * pad('Hi', 7, '-') // '--Hi---'
  */
 export function pad(str: string, length: number, chars = " "): string {
-  const strLen = Array.from(str).length;
+  // Quick check for Unicode (emoji, combining chars, etc)
+  const hasUnicode =
+    /[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u200D]/u.test(
+      str
+    );
+  const strLen = hasUnicode ? Array.from(str).length : str.length;
 
-  if (length <= strLen || length <= 0) {
-    return str;
-  }
+  if (length <= strLen) return str;
 
-  const padding = chars || " ";
-  const padArray = Array.from(padding);
-  const padLen = padArray.length;
+  const fillChars = chars || " ";
+  const fillArray = Array.from(fillChars);
+  const fillLen = fillArray.length;
   const totalPad = length - strLen;
-
-  // Distribute by visual characters
   const leftPad = Math.floor(totalPad / 2);
   const rightPad = totalPad - leftPad;
 
-  // Build padding by repeating visual units
+  // For single-char padding, use repeat (fastest)
+  if (fillLen === 1) {
+    return fillChars.repeat(leftPad) + str + fillChars.repeat(rightPad);
+  }
+
+  // For multi-char padding, build the pattern by visual characters
   const leftUnits = [];
   for (let i = 0; i < leftPad; i++) {
-    leftUnits.push(padArray[i % padLen]);
+    leftUnits.push(fillArray[i % fillLen]);
   }
-  const left = leftUnits.join("");
+  const leftStr = leftUnits.join("");
 
   const rightUnits = [];
   for (let i = 0; i < rightPad; i++) {
-    rightUnits.push(padArray[i % padLen]);
+    rightUnits.push(fillArray[i % fillLen]);
   }
-  const right = rightUnits.join("");
+  const rightStr = rightUnits.join("");
 
-  return left + str + right;
+  return leftStr + str + rightStr;
 }

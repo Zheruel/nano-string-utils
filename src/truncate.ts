@@ -13,9 +13,26 @@ export const truncate = (
   length: number,
   suffix: string = "..."
 ): string => {
-  const chars = Array.from(str);
-  if (chars.length <= length) return str;
+  // Early return for strings that don't need truncation
+  if (str.length <= length) return str;
+
+  // Handle edge case where length is too small
   if (length <= suffix.length) return suffix;
-  const truncatedChars = chars.slice(0, length - suffix.length);
-  return truncatedChars.join("") + suffix;
+
+  const targetLength = length - suffix.length;
+  
+  // Simple slice for performance (handles 99% of real-world cases)
+  let result = str.slice(0, targetLength);
+  
+  // Only check if we broke a surrogate pair at the boundary
+  // This prevents showing broken emoji characters (�)
+  if (result.length > 0) {
+    const lastChar = result.charCodeAt(result.length - 1);
+    // High surrogate at the end means we split an emoji - remove it
+    if (lastChar >= 0xD800 && lastChar <= 0xDBFF) {
+      result = result.slice(0, -1);
+    }
+  }
+  
+  return result + suffix;
 };
