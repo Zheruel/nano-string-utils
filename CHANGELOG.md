@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `template`: 25x faster than lodash
   - `capitalize`: 2.4x faster than lodash
   - Case conversions: Within 2-3x of es-toolkit (acceptable tradeoff for 30x smaller bundle size)
+- **Bundle Size**: Slightly increased to 5.97KB (CJS) / 5.64KB (ESM) due to new features and optimizations, still well under 6.5KB limit
 
 ## [0.5.1] - 2025-09-04
 

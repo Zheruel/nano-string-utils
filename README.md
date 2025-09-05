@@ -801,7 +801,7 @@ Each utility is optimized to be as small as possible:
 | singularize           | ~320 bytes      |
 | memoize               | ~400 bytes      |
 
-Total package size: **< 6KB** minified + gzipped
+Total package size: **< 6.5KB** minified + gzipped
 
 ## Requirements
 
@@ -905,7 +905,7 @@ npm run bench:size
 
 | Library           | Bundle Size | Dependencies | Tree-shakeable        | TypeScript |
 | ----------------- | ----------- | ------------ | --------------------- | ---------- |
-| nano-string-utils | < 6KB       | 0            | ✅                    | ✅         |
+| nano-string-utils | < 6.5KB     | 0            | ✅                    | ✅         |
 | lodash            | ~70KB       | 0            | ⚠️ Requires lodash-es | ✅         |
 | underscore.string | ~20KB       | 0            | ❌                    | ❌         |
 | voca              | ~30KB       | 0            | ❌                    | ✅         |
