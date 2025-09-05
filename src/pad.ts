@@ -20,22 +20,29 @@ export function pad(str: string, length: number, chars = " "): string {
   if (length <= strLen) return str;
 
   const fillChars = chars || " ";
+  const fillArray = Array.from(fillChars);
+  const fillLen = fillArray.length;
   const totalPad = length - strLen;
   const leftPad = Math.floor(totalPad / 2);
   const rightPad = totalPad - leftPad;
 
   // For single-char padding, use repeat (fastest)
-  if (fillChars.length === 1) {
+  if (fillLen === 1) {
     return fillChars.repeat(leftPad) + str + fillChars.repeat(rightPad);
   }
 
-  // For multi-char padding, build the pattern
-  const leftStr = fillChars
-    .repeat(Math.ceil(leftPad / fillChars.length))
-    .slice(0, leftPad);
-  const rightStr = fillChars
-    .repeat(Math.ceil(rightPad / fillChars.length))
-    .slice(0, rightPad);
+  // For multi-char padding, build the pattern by visual characters
+  const leftUnits = [];
+  for (let i = 0; i < leftPad; i++) {
+    leftUnits.push(fillArray[i % fillLen]);
+  }
+  const leftStr = leftUnits.join("");
+
+  const rightUnits = [];
+  for (let i = 0; i < rightPad; i++) {
+    rightUnits.push(fillArray[i % fillLen]);
+  }
+  const rightStr = rightUnits.join("");
 
   return leftStr + str + rightStr;
 }

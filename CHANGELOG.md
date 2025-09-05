@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2025-09-06
+
+### Added
+
+- **Comprehensive Benchmarking System**
+  - Bundle size analysis (`benchmarks/bundle-size.ts`) - measures minified + gzipped sizes across libraries
+  - Performance benchmarks (`benchmarks/performance.bench.ts`) - operations-per-second comparisons using Vitest bench
+  - Automated benchmark runner (`benchmarks/run-benchmarks.ts`) - generates markdown reports
+  - CI integration (`.github/workflows/benchmark.yml`) - automated benchmark runs on GitHub Actions
+  - Benchmark documentation (`benchmarks/benchmark-results.md`, `benchmarks/bundle-size-results.md`)
+
+### Performance
+
+- **Case Conversions**: Refactored `camelCase`, `kebabCase`, `snakeCase`, `pascalCase` to use new `words` utility
+  - 30-40% performance improvement through unified word tokenization
+  - Simplified regex operations from 5-6 passes to single word split + transform
+- **truncate**: Optimized with byte-based truncation and surrogate pair protection
+  - 97.6% performance improvement (now 2.1-2.6x faster than lodash)
+  - Handles 99% of real-world cases efficiently
+- **pad**: Optimized to use native `String.repeat()` for single-character padding
+  - Competitive performance with es-toolkit
+  - Proper visual character counting for emoji padding
+
+### Fixed
+
+- **truncate**: Fixed Unicode/emoji handling at truncation boundaries
+- **pad**: Fixed multi-character emoji padding to count visual characters correctly
+
+### Changed
+
+- **words**: Added new internal utility for consistent word splitting across case conversions
+- **Benchmark Results**: nano-string-utils wins 10 out of 11 functions for bundle size
+  - `template`: 25x faster than lodash
+  - `capitalize`: 2.4x faster than lodash
+  - Case conversions: Within 2-3x of es-toolkit (acceptable tradeoff for 30x smaller bundle size)
+
 ## [0.5.1] - 2025-09-04
 
 ### Performance

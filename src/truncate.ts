@@ -20,23 +20,19 @@ export const truncate = (
   if (length <= suffix.length) return suffix;
 
   const targetLength = length - suffix.length;
-
-  // Fast check: if target is >= string length, no unicode issues
-  if (targetLength >= str.length) {
-    return str.slice(0, targetLength) + suffix;
-  }
-
-  // Only check for surrogates at the cut point, not the whole string
-  const cutPoint = targetLength;
-  const code = str.charCodeAt(cutPoint - 1);
-
-  // If we're cutting in the middle of a surrogate pair, back up one
-  if (code >= 0xd800 && code <= 0xdbff && cutPoint < str.length) {
-    const nextCode = str.charCodeAt(cutPoint);
-    if (nextCode >= 0xdc00 && nextCode <= 0xdfff) {
-      return str.slice(0, cutPoint - 1) + suffix;
+  
+  // Simple slice for performance (handles 99% of real-world cases)
+  let result = str.slice(0, targetLength);
+  
+  // Only check if we broke a surrogate pair at the boundary
+  // This prevents showing broken emoji characters (�)
+  if (result.length > 0) {
+    const lastChar = result.charCodeAt(result.length - 1);
+    // High surrogate at the end means we split an emoji - remove it
+    if (lastChar >= 0xD800 && lastChar <= 0xDBFF) {
+      result = result.slice(0, -1);
     }
   }
-
-  return str.slice(0, targetLength) + suffix;
+  
+  return result + suffix;
 };
