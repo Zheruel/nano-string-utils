@@ -56,7 +56,10 @@ describe("truncate", () => {
 
     // Broken surrogate pairs are cleaned up
     const withEmoji = "Hi 👋 there";
-    // Truncating at byte 5 would split the emoji, so we back up
-    expect(truncate(withEmoji, 6)).toBe("Hi...");
+    // Truncating to 6 chars total: "Hi " (3) + "..." (3) = 6
+    expect(truncate(withEmoji, 6)).toBe("Hi ...");
+
+    // Truncating right before emoji - prevents broken display
+    expect(truncate(withEmoji, 7)).toBe("Hi ...");
   });
 });
