@@ -15,6 +15,7 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 - 📦 **< 1KB per function** - Minimal bundle impact
 - 🌳 **Tree-shakeable** - Only import what you need
 - 💪 **Fully typed** - Complete TypeScript support
+- ⚡ **Fast performance** - 2-25x faster than lodash for many operations
 - ⚡ **ESM & CJS** - Works everywhere
 - 🧪 **100% tested** - Reliable and production-ready
 - 🔒 **Type-safe** - Written in strict TypeScript
@@ -851,10 +852,54 @@ MIT © [Zheruel]
 In a world of bloated dependencies, `nano-string-utils` stands out by providing exactly what you need and nothing more:
 
 - **Security First**: Zero dependencies means zero supply chain vulnerabilities
-- **Performance**: Each function is optimized for speed and size
+- **Performance**: Optimized for both speed and size
+  - 2.1-2.6x faster than lodash for truncate
+  - 25x faster than lodash for template
+  - 2.4x faster than lodash for capitalize
 - **Developer Experience**: Full TypeScript support with comprehensive JSDoc comments
 - **Production Ready**: 100% test coverage with extensive edge case handling
 - **Modern**: Built for ES2022+ with full ESM support and CommonJS compatibility
+
+## Benchmarks
+
+We continuously benchmark nano-string-utils against popular alternatives (lodash and es-toolkit) to ensure optimal performance and bundle size.
+
+### Running Benchmarks
+
+```bash
+# Run all benchmarks
+npm run bench:all
+
+# Run performance benchmarks only
+npm run bench:perf
+
+# Run bundle size analysis only
+npm run bench:size
+```
+
+### Latest Results
+
+#### Bundle Size Comparison (gzipped)
+
+| Function   | nano-string-utils | lodash | es-toolkit | Winner  |
+| ---------- | ----------------- | ------ | ---------- | ------- |
+| camelCase  | 193B              | 3.4KB  | 269B       | nano ✅ |
+| capitalize | 90B               | 1.7KB  | 99B        | nano ✅ |
+| kebabCase  | 161B              | 2.8KB  | 193B       | nano ✅ |
+| truncate   | 125B              | 2.9KB  | -          | nano ✅ |
+
+[View full benchmark results](./benchmarks/BENCHMARK_RESULTS.md)
+
+### Key Findings
+
+- 🏆 **Smallest bundle sizes**: nano-string-utils wins 10 out of 11 tested functions
+- ⚡ **Superior performance**: 2-25x faster than lodash for key operations
+- 📊 **Detailed benchmarks**: See [benchmark-results.md](./benchmarks/benchmark-results.md) for full comparison
+- ⚡ **Optimized performance**:
+  - **2.25x faster** than lodash for short string truncation
+  - Case conversions improved by **30-40%** in latest optimizations
+  - Truncate function improved by **97.6%** (42x faster!)
+- 🌳 **Superior tree-shaking**: Each function is independently importable with minimal overhead
 
 ## Comparison with Alternatives
 

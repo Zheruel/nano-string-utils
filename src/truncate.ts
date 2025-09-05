@@ -13,9 +13,30 @@ export const truncate = (
   length: number,
   suffix: string = "..."
 ): string => {
-  const chars = Array.from(str);
-  if (chars.length <= length) return str;
+  // Early return for strings that don't need truncation
+  if (str.length <= length) return str;
+
+  // Handle edge case where length is too small
   if (length <= suffix.length) return suffix;
-  const truncatedChars = chars.slice(0, length - suffix.length);
-  return truncatedChars.join("") + suffix;
+
+  const targetLength = length - suffix.length;
+
+  // Fast check: if target is >= string length, no unicode issues
+  if (targetLength >= str.length) {
+    return str.slice(0, targetLength) + suffix;
+  }
+
+  // Only check for surrogates at the cut point, not the whole string
+  const cutPoint = targetLength;
+  const code = str.charCodeAt(cutPoint - 1);
+
+  // If we're cutting in the middle of a surrogate pair, back up one
+  if (code >= 0xd800 && code <= 0xdbff && cutPoint < str.length) {
+    const nextCode = str.charCodeAt(cutPoint);
+    if (nextCode >= 0xdc00 && nextCode <= 0xdfff) {
+      return str.slice(0, cutPoint - 1) + suffix;
+    }
+  }
+
+  return str.slice(0, targetLength) + suffix;
 };
