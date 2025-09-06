@@ -225,6 +225,8 @@ const CONTROL_CHARS_REGEX = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g;
  * toASCII('α β γ') // 'a b g'
  * toASCII('привет', { placeholder: '?' }) // '??????'
  */
+export function toASCII(str: string): string;
+export function toASCII(str: string, options: ToASCIIOptions): string;
 export function toASCII(str: string, options: ToASCIIOptions = {}): string {
   // Single-pass character replacement
   let result = "";

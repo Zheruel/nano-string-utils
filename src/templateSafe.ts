@@ -39,11 +39,19 @@ function escapeData(data: any): any {
  * })
  * // 'User: &lt;b&gt;John&lt;/b&gt;'
  */
+export function templateSafe(str: string, data: Record<string, any>): string;
+export function templateSafe(
+  str: string,
+  data: Record<string, any>,
+  options: TemplateOptions
+): string;
 export function templateSafe(
   str: string,
   data: Record<string, any>,
   options?: TemplateOptions
 ): string {
   const escapedData = escapeData(data);
-  return template(str, escapedData, options);
+  return options
+    ? template(str, escapedData, options)
+    : template(str, escapedData);
 }

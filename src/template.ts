@@ -44,6 +44,12 @@ function escapeRegex(str: string): string {
  * })
  * // 'Hello World!'
  */
+export function template(str: string, data: Record<string, any>): string;
+export function template(
+  str: string,
+  data: Record<string, any>,
+  options: TemplateOptions
+): string;
 export function template(
   str: string,
   data: Record<string, any>,

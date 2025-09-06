@@ -48,6 +48,15 @@ export interface FuzzyMatchResult {
  */
 export function fuzzyMatch(
   query: string,
+  target: string
+): FuzzyMatchResult | null;
+export function fuzzyMatch(
+  query: string,
+  target: string,
+  options: FuzzyMatchOptions
+): FuzzyMatchResult | null;
+export function fuzzyMatch(
+  query: string,
   target: string,
   options: FuzzyMatchOptions = {}
 ): FuzzyMatchResult | null {

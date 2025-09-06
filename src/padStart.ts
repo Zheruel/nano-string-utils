@@ -9,6 +9,8 @@
  * padStart('Hi', 5, '.') // '...Hi'
  * padStart('Hi', 6, '=-') // '=-=-Hi'
  */
+export function padStart(str: string, length: number): string;
+export function padStart(str: string, length: number, chars: string): string;
 export function padStart(str: string, length: number, chars = " "): string {
   const strLen = Array.from(str).length;
 

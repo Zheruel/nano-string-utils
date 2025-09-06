@@ -9,6 +9,8 @@
  * padEnd('Hi', 6, '=-') // 'Hi=-=-'
  * padEnd('5', 3, '0') // '500'
  */
+export function padEnd(str: string, length: number): string;
+export function padEnd(str: string, length: number, chars: string): string;
 export function padEnd(str: string, length: number, chars = " "): string {
   const strLen = Array.from(str).length;
 

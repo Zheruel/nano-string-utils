@@ -55,6 +55,11 @@ export interface MemoizeOptions {
  * });
  * ```
  */
+export function memoize<T extends (...args: any[]) => any>(fn: T): T;
+export function memoize<T extends (...args: any[]) => any>(
+  fn: T,
+  options: MemoizeOptions
+): T;
 export function memoize<T extends (...args: any[]) => any>(
   fn: T,
   options: MemoizeOptions = {}

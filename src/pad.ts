@@ -9,6 +9,8 @@
  * pad('Hi', 6, '-') // '--Hi--'
  * pad('Hi', 7, '-') // '--Hi---'
  */
+export function pad(str: string, length: number): string;
+export function pad(str: string, length: number, chars: string): string;
 export function pad(str: string, length: number, chars = " "): string {
   // Quick check for Unicode (emoji, combining chars, etc)
   const hasUnicode =

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-09-06
+
+### Added
+
+- **TypeScript Function Overloads** for improved type inference
+  - Added overload signatures to 13 functions with optional parameters
+  - Better IDE autocomplete and parameter hints
+  - More precise return type inference based on arguments
+  - Functions with overloads: `truncate`, `pad`, `padStart`, `padEnd`, `template`, `templateSafe`, `excerpt`, `highlight`, `fuzzyMatch`, `memoize`, `randomString`, `toASCII`, `removeNonPrintable`
+  - No breaking changes - fully backward compatible
+
 ## [0.5.2] - 2025-09-06
 
 ### Added
