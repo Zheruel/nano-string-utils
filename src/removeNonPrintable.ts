@@ -35,6 +35,11 @@ export interface RemoveNonPrintableOptions {
  * removeNonPrintable('hello\u202Dworld')                // 'helloworld' (left-to-right override removed)
  * removeNonPrintable('👨‍👩‍👧‍👦')                       // '👨‍👩‍👧‍👦' (preserves emoji with ZWJ)
  */
+export function removeNonPrintable(str: string): string;
+export function removeNonPrintable(
+  str: string,
+  options: RemoveNonPrintableOptions
+): string;
 export function removeNonPrintable(
   str: string,
   options: RemoveNonPrintableOptions = {}

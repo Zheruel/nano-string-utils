@@ -19,6 +19,18 @@ export interface HighlightOptions {
  * highlight("Error: Connection failed", ["error", "failed"], { wrapper: ['**', '**'] })
  * // => "**Error**: Connection **failed**"
  */
+export function highlight(text: string, terms: string): string;
+export function highlight(text: string, terms: string[]): string;
+export function highlight(
+  text: string,
+  terms: string,
+  options: HighlightOptions
+): string;
+export function highlight(
+  text: string,
+  terms: string[],
+  options: HighlightOptions
+): string;
 export function highlight(
   text: string,
   terms: string | string[],

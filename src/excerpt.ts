@@ -11,6 +11,8 @@ const TRAILING_PUNCT = /[,;:\-–—]+$/;
  * excerpt('The quick brown fox jumps over the lazy dog', 20) // 'The quick brown fox...'
  * excerpt('Hello world. This is a test.', 15) // 'Hello world...'
  */
+export function excerpt(text: string, length: number): string;
+export function excerpt(text: string, length: number, suffix: string): string;
 export function excerpt(text: string, length: number, suffix = "..."): string {
   if (!text || text.length <= length) {
     return text;

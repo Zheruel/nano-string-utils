@@ -14,11 +14,11 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 - 🚀 **Zero dependencies** - No bloat, just pure functions
 - 📦 **< 1KB per function** - Minimal bundle impact
 - 🌳 **Tree-shakeable** - Only import what you need
-- 💪 **Fully typed** - Complete TypeScript support
+- 💪 **Fully typed** - Complete TypeScript support with function overloads
 - ⚡ **Fast performance** - 2-25x faster than lodash for many operations
 - ⚡ **ESM & CJS** - Works everywhere
 - 🧪 **100% tested** - Reliable and production-ready
-- 🔒 **Type-safe** - Written in strict TypeScript
+- 🔒 **Type-safe** - Written in strict TypeScript with enhanced type inference
 - 📝 **Well documented** - JSDoc comments for all functions
 
 ## Installation

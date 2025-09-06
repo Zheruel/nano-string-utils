@@ -7,10 +7,12 @@
  * randomString(10) // 'a3B9x2Kp1m'
  * randomString(5, 'abc123') // '3a1bc'
  */
-export const randomString = (
+export function randomString(length: number): string;
+export function randomString(length: number, charset: string): string;
+export function randomString(
   length: number,
   charset: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-): string => {
+): string {
   const len = Math.floor(length);
   if (len <= 0) return "";
 
@@ -22,4 +24,4 @@ export const randomString = (
   }
 
   return result;
-};
+}
