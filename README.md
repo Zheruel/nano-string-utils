@@ -753,6 +753,128 @@ Features:
 - Preserves original casing
 - Handles edge cases like unchanged plurals (sheep→sheep)
 
+### Branded Types (TypeScript)
+
+Nano-string-utils provides branded types for compile-time type safety with validated strings. These types add zero runtime overhead and are fully tree-shakeable.
+
+```typescript
+import { branded } from "nano-string-utils";
+```
+
+#### Type Guards
+
+Type guards narrow string types to branded types:
+
+```typescript
+const input: string = getUserInput();
+
+if (branded.isValidEmail(input)) {
+  // input is now typed as Email
+  sendEmail(input);
+}
+
+if (branded.isValidUrl(input)) {
+  // input is now typed as URL
+  fetch(input);
+}
+
+if (branded.isSlug(input)) {
+  // input is now typed as Slug
+  useAsRoute(input);
+}
+```
+
+#### Builder Functions
+
+Safely create branded types with validation:
+
+```typescript
+// Returns Email | null
+const email = branded.toEmail("user@example.com");
+if (email) {
+  sendEmail(email); // email is typed as Email
+}
+
+// Returns URL | null
+const url = branded.toUrl("https://example.com");
+if (url) {
+  fetch(url); // url is typed as URL
+}
+
+// Always returns Slug (transforms input)
+const slug = branded.toSlug("Hello World!"); // 'hello-world' as Slug
+createRoute(slug);
+
+// Smart slug handling
+const slug2 = branded.ensureSlug("already-a-slug"); // returns as-is if valid
+const slug3 = branded.ensureSlug("Not A Slug!"); // transforms to 'not-a-slug'
+```
+
+#### Assertion Functions
+
+Assert types with runtime validation:
+
+```typescript
+const input: string = getUserInput();
+
+// Throws BrandedTypeError if invalid
+branded.assertEmail(input);
+// input is now typed as Email
+sendEmail(input);
+
+// Custom error messages
+branded.assertUrl(input, "Invalid webhook URL");
+
+// All assertion functions available
+branded.assertEmail(str);
+branded.assertUrl(str);
+branded.assertSlug(str);
+```
+
+#### Unsafe Variants
+
+For trusted inputs where validation isn't needed:
+
+```typescript
+// Use only when you're certain the input is valid
+const trustedEmail = branded.unsafeEmail("admin@system.local");
+const trustedUrl = branded.unsafeUrl("https://internal.api");
+const trustedSlug = branded.unsafeSlug("already-valid-slug");
+```
+
+#### Available Types
+
+- `Email` - Validated email addresses
+- `URL` - Validated URLs (http/https/ftp/ftps)
+- `Slug` - URL-safe slugs (lowercase, hyphenated)
+- `Brand<T, K>` - Generic branding utility for custom types
+
+#### Benefits
+
+- **Zero runtime overhead** - Types are erased at compilation
+- **Type safety** - Prevent passing unvalidated strings to functions
+- **IntelliSense support** - Full autocomplete and type hints
+- **Tree-shakeable** - Only imported if used
+- **Composable** - Works with existing string functions
+
+```typescript
+// Example: Type-safe API
+function sendNewsletter(email: branded.Email) {
+  // Can only be called with validated emails
+  api.send(email);
+}
+
+// Won't compile without validation
+const userInput = "maybe@email.com";
+// sendNewsletter(userInput); // ❌ Type error!
+
+// Must validate first
+const validated = branded.toEmail(userInput);
+if (validated) {
+  sendNewsletter(validated); // ✅ Type safe!
+}
+```
+
 ## Bundle Size
 
 Each utility is optimized to be as small as possible:

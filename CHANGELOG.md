@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-09-06
+
+### Added
+
+- **Branded Types for TypeScript** - Compile-time type safety for validated strings
+  - New `branded` namespace export with zero runtime overhead
+  - Three branded types: `Email`, `URL`, `Slug`
+  - **Type Guards**: `isValidEmail()`, `isValidUrl()`, `isSlug()` for type narrowing
+  - **Builder Functions**: `toEmail()`, `toUrl()`, `toSlug()` for safe construction with validation
+  - **Assertion Functions**: `assertEmail()`, `assertUrl()`, `assertSlug()` for runtime assertions with type narrowing
+  - **Unsafe Variants**: `unsafeEmail()`, `unsafeUrl()`, `unsafeSlug()` for trusted inputs
+  - **Utility Functions**: `ensureSlug()` for intelligent slug handling
+  - **Custom Error Class**: `BrandedTypeError` for validation failures
+  - Generic `Brand<K, T>` type utility for creating custom branded types
+  - Full tree-shaking support - only imported when used
+  - 100% test coverage with type-level tests using `expectTypeOf`
+  - Comprehensive documentation with usage examples
+
+### Performance
+
+- Branded type guards have identical performance to base validators
+- Unsafe variants operate at ~18M ops/sec (simple type casts)
+- No impact on bundle size for non-TypeScript users
+- Bundle size remains under 6.5KB limit (6.35KB CJS)
+
 ## [0.6.0] - 2025-09-06
 
 ### Added
