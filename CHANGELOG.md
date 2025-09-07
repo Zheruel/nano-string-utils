@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] - 2025-09-07
+
+### Documentation
+
+- **Enhanced JSDoc with TypeScript Examples** - Comprehensive TypeScript usage examples
+  - Added TypeScript-specific examples to 20+ utility functions
+  - All examples now use proper ```ts code blocks for syntax highlighting
+  - Showcased template literal types in case conversion functions
+  - Demonstrated branded types usage with `isEmail`, `isUrl`, and `slugify`
+  - Added function overload examples for `template`, `truncate`, and `excerpt`
+  - Included generic constraint examples in `memoize` function
+  - Showed interface usage with `FuzzyMatchOptions` and `FuzzyMatchResult`
+  - Added strict null checking examples throughout
+  - Enhanced interface documentation for `HighlightOptions`, `TitleCaseOptions`, `NormalizeWhitespaceOptions`, and `RemoveNonPrintableOptions`
+  - All examples validated with TypeScript strict mode
+
 ## [0.9.0] - 2025-09-07
 
 ### Added

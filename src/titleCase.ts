@@ -11,12 +11,33 @@ const TITLE_ACRONYM = /^[A-Z]{2,4}$/;
  * @param options - Optional configuration
  * @returns The title-cased string
  * @example
+ * ```ts
+ * // Basic usage
  * titleCase('the quick brown fox') // 'The Quick Brown Fox'
  * titleCase('a tale of two cities') // 'A Tale of Two Cities'
  * titleCase('mother-in-law') // 'Mother-in-Law'
  *
- * // With template literal types
- * const result = titleCase('hello-world'); // type: "Hello World"
+ * // TypeScript template literal types
+ * const result = titleCase('hello-world')
+ * // result type: "Hello World" (literal type)
+ *
+ * // Using options interface with custom exceptions
+ * const options: TitleCaseOptions = {
+ *   exceptions: ['vs', 'api', 'io']
+ * }
+ * titleCase('node vs deno api', options) // 'Node vs Deno api'
+ *
+ * // Blog post title formatting
+ * type BlogTitle = 'how-to-learn-typescript' | 'the-best-of-2024'
+ * function formatTitle(title: BlogTitle): TitleCase<BlogTitle> {
+ *   return titleCase(title) as TitleCase<BlogTitle>
+ * }
+ * const formatted = formatTitle('how-to-learn-typescript')
+ * // formatted type: "How to Learn TypeScript"
+ *
+ * // Preserve acronyms automatically
+ * titleCase('working with NASA and FBI data') // 'Working with NASA and FBI Data'
+ * ```
  */
 
 const DEFAULT_EXCEPTIONS = new Set([
@@ -67,7 +88,11 @@ const DEFAULT_EXCEPTIONS = new Set([
   "without",
 ]);
 
+/**
+ * Options for configuring the titleCase function behavior
+ */
 export interface TitleCaseOptions {
+  /** Additional words to treat as exceptions (not capitalized unless first/last) */
   exceptions?: string[];
 }
 

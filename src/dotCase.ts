@@ -14,14 +14,31 @@ const DOT_MULTIPLE = /\.+/g;
  * @param str - The input string to convert
  * @returns A dot.case string
  * @example
+ * ```ts
+ * // Basic usage
  * dotCase('hello world') // 'hello.world'
  * dotCase('helloWorld') // 'hello.world'
  * dotCase('hello-world') // 'hello.world'
  * dotCase('hello_world') // 'hello.world'
  * dotCase('XMLHttpRequest') // 'xml.http.request'
  *
- * // With template literal types
- * const result = dotCase('helloWorld'); // type: "hello.world"
+ * // TypeScript template literal types
+ * const result = dotCase('helloWorld')
+ * // result type: "hello.world" (literal type)
+ *
+ * // Object path notation
+ * type NestedKey = 'userName' | 'userEmail' | 'userSettings'
+ * function getObjectPath(key: NestedKey): DotCase<NestedKey> {
+ *   return dotCase(key) as DotCase<NestedKey>
+ * }
+ * const path = getObjectPath('userName')
+ * // path type: "user.name"
+ *
+ * // Config file keys
+ * const configKey = dotCase('databaseHost' as const)
+ * // configKey type: "database.host"
+ * const value = config[configKey] // TypeScript knows this is config["database.host"]
+ * ```
  */
 export function dotCase<T extends string>(str: T): DotCase<T>;
 export function dotCase(str: string): string;

@@ -1,3 +1,6 @@
+/**
+ * Options for configuring the removeNonPrintable function behavior
+ */
 export interface RemoveNonPrintableOptions {
   /**
    * Whether to preserve space character (U+0020)

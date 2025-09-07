@@ -8,8 +8,50 @@ const TRAILING_PUNCT = /[,;:\-–—]+$/;
  * @param suffix - Suffix to append when text is truncated (default: '...')
  * @returns The excerpted text
  * @example
- * excerpt('The quick brown fox jumps over the lazy dog', 20) // 'The quick brown fox...'
- * excerpt('Hello world. This is a test.', 15) // 'Hello world...'
+ * ```ts
+ * // Basic usage with word boundary preservation
+ * excerpt('The quick brown fox jumps over the lazy dog', 20)
+ * // 'The quick brown fox...' (cuts at word boundary)
+ *
+ * // Smart punctuation handling
+ * excerpt('Hello world. This is a test.', 15)
+ * // 'Hello world..' (preserves sentence end)
+ *
+ * // Function overloads with custom suffix
+ * excerpt('Long article content here', 50) // Default '...' suffix
+ * excerpt('Long article content here', 50, '…') // Unicode ellipsis
+ * excerpt('Long article content here', 50, ' [more]') // Custom text
+ *
+ * // Type-safe blog post previews
+ * interface BlogPost {
+ *   title: string
+ *   content: string
+ *   published: Date
+ * }
+ * function getPostPreview(post: BlogPost): string {
+ *   return excerpt(post.content, 150, '...')
+ * }
+ *
+ * // Search result snippets
+ * interface SearchHit {
+ *   document: string
+ *   score: number
+ * }
+ * const results: SearchHit[] = search(query)
+ * const snippets = results.map(hit => ({
+ *   ...hit,
+ *   snippet: excerpt(hit.document, 200)
+ * }))
+ *
+ * // Null-safe excerpting
+ * const description: string | null = getDescription()
+ * const preview = description ? excerpt(description, 100) : 'No description available'
+ *
+ * // Smart handling of edge cases
+ * excerpt('SingleLongWordWithoutSpaces', 10) // 'SingleLong...'
+ * excerpt('Word', 10) // 'Word' (no truncation needed)
+ * excerpt('Sentence ending here.', 21) // 'Sentence ending here..' (smart punctuation)
+ * ```
  */
 export function excerpt(text: string, length: number): string;
 export function excerpt(text: string, length: number, suffix: string): string;

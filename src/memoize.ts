@@ -24,35 +24,51 @@ export interface MemoizeOptions {
  *
  * @example
  * ```ts
- * // Basic usage
- * const expensiveFn = (n: number) => {
+ * // Basic usage with type preservation
+ * const expensiveFn = (n: number): number => {
  *   console.log('Computing...');
  *   return n * n;
  * };
  * const memoized = memoize(expensiveFn);
+ * // memoized has same type as expensiveFn: (n: number) => number
  * memoized(5); // Computing... → 25
  * memoized(5); // → 25 (cached, no "Computing...")
  *
- * // With string utilities
+ * // Generic constraints preserve function signatures
+ * function processData<T extends string>(input: T): string {
+ *   return 'processed-' + input
+ * }
+ * const cached = memoize(processData)
+ * // cached preserves generic: <T extends string>(input: T) => string
+ * const result = cached('test') // returns: "processed-test"
+ *
+ * // With string utilities and type safety
  * import { levenshtein, memoize } from 'nano-string-utils';
  * const fastLevenshtein = memoize(levenshtein);
+ * // Type preserved: (str1: string, str2: string) => number
  *
- * // Process many comparisons efficiently
- * const words = ['hello', 'hallo', 'hola'];
- * words.forEach(word => {
- *   fastLevenshtein('hello', word); // Cached after first call
- * });
+ * // Interface usage with options
+ * const options: MemoizeOptions = {
+ *   maxSize: 50,
+ *   getKey: (...args) => args.join('-')
+ * }
+ * const memoizedFn = memoize(expensiveFn, options)
  *
- * // Custom cache size
- * const limited = memoize(expensiveFn, { maxSize: 10 });
- *
- * // Custom key generation (for objects)
- * const processUser = (user: { id: number; name: string }) => {
- *   return `User: ${user.name}`;
- * };
+ * // Complex type preservation
+ * interface User { id: number; name: string }
+ * const processUser = (user: User): string => 'User: ' + user.name;
  * const memoizedUser = memoize(processUser, {
  *   getKey: (user) => user.id.toString()
  * });
+ * // memoizedUser type: (user: User) => string
+ *
+ * // Async function memoization
+ * const fetchData = async (id: string): Promise<any> => {
+ *   // fetch implementation here
+ *   return fetch('/api/data/' + id)
+ * }
+ * const cachedFetch = memoize(fetchData)
+ * // cachedFetch type: (id: string) => Promise<any>
  * ```
  */
 export function memoize<T extends (...args: any[]) => any>(fn: T): T;

@@ -13,13 +13,30 @@ const CONST_SPLIT = /\s+/;
  * @param str - The input string to convert
  * @returns A CONSTANT_CASE string
  * @example
+ * ```ts
+ * // Basic usage
  * constantCase('hello world') // 'HELLO_WORLD'
  * constantCase('helloWorld') // 'HELLO_WORLD'
  * constantCase('hello-world') // 'HELLO_WORLD'
  * constantCase('__hello__world__') // 'HELLO_WORLD'
  *
- * // With template literal types
- * const result = constantCase('helloWorld'); // type: "HELLO_WORLD"
+ * // TypeScript template literal types
+ * const result = constantCase('helloWorld')
+ * // result type: "HELLO_WORLD" (literal type)
+ *
+ * // Environment variable naming
+ * type ConfigKey = 'apiUrl' | 'dbHost' | 'maxRetries'
+ * function getEnvKey(key: ConfigKey): ConstantCase<ConfigKey> {
+ *   return constantCase(key) as ConstantCase<ConfigKey>
+ * }
+ * const envVar = getEnvKey('apiUrl')
+ * // envVar type: "API_URL"
+ * process.env[envVar] // TypeScript knows this is process.env.API_URL
+ *
+ * // Redux action types
+ * const action = constantCase('fetchUserSuccess' as const)
+ * // action type: "FETCH_USER_SUCCESS"
+ * ```
  */
 export function constantCase<T extends string>(str: T): ConstantCase<T>;
 export function constantCase(str: string): string;
