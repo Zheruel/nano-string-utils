@@ -11,6 +11,8 @@ const WORD_SPLIT = /\s+/;
  * wordCount('One-word') // 1
  */
 export const wordCount = (str: string): number => {
+  if (!str) return 0;
+
   const words = str.trim().split(WORD_SPLIT);
   return words[0] === "" ? 0 : words.length;
 };

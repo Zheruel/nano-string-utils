@@ -9,6 +9,8 @@
  * codePoints('a👍b') // [97, 128077, 98]
  */
 export function codePoints(str: string): number[] {
+  if (!str) return [];
+
   const points: number[] = [];
   for (const char of str) {
     const point = char.codePointAt(0);

@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2025-09-07
+
+### Added
+
+- **Comprehensive Null/Undefined Safety** - All functions now handle null/undefined gracefully
+  - Added defensive null checks to 22+ functions that previously lacked them
+  - Consistent behavior across all utilities: string functions preserve null/undefined, boolean functions return false, array functions return empty arrays
+  - Zero runtime errors - functions no longer throw TypeErrors on null/undefined inputs
+  - Maintains full backward compatibility for valid string inputs
+  - Added 36 comprehensive tests for null/undefined handling
+  - No performance impact - benchmarks show consistent speed
+  - Minimal bundle size impact - only 0.02 kB increase
+
+### Improved
+
+- **Developer Experience** - Safer API with predictable edge case handling
+  - Users no longer need defensive checks before calling functions
+  - All functions behave consistently with falsy values
+  - Better alignment with TypeScript's strict null checks
+
 ## [0.8.0] - 2025-09-07
 
 ### Added

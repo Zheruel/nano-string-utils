@@ -16,6 +16,8 @@ import type { PascalCase } from "./types/string-literals.js";
 export function pascalCase<T extends string>(str: T): PascalCase<T>;
 export function pascalCase(str: string): string;
 export function pascalCase(str: string): string {
+  if (!str) return str;
+
   const wordList = words(str);
 
   if (wordList.length === 0) return "";

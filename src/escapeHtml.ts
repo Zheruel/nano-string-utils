@@ -17,6 +17,7 @@ const HTML_ENTITIES: Record<string, string> = {
  * escapeHtml("It's <script>") // 'It&#39;s &lt;script&gt;'
  */
 export const escapeHtml = (str: string): string => {
+  if (!str) return str;
   return str.replace(
     HTML_ESCAPE_REGEX,
     (match) => HTML_ENTITIES[match] ?? match

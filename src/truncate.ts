@@ -15,6 +15,9 @@ export function truncate(
   length: number,
   suffix: string = "..."
 ): string {
+  // Handle null/undefined
+  if (!str) return str;
+
   // Early return for strings that don't need truncation
   if (str.length <= length) return str;
 

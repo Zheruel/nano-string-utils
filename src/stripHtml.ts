@@ -10,5 +10,6 @@ const HTML_TAG_REGEX = /<[^>]*>/g;
  * stripHtml('<div>Test</div>') // 'Test'
  */
 export const stripHtml = (str: string): string => {
+  if (!str) return str;
   return str.replace(HTML_TAG_REGEX, "");
 };

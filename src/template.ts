@@ -55,6 +55,8 @@ export function template(
   data: Record<string, any>,
   options?: TemplateOptions
 ): string {
+  if (!str) return str;
+
   const opts: Required<TemplateOptions> = {
     delimiters: ["{{", "}}"],
     fallback: "",

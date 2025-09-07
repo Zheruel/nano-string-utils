@@ -7,6 +7,8 @@
  * hashString('world') // 3582672807
  */
 export const hashString = (str: string): number => {
+  if (str == null) return 0;
+
   let hash = 2166136261; // FNV offset basis
 
   if (str.length === 0) return hash >>> 0;

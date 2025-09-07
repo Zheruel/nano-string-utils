@@ -19,6 +19,7 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 - ⚡ **ESM & CJS** - Works everywhere
 - 🧪 **100% tested** - Reliable and production-ready
 - 🔒 **Type-safe** - Written in strict TypeScript with enhanced type inference and compile-time transformations
+- 🛡️ **Null-safe** - All functions handle null/undefined gracefully without throwing errors
 - 📝 **Well documented** - JSDoc comments for all functions
 
 ## Installation
@@ -901,15 +902,15 @@ const result = camelCase(userInput);
 #### All Case Conversions Support Template Literals
 
 ```typescript
-camelCase("hello-world");    // Type: "helloWorld"
-kebabCase("helloWorld");     // Type: "hello-world"
-snakeCase("HelloWorld");     // Type: "hello_world"
-pascalCase("hello-world");   // Type: "HelloWorld"
-constantCase("helloWorld");  // Type: "HELLO_WORLD"
-dotCase("HelloWorld");       // Type: "hello.world"
-pathCase("helloWorld");      // Type: "hello/world"
+camelCase("hello-world"); // Type: "helloWorld"
+kebabCase("helloWorld"); // Type: "hello-world"
+snakeCase("HelloWorld"); // Type: "hello_world"
+pascalCase("hello-world"); // Type: "HelloWorld"
+constantCase("helloWorld"); // Type: "HELLO_WORLD"
+dotCase("HelloWorld"); // Type: "hello.world"
+pathCase("helloWorld"); // Type: "hello/world"
 sentenceCase("hello-world"); // Type: "Hello world"
-titleCase("hello-world");    // Type: "Hello World"
+titleCase("hello-world"); // Type: "Hello World"
 ```
 
 #### Type-Safe Configuration Objects
@@ -943,10 +944,38 @@ type MethodNames = {
 ```
 
 Benefits:
+
 - ✅ **Zero runtime cost** - All transformations happen at compile time
 - ✅ **Better IDE support** - Autocomplete shows exact transformed strings
 - ✅ **Type safety** - Catch typos and incorrect transformations during development
 - ✅ **Backward compatible** - Runtime strings work exactly as before
+
+### Null/Undefined Safety
+
+All functions in nano-string-utils handle null and undefined inputs gracefully:
+
+```typescript
+// No more runtime errors!
+slugify(null); // Returns: null
+slugify(undefined); // Returns: undefined
+slugify(""); // Returns: ""
+
+// Consistent behavior across all functions
+isEmail(null); // Returns: false (validation functions)
+words(null); // Returns: [] (array functions)
+wordCount(null); // Returns: 0 (counting functions)
+
+// Safe to use without defensive checks
+const userInput = getUserInput(); // might be null/undefined
+const slug = slugify(userInput); // Won't throw!
+```
+
+This means:
+
+- ✅ **No TypeErrors** - Functions never throw on null/undefined
+- ✅ **Predictable behavior** - Consistent handling across all utilities
+- ✅ **Cleaner code** - No need for defensive checks before calling functions
+- ✅ **Zero performance cost** - Minimal overhead from null checks
 
 ## Bundle Size
 

@@ -11,10 +11,13 @@ const SLUG_TRIM = /^-+|-+$/g;
  * slugify('Hello World!') // 'hello-world'
  * slugify('  Multiple   Spaces  ') // 'multiple-spaces'
  */
-export const slugify = (str: string): string =>
-  str
+export const slugify = (str: string): string => {
+  if (!str) return str;
+
+  return str
     .toLowerCase()
     .trim()
     .replace(SLUG_NON_WORD, "")
     .replace(SLUG_SPACES, "-")
     .replace(SLUG_TRIM, "");
+};

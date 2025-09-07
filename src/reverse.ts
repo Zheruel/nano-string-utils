@@ -7,5 +7,6 @@
  * reverse('world') // 'dlrow'
  */
 export const reverse = (str: string): string => {
+  if (!str) return str;
   return Array.from(str).reverse().join("");
 };
