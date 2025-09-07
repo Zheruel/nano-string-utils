@@ -1,3 +1,5 @@
+import type { ConstantCase } from "./types/string-literals.js";
+
 // Pre-compiled regex patterns for better performance
 const CONST_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
 const CONST_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
@@ -15,8 +17,13 @@ const CONST_SPLIT = /\s+/;
  * constantCase('helloWorld') // 'HELLO_WORLD'
  * constantCase('hello-world') // 'HELLO_WORLD'
  * constantCase('__hello__world__') // 'HELLO_WORLD'
+ *
+ * // With template literal types
+ * const result = constantCase('helloWorld'); // type: "HELLO_WORLD"
  */
-export const constantCase = (str: string): string => {
+export function constantCase<T extends string>(str: T): ConstantCase<T>;
+export function constantCase(str: string): string;
+export function constantCase(str: string): string {
   if (!str) return str;
 
   // Handle camelCase/PascalCase by adding spaces before capitals
@@ -43,4 +50,4 @@ export const constantCase = (str: string): string => {
     .join("_");
 
   return result;
-};
+}

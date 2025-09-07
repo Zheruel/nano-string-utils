@@ -1,3 +1,5 @@
+import type { SentenceCase } from "./types/string-literals.js";
+
 // Pre-compiled regex patterns for better performance
 const SENTENCE_START = /^(\s*["']?\s*)([a-z])/;
 const SENTENCE_AFTER_PUNCT = /([.!?])\s+([a-z])/g;
@@ -19,8 +21,13 @@ const LETTER_CHECK = /[a-z]/i;
  * sentenceCase('HELLO WORLD') // 'Hello world'
  * sentenceCase('hello. world! how are you?') // 'Hello. World! How are you?'
  * sentenceCase('this is a test.this is another.') // 'This is a test. This is another.'
+ *
+ * // With template literal types
+ * const result = sentenceCase('hello-world'); // type: "Hello world"
  */
-export const sentenceCase = (str: string): string => {
+export function sentenceCase<T extends string>(str: T): SentenceCase<T>;
+export function sentenceCase(str: string): string;
+export function sentenceCase(str: string): string {
   if (!str) return str;
 
   // Keep original for reference
@@ -114,4 +121,4 @@ export const sentenceCase = (str: string): string => {
   });
 
   return result;
-};
+}

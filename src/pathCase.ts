@@ -1,3 +1,5 @@
+import type { PathCase } from "./types/string-literals.js";
+
 // Pre-compiled regex patterns for better performance
 const PATH_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
 const PATH_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
@@ -17,8 +19,13 @@ const PATH_MULTIPLE = /\/+/g;
  * pathCase('hello-world') // 'hello/world'
  * pathCase('hello_world') // 'hello/world'
  * pathCase('XMLHttpRequest') // 'xml/http/request'
+ *
+ * // With template literal types
+ * const result = pathCase('helloWorld'); // type: "hello/world"
  */
-export const pathCase = (str: string): string => {
+export function pathCase<T extends string>(str: T): PathCase<T>;
+export function pathCase(str: string): string;
+export function pathCase(str: string): string {
   if (!str) return str;
 
   return (
@@ -40,4 +47,4 @@ export const pathCase = (str: string): string => {
       .replace(PATH_MULTIPLE, "/")
       .toLowerCase()
   );
-};
+}

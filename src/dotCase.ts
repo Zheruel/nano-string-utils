@@ -1,3 +1,5 @@
+import type { DotCase } from "./types/string-literals.js";
+
 // Pre-compiled regex patterns for better performance
 const DOT_ACRONYM = /([A-Z]+)([A-Z][a-z])/g;
 const DOT_LOWERCASE_UPPER = /([a-z0-9])([A-Z])/g;
@@ -17,8 +19,13 @@ const DOT_MULTIPLE = /\.+/g;
  * dotCase('hello-world') // 'hello.world'
  * dotCase('hello_world') // 'hello.world'
  * dotCase('XMLHttpRequest') // 'xml.http.request'
+ *
+ * // With template literal types
+ * const result = dotCase('helloWorld'); // type: "hello.world"
  */
-export const dotCase = (str: string): string => {
+export function dotCase<T extends string>(str: T): DotCase<T>;
+export function dotCase(str: string): string;
+export function dotCase(str: string): string {
   if (!str) return str;
 
   return (
@@ -40,4 +47,4 @@ export const dotCase = (str: string): string => {
       .replace(DOT_MULTIPLE, ".")
       .toLowerCase()
   );
-};
+}

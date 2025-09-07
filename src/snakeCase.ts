@@ -1,4 +1,5 @@
 import { words } from "./words.js";
+import type { SnakeCase } from "./types/string-literals.js";
 
 /**
  * Converts a string to snake_case
@@ -8,11 +9,16 @@ import { words } from "./words.js";
  * snakeCase('Hello World') // 'hello_world'
  * snakeCase('helloWorld') // 'hello_world'
  * snakeCase('hello-world') // 'hello_world'
+ *
+ * // With template literal types
+ * const result = snakeCase('helloWorld'); // type: "hello_world"
  */
-export const snakeCase = (str: string): string => {
+export function snakeCase<T extends string>(str: T): SnakeCase<T>;
+export function snakeCase(str: string): string;
+export function snakeCase(str: string): string {
   const wordList = words(str);
 
   if (wordList.length === 0) return "";
 
   return wordList.map((word) => word.toLowerCase()).join("_");
-};
+}
