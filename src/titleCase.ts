@@ -1,3 +1,5 @@
+import type { TitleCase } from "./types/string-literals.js";
+
 // Pre-compiled regex patterns for better performance
 const TITLE_SPLIT = /(\s+|[^\s\w'-]+)/g;
 const TITLE_HAS_LETTER = /[A-Za-z]/;
@@ -12,6 +14,9 @@ const TITLE_ACRONYM = /^[A-Z]{2,4}$/;
  * titleCase('the quick brown fox') // 'The Quick Brown Fox'
  * titleCase('a tale of two cities') // 'A Tale of Two Cities'
  * titleCase('mother-in-law') // 'Mother-in-Law'
+ *
+ * // With template literal types
+ * const result = titleCase('hello-world'); // type: "Hello World"
  */
 
 const DEFAULT_EXCEPTIONS = new Set([
@@ -66,6 +71,11 @@ export interface TitleCaseOptions {
   exceptions?: string[];
 }
 
+export function titleCase<T extends string>(
+  str: T,
+  options?: TitleCaseOptions
+): TitleCase<T>;
+export function titleCase(str: string, options?: TitleCaseOptions): string;
 export function titleCase(str: string, options: TitleCaseOptions = {}): string {
   if (!str || !str.trim()) return "";
 
