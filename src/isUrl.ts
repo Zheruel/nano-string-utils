@@ -8,6 +8,8 @@
  * isUrl('not a url') // false
  */
 export const isUrl = (str: string): boolean => {
+  if (!str) return false;
+
   try {
     const url = new URL(str);
 

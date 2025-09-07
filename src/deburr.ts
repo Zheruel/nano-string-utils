@@ -29,6 +29,8 @@ const SPECIAL_CHARS_MAP: Record<string, string> = {
  * deburr('São Paulo') // 'Sao Paulo'
  */
 export function deburr(str: string): string {
+  if (!str) return str;
+
   // Replace special characters with single regex pass
   const result = str.replace(
     SPECIAL_CHARS_PATTERN,

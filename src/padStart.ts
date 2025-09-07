@@ -12,6 +12,8 @@
 export function padStart(str: string, length: number): string;
 export function padStart(str: string, length: number, chars: string): string;
 export function padStart(str: string, length: number, chars = " "): string {
+  if (str == null) return str;
+
   const strLen = Array.from(str).length;
 
   if (length <= strLen || length <= 0) {

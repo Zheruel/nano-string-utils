@@ -228,6 +228,8 @@ const CONTROL_CHARS_REGEX = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g;
 export function toASCII(str: string): string;
 export function toASCII(str: string, options: ToASCIIOptions): string;
 export function toASCII(str: string, options: ToASCIIOptions = {}): string {
+  if (!str) return str;
+
   // Single-pass character replacement
   let result = "";
   for (const char of str) {

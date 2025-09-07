@@ -12,6 +12,8 @@
 export function pad(str: string, length: number): string;
 export function pad(str: string, length: number, chars: string): string;
 export function pad(str: string, length: number, chars = " "): string {
+  if (str == null) return str;
+
   // Quick check for Unicode (emoji, combining chars, etc)
   const hasUnicode =
     /[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u200D]/u.test(

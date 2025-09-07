@@ -50,6 +50,8 @@ export function templateSafe(
   data: Record<string, any>,
   options?: TemplateOptions
 ): string {
+  if (!str) return str;
+
   const escapedData = escapeData(data);
   return options
     ? template(str, escapedData, options)
