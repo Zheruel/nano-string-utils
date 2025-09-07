@@ -31,18 +31,44 @@ function escapeRegex(str: string): string {
  * @param options - Optional configuration
  * @returns Processed string with interpolated values
  * @example
+ * ```ts
+ * // Basic usage with type inference
  * template('Hello {{name}}!', { name: 'World' })
  * // 'Hello World!'
  *
- * template('{{user.name}} is {{user.age}} years old', {
- *   user: { name: 'Alice', age: 30 }
- * })
- * // 'Alice is 30 years old'
+ * // Nested object access with type safety
+ * interface User {
+ *   name: string
+ *   age: number
+ *   address: { city: string }
+ * }
+ * const user: User = {
+ *   name: 'Alice',
+ *   age: 30,
+ *   address: { city: 'NYC' }
+ * }
+ * template('{{name}} from {{address.city}}', user)
+ * // 'Alice from NYC'
  *
- * template('Hello ${name}!', { name: 'World' }, {
- *   delimiters: ['${', '}']
- * })
- * // 'Hello World!'
+ * // Function overloads - without options
+ * const result1 = template('Hi {{name}}', { name: 'Bob' })
+ * // TypeScript knows: (str: string, data: Record<string, any>) => string
+ *
+ * // Function overloads - with options interface
+ * const options: TemplateOptions = {
+ *   delimiters: ['${', '}'],
+ *   fallback: 'N/A',
+ *   keepUnmatched: false
+ * }
+ * const result2 = template('Hello ${name}!', { name: 'Eve' }, options)
+ * // TypeScript knows: (str: string, data: Record<string, any>, options: TemplateOptions) => string
+ *
+ * // Type-safe template data
+ * type Config = { apiUrl: string; timeout: number }
+ * const config: Config = { apiUrl: 'https://api.example.com', timeout: 5000 }
+ * const url = template('{{apiUrl}}/users', config)
+ * // TypeScript ensures config has required properties
+ * ```
  */
 export function template(str: string, data: Record<string, any>): string;
 export function template(

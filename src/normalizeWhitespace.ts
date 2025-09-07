@@ -1,3 +1,6 @@
+/**
+ * Options for configuring the normalizeWhitespace function behavior
+ */
 export interface NormalizeWhitespaceOptions {
   /**
    * Whether to trim leading and trailing whitespace

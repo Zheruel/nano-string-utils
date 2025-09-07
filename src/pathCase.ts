@@ -14,14 +14,31 @@ const PATH_MULTIPLE = /\/+/g;
  * @param str - The input string to convert
  * @returns A path/case string
  * @example
+ * ```ts
+ * // Basic usage
  * pathCase('hello world') // 'hello/world'
  * pathCase('helloWorld') // 'hello/world'
  * pathCase('hello-world') // 'hello/world'
  * pathCase('hello_world') // 'hello/world'
  * pathCase('XMLHttpRequest') // 'xml/http/request'
  *
- * // With template literal types
- * const result = pathCase('helloWorld'); // type: "hello/world"
+ * // TypeScript template literal types
+ * const result = pathCase('helloWorld')
+ * // result type: "hello/world" (literal type)
+ *
+ * // URL path generation
+ * type Route = 'userProfile' | 'accountSettings' | 'helpCenter'
+ * function getPath(route: Route): PathCase<Route> {
+ *   return pathCase(route) as PathCase<Route>
+ * }
+ * const urlPath = getPath('userProfile')
+ * // urlPath type: "user/profile"
+ * const fullUrl = `/app/${urlPath}` // "/app/user/profile"
+ *
+ * // File system paths
+ * const filePath = pathCase('MyDocuments' as const)
+ * // filePath type: "my/documents"
+ * ```
  */
 export function pathCase<T extends string>(str: T): PathCase<T>;
 export function pathCase(str: string): string;

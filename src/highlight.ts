@@ -1,8 +1,16 @@
+/**
+ * Options for configuring the highlight function behavior
+ */
 export interface HighlightOptions {
+  /** Whether to perform case-sensitive matching (default: false) */
   caseSensitive?: boolean;
+  /** Whether to match whole words only (default: false) */
   wholeWord?: boolean;
+  /** Custom wrapper tags [opening, closing] (default: ['<mark>', '</mark>']) */
   wrapper?: [string, string];
+  /** CSS class name to add to wrapper element (default: undefined) */
   className?: string;
+  /** Whether to escape HTML in the text (default: false) */
   escapeHtml?: boolean;
 }
 

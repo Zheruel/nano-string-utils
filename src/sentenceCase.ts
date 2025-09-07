@@ -17,13 +17,30 @@ const LETTER_CHECK = /[a-z]/i;
  * @param str - The input string to convert
  * @returns A sentence case string
  * @example
+ * ```ts
+ * // Basic usage
  * sentenceCase('hello world') // 'Hello world'
  * sentenceCase('HELLO WORLD') // 'Hello world'
  * sentenceCase('hello. world! how are you?') // 'Hello. World! How are you?'
  * sentenceCase('this is a test.this is another.') // 'This is a test. This is another.'
  *
- * // With template literal types
- * const result = sentenceCase('hello-world'); // type: "Hello world"
+ * // TypeScript template literal types
+ * const result = sentenceCase('hello-world')
+ * // result type: "Hello world" (literal type)
+ *
+ * // User-generated content normalization
+ * type UserInput = 'SHOUTING TEXT' | 'normal text' | 'MiXeD cAsE'
+ * function normalizeComment(input: UserInput): SentenceCase<UserInput> {
+ *   return sentenceCase(input) as SentenceCase<UserInput>
+ * }
+ * const comment = normalizeComment('SHOUTING TEXT')
+ * // comment type: "Shouting text"
+ *
+ * // Error message formatting
+ * const errorMsg = sentenceCase('INVALID_USER_INPUT' as const)
+ * // errorMsg type: "Invalid user input"
+ * throw new Error(errorMsg) // Clean, readable error message
+ * ```
  */
 export function sentenceCase<T extends string>(str: T): SentenceCase<T>;
 export function sentenceCase(str: string): string;

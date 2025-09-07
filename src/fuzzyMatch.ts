@@ -36,14 +36,43 @@ export interface FuzzyMatchResult {
  *
  * @example
  * ```ts
- * fuzzyMatch('gto', 'goToLine')
+ * // Basic usage with interface return type
+ * const result = fuzzyMatch('gto', 'goToLine')
+ * // result type: FuzzyMatchResult | null
  * // { matched: true, score: 0.875 }
  *
- * fuzzyMatch('usrctrl', 'userController.js')
- * // { matched: true, score: 0.823 }
+ * // Using options interface
+ * const options: FuzzyMatchOptions = {
+ *   caseSensitive: false,
+ *   threshold: 0.5
+ * }
+ * const match = fuzzyMatch('ABC', 'abcdef', options)
+ * // Returns null if score < 0.5, otherwise FuzzyMatchResult
  *
- * fuzzyMatch('abc', 'xyz')
- * // { matched: false, score: 0 }
+ * // File search with type safety
+ * function searchFiles(query: string, files: string[]): Array<string & { score: number }> {
+ *   return files
+ *     .map(file => {
+ *       const result = fuzzyMatch(query, file)
+ *       return result ? { file, ...result } : null
+ *     })
+ *     .filter((r): r is NonNullable<typeof r> => r !== null && r.matched)
+ *     .sort((a, b) => b.score - a.score)
+ *     .map(({ file, score }) => Object.assign(file, { score }))
+ * }
+ *
+ * // Command palette with threshold
+ * interface Command {
+ *   name: string
+ *   action: () => void
+ * }
+ * function findCommand(query: string, commands: Command[]): Command | undefined {
+ *   const matches = commands
+ *     .map(cmd => ({ cmd, result: fuzzyMatch(query, cmd.name, { threshold: 0.3 }) }))
+ *     .filter((m): m is { cmd: Command; result: FuzzyMatchResult } => m.result !== null)
+ *     .sort((a, b) => b.result.score - a.result.score)
+ *   return matches[0]?.cmd
+ * }
  * ```
  */
 export function fuzzyMatch(
