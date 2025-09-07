@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2025-09-07
+
+### Added
+
+- **Template Literal Types for Case Conversions** - Compile-time type transformations
+  - Advanced TypeScript template literal types for all 9 case conversion functions
+  - Precise type inference for literal strings (e.g., `kebabCase("helloWorld")` returns type `"hello-world"`)
+  - Function overloads preserve literal types while maintaining backward compatibility
+  - Complex type-level string parsing with proper word boundary detection
+  - Handles camelCase, PascalCase, ALLCAPS, consecutive digits, and special characters
+  - Zero runtime cost - all transformations happen at compile time
+  - Runtime strings still return regular `string` type for backward compatibility
+  - Comprehensive type-level tests and real-world usage examples
+  - Enhanced IDE support with autocomplete showing exact transformed strings
+  - No impact on bundle size (remains at 6.01 kB)
+
 ## [0.7.0] - 2025-09-06
 
 ### Added

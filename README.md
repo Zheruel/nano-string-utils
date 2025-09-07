@@ -14,11 +14,11 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 - 🚀 **Zero dependencies** - No bloat, just pure functions
 - 📦 **< 1KB per function** - Minimal bundle impact
 - 🌳 **Tree-shakeable** - Only import what you need
-- 💪 **Fully typed** - Complete TypeScript support with function overloads
+- 💪 **Fully typed** - Complete TypeScript support with function overloads and template literal types
 - ⚡ **Fast performance** - 2-25x faster than lodash for many operations
 - ⚡ **ESM & CJS** - Works everywhere
 - 🧪 **100% tested** - Reliable and production-ready
-- 🔒 **Type-safe** - Written in strict TypeScript with enhanced type inference
+- 🔒 **Type-safe** - Written in strict TypeScript with enhanced type inference and compile-time transformations
 - 📝 **Well documented** - JSDoc comments for all functions
 
 ## Installation
@@ -874,6 +874,79 @@ if (validated) {
   sendNewsletter(validated); // ✅ Type safe!
 }
 ```
+
+### Template Literal Types (TypeScript)
+
+Case conversion functions now provide precise type inference for literal strings at compile time. This feature enhances IDE support with exact type transformations while maintaining full backward compatibility.
+
+```typescript
+import { camelCase, kebabCase, snakeCase } from "nano-string-utils";
+
+// Literal strings get exact transformed types
+const endpoint = kebabCase("getUserProfile");
+// Type: "get-user-profile" (not just string!)
+
+const column = snakeCase("firstName");
+// Type: "first_name"
+
+const methodName = camelCase("fetch-user-data");
+// Type: "fetchUserData"
+
+// Runtime strings still return regular string type
+const userInput: string = getUserInput();
+const result = camelCase(userInput);
+// Type: string (backward compatible)
+```
+
+#### All Case Conversions Support Template Literals
+
+```typescript
+camelCase("hello-world");    // Type: "helloWorld"
+kebabCase("helloWorld");     // Type: "hello-world"
+snakeCase("HelloWorld");     // Type: "hello_world"
+pascalCase("hello-world");   // Type: "HelloWorld"
+constantCase("helloWorld");  // Type: "HELLO_WORLD"
+dotCase("HelloWorld");       // Type: "hello.world"
+pathCase("helloWorld");      // Type: "hello/world"
+sentenceCase("hello-world"); // Type: "Hello world"
+titleCase("hello-world");    // Type: "Hello World"
+```
+
+#### Type-Safe Configuration Objects
+
+Transform configuration keys between naming conventions:
+
+```typescript
+const config = {
+  "api-base-url": "https://api.example.com",
+  "max-retries": 3,
+} as const;
+
+// Convert keys to camelCase at type level
+type ConfigCamelCase = {
+  [K in keyof typeof config as CamelCase<K>]: (typeof config)[K];
+};
+// Type: { apiBaseUrl: string; maxRetries: number; }
+```
+
+#### API Route Mapping
+
+Create type-safe method names from API routes:
+
+```typescript
+type ApiRoutes = "user-profile" | "user-settings" | "admin-panel";
+
+type MethodNames = {
+  [K in ApiRoutes as `fetch${PascalCase<K>}`]: () => Promise<void>;
+};
+// Creates: fetchUserProfile(), fetchUserSettings(), fetchAdminPanel()
+```
+
+Benefits:
+- ✅ **Zero runtime cost** - All transformations happen at compile time
+- ✅ **Better IDE support** - Autocomplete shows exact transformed strings
+- ✅ **Type safety** - Catch typos and incorrect transformations during development
+- ✅ **Backward compatible** - Runtime strings work exactly as before
 
 ## Bundle Size
 
