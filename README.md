@@ -9,6 +9,10 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 [![CI/CD](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml/badge.svg)](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Documentation
+
+📚 **[View Full API Documentation](https://zheruel.github.io/nano-string-utils/)**
+
 ## Features
 
 - 🚀 **Zero dependencies** - No bloat, just pure functions

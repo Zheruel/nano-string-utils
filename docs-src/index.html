@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Interactive documentation and playground for nano-string-utils - Ultra-lightweight string utilities with zero dependencies" />
+    <title>nano-string-utils - Interactive Playground</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="container">
+          <div class="header-content">
+            <h1 class="logo">
+              <span class="logo-text">nano-string-utils</span>
+              <span class="version">v0.9.1</span>
+            </h1>
+            <nav class="nav">
+              <a href="#playground" class="nav-link active">Playground</a>
+              <a href="https://github.com/Zheruel/nano-string-utils" class="nav-link" target="_blank">GitHub</a>
+              <a href="https://www.npmjs.com/package/nano-string-utils" class="nav-link" target="_blank">NPM</a>
+              <a href="https://jsr.io/@zheruel/nano-string-utils" class="nav-link" target="_blank">JSR</a>
+            </nav>
+            <button class="theme-toggle" aria-label="Toggle theme">
+              <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <section id="playground" class="playground-section">
+            <div class="playground-layout">
+              <aside class="function-sidebar">
+                <div class="search-box">
+                  <input
+                    type="text"
+                    id="function-search"
+                    placeholder="Search functions..."
+                    class="search-input"
+                  />
+                </div>
+                <div class="function-categories">
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">🔤</span> Case Conversion
+                    </h3>
+                    <ul class="function-list" data-category="case">
+                      <li class="function-item" data-function="camelCase">camelCase</li>
+                      <li class="function-item" data-function="kebabCase">kebabCase</li>
+                      <li class="function-item" data-function="snakeCase">snakeCase</li>
+                      <li class="function-item" data-function="pascalCase">pascalCase</li>
+                      <li class="function-item" data-function="constantCase">constantCase</li>
+                      <li class="function-item" data-function="dotCase">dotCase</li>
+                      <li class="function-item" data-function="pathCase">pathCase</li>
+                      <li class="function-item" data-function="sentenceCase">sentenceCase</li>
+                      <li class="function-item" data-function="titleCase">titleCase</li>
+                    </ul>
+                  </div>
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">✂️</span> String Manipulation
+                    </h3>
+                    <ul class="function-list" data-category="manipulation">
+                      <li class="function-item" data-function="slugify">slugify</li>
+                      <li class="function-item" data-function="truncate">truncate</li>
+                      <li class="function-item" data-function="capitalize">capitalize</li>
+                      <li class="function-item" data-function="reverse">reverse</li>
+                      <li class="function-item" data-function="pad">pad</li>
+                      <li class="function-item" data-function="padStart">padStart</li>
+                      <li class="function-item" data-function="padEnd">padEnd</li>
+                      <li class="function-item" data-function="excerpt">excerpt</li>
+                      <li class="function-item" data-function="stripHtml">stripHtml</li>
+                      <li class="function-item" data-function="randomString">randomString</li>
+                      <li class="function-item" data-function="wordCount">wordCount</li>
+                    </ul>
+                  </div>
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">✅</span> Validation
+                    </h3>
+                    <ul class="function-list" data-category="validation">
+                      <li class="function-item" data-function="isEmail">isEmail</li>
+                      <li class="function-item" data-function="isUrl">isUrl</li>
+                      <li class="function-item" data-function="isASCII">isASCII</li>
+                    </ul>
+                  </div>
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">⚡</span> Advanced
+                    </h3>
+                    <ul class="function-list" data-category="advanced">
+                      <li class="function-item" data-function="template">template</li>
+                      <li class="function-item" data-function="templateSafe">templateSafe</li>
+                      <li class="function-item" data-function="fuzzyMatch">fuzzyMatch</li>
+                      <li class="function-item" data-function="levenshtein">levenshtein</li>
+                      <li class="function-item" data-function="diff">diff</li>
+                      <li class="function-item" data-function="highlight">highlight</li>
+                      <li class="function-item" data-function="deburr">deburr</li>
+                      <li class="function-item" data-function="escapeHtml">escapeHtml</li>
+                      <li class="function-item" data-function="hashString">hashString</li>
+                      <li class="function-item" data-function="memoize">memoize</li>
+                    </ul>
+                  </div>
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">🌍</span> Unicode
+                    </h3>
+                    <ul class="function-list" data-category="unicode">
+                      <li class="function-item" data-function="graphemes">graphemes</li>
+                      <li class="function-item" data-function="codePoints">codePoints</li>
+                      <li class="function-item" data-function="normalizeWhitespace">normalizeWhitespace</li>
+                      <li class="function-item" data-function="removeNonPrintable">removeNonPrintable</li>
+                      <li class="function-item" data-function="toASCII">toASCII</li>
+                    </ul>
+                  </div>
+                  <div class="category">
+                    <h3 class="category-title">
+                      <span style="opacity: 0.7">📝</span> Text Processing
+                    </h3>
+                    <ul class="function-list" data-category="text">
+                      <li class="function-item" data-function="pluralize">pluralize</li>
+                      <li class="function-item" data-function="singularize">singularize</li>
+                    </ul>
+                  </div>
+                </div>
+              </aside>
+
+              <div class="playground-main">
+                <div class="function-header">
+                  <h3 id="current-function-name">Select a function</h3>
+                  <div class="function-meta">
+                    <span class="bundle-size" id="bundle-size"></span>
+                    <button class="copy-import" id="copy-import" style="display: none;">
+                      Copy Import
+                    </button>
+                  </div>
+                </div>
+
+                <div class="function-description" id="function-description">
+                  Choose a function from the sidebar to see it in action
+                </div>
+
+                <div class="playground-editor" id="playground-editor" style="display: none;">
+                  <div class="editor-section">
+                    <h4>Input</h4>
+                    <div id="input-fields" class="input-fields"></div>
+                  </div>
+
+                  <div class="editor-section">
+                    <h4>Code</h4>
+                    <pre class="code-block"><code id="code-preview" class="language-javascript"></code></pre>
+                  </div>
+
+                  <div class="editor-section">
+                    <h4>Output</h4>
+                    <div class="output-display">
+                      <pre id="output-result" class="output-result"></pre>
+                    </div>
+                  </div>
+
+                  <div class="editor-section">
+                    <h4>Examples</h4>
+                    <div id="examples-list" class="examples-list"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <p>© 2025 nano-string-utils · MIT License · <a href="https://github.com/Zheruel/nano-string-utils">GitHub</a></p>
+        </div>
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
