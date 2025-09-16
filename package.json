@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Ultra-lightweight string utilities with zero dependencies",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -34,6 +34,9 @@
     "bench:all": "tsx benchmarks/run-benchmarks.ts",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc --out docs src/index.ts",
+    "docs:dev": "cd docs-src && npm run dev",
+    "docs:build": "cd docs-src && npm run build",
+    "docs:preview": "cd docs-src && npm run preview",
     "size": "size-limit",
     "prepublishOnly": "npm run build"
   },

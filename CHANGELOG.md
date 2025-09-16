@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2025-09-16
+
+### Added
+
+- **API Documentation Generation** - Comprehensive TypeDoc-powered API documentation
+  - Added TypeDoc configuration for generating API documentation from JSDoc comments
+  - Created GitHub Actions workflow for automatic deployment to GitHub Pages
+  - Added documentation site structure with Vite for future enhancements
+  - New npm scripts: `docs`, `docs:dev`, `docs:build`, `docs:preview`
+  - All existing functions have complete JSDoc with descriptions, parameters, returns, and examples
+  - Documentation automatically deployed at https://zheruel.github.io/nano-string-utils/
+  - Added README to docs-src directory with documentation maintenance instructions
+  - Updated CLAUDE.md with documentation generation guidelines for new functions
+
 ## [0.9.1] - 2025-09-07
 
 ### Documentation
@@ -262,6 +276,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.10.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.10.0
+[0.9.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.9.1
+[0.9.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.9.0
+[0.8.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.8.0
+[0.7.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.7.0
+[0.6.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.6.0
+[0.5.2]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.5.2
+[0.5.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.5.1
+[0.5.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.5.0
 [0.4.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.4.1
 [0.4.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.4.0
 [0.3.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.3.0
