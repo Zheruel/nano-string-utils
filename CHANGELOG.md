@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2025-09-17
+
+### Added
+
+- **Interactive Migration Guide** - Comprehensive guide for migrating from lodash/underscore
+  - Interactive documentation site with migration guide section
+  - Complete function mapping table showing lodash → nano-string-utils equivalents
+  - Step-by-step migration instructions with code examples
+  - Automated migration script for large codebases
+  - Bundle size comparison demonstrating 96% reduction (73KB → 6.5KB)
+  - Search and filtering for function mappings
+  - Three-panel navigation: Overview, Function Mapping, Migration Steps
+  - Integration with existing documentation site at GitHub Pages
+
+- **Dependabot Configuration** - Automated dependency management
+  - Weekly dependency updates for all package ecosystems
+  - Grouped minor/patch updates to reduce PR noise
+  - Separate configurations for main project, documentation site, and GitHub Actions
+  - Optimized PR limits: 5 for main project, 3 for docs, 2 for actions
+
 ## [0.10.0] - 2025-09-16
 
 ### Added
