@@ -7,11 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0] - 2025-09-17
+
+### Added
+
+- **CLI Tool** - Zero-dependency command-line interface for string utilities
+  - New `nano-string` command available via `npx nano-string-utils` or global installation
+  - Support for all 40+ library functions directly from the terminal
+  - Pipe support for Unix-style command chaining
+  - Options handling for complex functions (template, truncate, pad, etc.)
+  - Comprehensive help system with global and per-function documentation
+  - Smart argument parsing with JSON support for complex data
+  - Boolean output with proper exit codes for validation functions
+  - Full test coverage with 39 CLI-specific test cases
+  - Examples: `nano-string slugify "Hello World"`, `echo "text" | nano-string kebabCase`
+
 ## [0.11.0] - 2025-09-17
 
 ### Added
 
 - **Interactive Migration Guide** - Comprehensive guide for migrating from lodash/underscore
+
   - Interactive documentation site with migration guide section
   - Complete function mapping table showing lodash → nano-string-utils equivalents
   - Step-by-step migration instructions with code examples
@@ -296,6 +312,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.12.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.12.0
+[0.11.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.11.0
 [0.10.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.10.0
 [0.9.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.9.1
 [0.9.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.9.0
