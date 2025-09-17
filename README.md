@@ -76,6 +76,100 @@ camelCase("hello-world"); // 'helloWorld'
 truncate("Long text here", 10); // 'Long te...'
 ```
 
+## CLI
+
+Nano String Utils includes a command-line interface for quick string transformations directly in your terminal.
+
+### Installation
+
+When installed globally or used with `npx`, the CLI is available as `nano-string`:
+
+```bash
+# Global installation
+npm install -g nano-string-utils
+nano-string slugify "Hello World"
+
+# Using npx (no installation required)
+npx nano-string-utils slugify "Hello World"
+```
+
+### Basic Usage
+
+```bash
+nano-string <function> <input> [options]
+```
+
+### Examples
+
+#### Simple transformations
+```bash
+nano-string slugify "Hello World!"           # hello-world
+nano-string camelCase "hello-world"          # helloWorld
+nano-string kebabCase "hello_world"          # hello-world
+nano-string capitalize "hello"               # Hello
+nano-string reverse "hello"                  # olleh
+```
+
+#### Using pipes
+```bash
+echo "Hello World" | nano-string slugify     # hello-world
+cat file.txt | nano-string truncate --length 50
+```
+
+#### Functions with options
+```bash
+# Truncate with custom length
+nano-string truncate "Long text here" --length 10  # Long te...
+
+# Template interpolation
+nano-string template "Hello {{name}}" --data '{"name":"World"}'  # Hello World
+
+# Pad strings
+nano-string padStart "hi" --length 5 --char "*"  # ***hi
+
+# Generate random strings
+nano-string randomString --length 10  # Generates 10-character string
+```
+
+#### Validation functions
+```bash
+nano-string isEmail "test@example.com"       # true
+nano-string isUrl "https://example.com"      # true
+nano-string isASCII "hello"                  # true
+```
+
+#### Analysis functions
+```bash
+nano-string wordCount "hello world test"     # 3
+nano-string levenshtein "kitten" "sitting"   # 3
+nano-string diff "hello" "hallo"             # Shows differences
+```
+
+### Available Commands
+
+To see all available functions:
+```bash
+nano-string --help
+```
+
+For help on a specific function:
+```bash
+nano-string slugify --help
+```
+
+### Supported Functions
+
+The CLI supports most functions from the library:
+- **Case Conversions**: slugify, camelCase, snakeCase, kebabCase, pascalCase, constantCase, dotCase, pathCase, sentenceCase, titleCase
+- **String Manipulation**: capitalize, reverse, truncate, excerpt, pad, padStart, padEnd
+- **Text Processing**: stripHtml, escapeHtml, deburr, normalizeWhitespace, removeNonPrintable, toASCII
+- **Validation**: isEmail, isUrl, isASCII
+- **Analysis**: wordCount, levenshtein, levenshteinNormalized, diff
+- **Generation**: randomString, hashString
+- **Unicode**: graphemes, codePoints
+- **Pluralization**: pluralize, singularize
+- **Templates**: template, templateSafe, highlight, fuzzyMatch
+
 ## API Reference
 
 ### String Transformation
