@@ -53,6 +53,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build the library
+        run: npm run build
+
       - name: Run tests
         run: npm test
 

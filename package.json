@@ -31,7 +31,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "npm run build && vitest run --coverage",
     "bench": "vitest bench",
     "bench:perf": "vitest bench benchmarks/performance.bench.ts",
     "bench:size": "tsx benchmarks/bundle-size.ts",
