@@ -166,8 +166,15 @@ body {
   padding: 2rem 0;
 }
 
-.playground-section {
+.playground-section,
+.migration-section {
+  display: none;
   margin-bottom: 4rem;
+}
+
+.playground-section.active,
+.migration-section.active {
+  display: block;
 }
 
 /* Playground Layout */

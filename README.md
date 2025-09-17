@@ -13,6 +13,8 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 
 📚 **[View Full API Documentation](https://zheruel.github.io/nano-string-utils/)**
 
+🚀 **[Migration Guide](https://zheruel.github.io/nano-string-utils/#migration)** - Step-by-step guide for migrating from lodash/underscore
+
 ## Features
 
 - 🚀 **Zero dependencies** - No bloat, just pure functions

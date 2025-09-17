@@ -1,0 +1,9 @@
+/* Migration panel styles - separate from main section navigation */
+
+.migration-panel {
+  display: none;
+}
+
+.migration-panel.active {
+  display: block;
+}
