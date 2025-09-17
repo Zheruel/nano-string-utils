@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^24.5.1",
     "@types/prismjs": "^1.26.5",
     "typescript": "^5.0.0",
     "vite": "^5.0.0"
