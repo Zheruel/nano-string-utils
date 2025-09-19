@@ -11,13 +11,6 @@ export function initMigrationGuide() {
   if (!migrationContainer) return;
 
   migrationContainer.innerHTML = `
-    <div class="migration-hero">
-      <h1>Migration Guide</h1>
-      <p class="migration-subtitle">
-        Migrate from lodash or underscore to nano-string-utils and reduce your bundle size by <strong>96%</strong>
-      </p>
-    </div>
-
     <div class="migration-nav">
       <button class="migration-nav-btn active" data-section="overview">Overview</button>
       <button class="migration-nav-btn" data-section="mapping">Function Mapping</button>
@@ -52,7 +45,13 @@ export function initMigrationGuide() {
       btn.classList.add("active");
       if (targetSection) {
         const section = document.getElementById(targetSection);
-        if (section) section.classList.add("active");
+        if (section) {
+          section.classList.add("active");
+          // Re-highlight code blocks in the newly visible section
+          setTimeout(() => {
+            Prism.highlightAllUnder(section);
+          }, 0);
+        }
       }
     });
   });
@@ -83,16 +82,16 @@ export function initMigrationGuide() {
   });
 
   // Highlight code blocks
-  Prism.highlightAll();
+  setTimeout(() => {
+    Prism.highlightAll();
+  }, 0);
 }
 
 function renderOverview() {
   return `
-    <h2>Why Migrate?</h2>
-
-    <div class="comparison-cards">
-      <div class="comparison-card">
-        <h3>Bundle Size Comparison</h3>
+    <div class="comparison-section">
+      <h2>Why Migrate?</h2>
+      <div class="size-comparison">
         <div class="size-bars">
           <div class="size-bar">
             <span class="size-label">lodash (full)</span>
@@ -119,18 +118,30 @@ function renderOverview() {
             </div>
           </div>
         </div>
+
+        <div class="size-summary">
+          <span class="size-reduction">96% smaller</span>
+          <span class="size-details">than lodash • Zero dependencies</span>
+        </div>
       </div>
 
-      <div class="comparison-card">
-        <h3>Key Benefits</h3>
-        <ul class="benefits-list">
-          <li>✅ <strong>96% smaller</strong> bundle size</li>
-          <li>✅ <strong>Zero dependencies</strong></li>
-          <li>✅ <strong>Tree-shakeable</strong> - import only what you need</li>
-          <li>✅ <strong>TypeScript native</strong> with full type safety</li>
-          <li>✅ <strong>ESM & CommonJS</strong> support</li>
-          <li>✅ <strong>Modern JavaScript</strong> - no legacy browser baggage</li>
-        </ul>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <span class="benefit-icon">🎯</span>
+          <span class="benefit-text">Tree-shakeable imports</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">📦</span>
+          <span class="benefit-text">ESM & CommonJS support</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🔒</span>
+          <span class="benefit-text">Full TypeScript safety</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">⚡</span>
+          <span class="benefit-text">Modern JavaScript only</span>
+        </div>
       </div>
     </div>
 
@@ -203,12 +214,14 @@ function renderMigrationSteps() {
     <div class="migration-steps">
       ${steps
         .map(
-          (step) => `
+          (step, index) => `
         <div class="migration-step">
           <div class="step-number">${step.step}</div>
           <div class="step-content">
             <h3>${step.title}</h3>
-            <pre><code class="language-bash">${step.code}</code></pre>
+            <pre><code class="language-${
+              index === 0 ? "bash" : "javascript"
+            }">${step.code}</code></pre>
           </div>
         </div>
       `
