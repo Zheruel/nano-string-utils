@@ -1,0 +1,732 @@
+{
+  "generated": "2025-09-18T07:51:28.300Z",
+  "totalFunctions": 41,
+  "functions": [
+    {
+      "name": "camelCase",
+      "nano": {
+        "bundled": {
+          "raw": 1673,
+          "gzip": 826
+        },
+        "treeShaken": {
+          "raw": 1673,
+          "gzip": 826
+        }
+      },
+      "lodash": {
+        "raw": 8506,
+        "gzip": 3514
+      },
+      "esToolkit": {
+        "raw": 367,
+        "gzip": 273
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -203
+    },
+    {
+      "name": "capitalize",
+      "nano": {
+        "bundled": {
+          "raw": 1412,
+          "gzip": 697
+        },
+        "treeShaken": {
+          "raw": 1412,
+          "gzip": 697
+        }
+      },
+      "lodash": {
+        "raw": 3782,
+        "gzip": 1761
+      },
+      "esToolkit": {
+        "raw": 97,
+        "gzip": 107
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -551
+    },
+    {
+      "name": "codePoints",
+      "nano": {
+        "bundled": {
+          "raw": 1457,
+          "gzip": 728
+        },
+        "treeShaken": {
+          "raw": 1457,
+          "gzip": 728
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "constantCase",
+      "nano": {
+        "bundled": {
+          "raw": 1665,
+          "gzip": 805
+        },
+        "treeShaken": {
+          "raw": 1665,
+          "gzip": 805
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "deburr",
+      "nano": {
+        "bundled": {
+          "raw": 1676,
+          "gzip": 879
+        },
+        "treeShaken": {
+          "raw": 1676,
+          "gzip": 879
+        }
+      },
+      "lodash": {
+        "raw": 4663,
+        "gzip": 1872
+      },
+      "esToolkit": {
+        "raw": 544,
+        "gzip": 332
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -165
+    },
+    {
+      "name": "diff",
+      "nano": {
+        "bundled": {
+          "raw": 1796,
+          "gzip": 863
+        },
+        "treeShaken": {
+          "raw": 1796,
+          "gzip": 863
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "dotCase",
+      "nano": {
+        "bundled": {
+          "raw": 1653,
+          "gzip": 785
+        },
+        "treeShaken": {
+          "raw": 1653,
+          "gzip": 785
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "escapeHtml",
+      "nano": {
+        "bundled": {
+          "raw": 1461,
+          "gzip": 741
+        },
+        "treeShaken": {
+          "raw": 1461,
+          "gzip": 741
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "excerpt",
+      "nano": {
+        "bundled": {
+          "raw": 1667,
+          "gzip": 840
+        },
+        "treeShaken": {
+          "raw": 1667,
+          "gzip": 840
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "fuzzyMatch",
+      "nano": {
+        "bundled": {
+          "raw": 2506,
+          "gzip": 1212
+        },
+        "treeShaken": {
+          "raw": 2506,
+          "gzip": 1212
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "graphemes",
+      "nano": {
+        "bundled": {
+          "raw": 1541,
+          "gzip": 759
+        },
+        "treeShaken": {
+          "raw": 1541,
+          "gzip": 759
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "hashString",
+      "nano": {
+        "bundled": {
+          "raw": 1498,
+          "gzip": 761
+        },
+        "treeShaken": {
+          "raw": 1498,
+          "gzip": 761
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "highlight",
+      "nano": {
+        "bundled": {
+          "raw": 1989,
+          "gzip": 1059
+        },
+        "treeShaken": {
+          "raw": 1989,
+          "gzip": 1059
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "isASCII",
+      "nano": {
+        "bundled": {
+          "raw": 1448,
+          "gzip": 721
+        },
+        "treeShaken": {
+          "raw": 1448,
+          "gzip": 721
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "isEmail",
+      "nano": {
+        "bundled": {
+          "raw": 1346,
+          "gzip": 666
+        },
+        "treeShaken": {
+          "raw": 1346,
+          "gzip": 666
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "isUrl",
+      "nano": {
+        "bundled": {
+          "raw": 1344,
+          "gzip": 666
+        },
+        "treeShaken": {
+          "raw": 1344,
+          "gzip": 666
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "kebabCase",
+      "nano": {
+        "bundled": {
+          "raw": 1610,
+          "gzip": 792
+        },
+        "treeShaken": {
+          "raw": 1610,
+          "gzip": 792
+        }
+      },
+      "lodash": {
+        "raw": 6856,
+        "gzip": 2889
+      },
+      "esToolkit": {
+        "raw": 238,
+        "gzip": 197
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -302
+    },
+    {
+      "name": "levenshtein",
+      "nano": {
+        "bundled": {
+          "raw": 2083,
+          "gzip": 1030
+        },
+        "treeShaken": {
+          "raw": 2083,
+          "gzip": 1030
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "levenshteinNormalized",
+      "nano": {
+        "bundled": {
+          "raw": 2243,
+          "gzip": 1085
+        },
+        "treeShaken": {
+          "raw": 2243,
+          "gzip": 1085
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "memoize",
+      "nano": {
+        "bundled": {
+          "raw": 1879,
+          "gzip": 928
+        },
+        "treeShaken": {
+          "raw": 1879,
+          "gzip": 928
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "normalizeWhitespace",
+      "nano": {
+        "bundled": {
+          "raw": 1811,
+          "gzip": 859
+        },
+        "treeShaken": {
+          "raw": 1811,
+          "gzip": 859
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "pad",
+      "nano": {
+        "bundled": {
+          "raw": 1784,
+          "gzip": 896
+        },
+        "treeShaken": {
+          "raw": 1784,
+          "gzip": 896
+        }
+      },
+      "lodash": {
+        "raw": 5920,
+        "gzip": 2636
+      },
+      "esToolkit": {
+        "raw": 109,
+        "gzip": 118
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -659
+    },
+    {
+      "name": "padEnd",
+      "nano": {
+        "bundled": {
+          "raw": 1551,
+          "gzip": 788
+        },
+        "treeShaken": {
+          "raw": 1551,
+          "gzip": 788
+        }
+      },
+      "lodash": {
+        "raw": 5853,
+        "gzip": 2609
+      },
+      "esToolkit": null,
+      "winner": "nano",
+      "percentSavings": 70
+    },
+    {
+      "name": "padStart",
+      "nano": {
+        "bundled": {
+          "raw": 1545,
+          "gzip": 784
+        },
+        "treeShaken": {
+          "raw": 1545,
+          "gzip": 784
+        }
+      },
+      "lodash": {
+        "raw": 5853,
+        "gzip": 2609
+      },
+      "esToolkit": null,
+      "winner": "nano",
+      "percentSavings": 70
+    },
+    {
+      "name": "pascalCase",
+      "nano": {
+        "bundled": {
+          "raw": 1662,
+          "gzip": 820
+        },
+        "treeShaken": {
+          "raw": 1662,
+          "gzip": 820
+        }
+      },
+      "lodash": null,
+      "esToolkit": {
+        "raw": 299,
+        "gzip": 231
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -255
+    },
+    {
+      "name": "pathCase",
+      "nano": {
+        "bundled": {
+          "raw": 1654,
+          "gzip": 785
+        },
+        "treeShaken": {
+          "raw": 1654,
+          "gzip": 785
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "pluralize",
+      "nano": {
+        "bundled": {
+          "raw": 2256,
+          "gzip": 1033
+        },
+        "treeShaken": {
+          "raw": 2256,
+          "gzip": 1033
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "randomString",
+      "nano": {
+        "bundled": {
+          "raw": 1559,
+          "gzip": 821
+        },
+        "treeShaken": {
+          "raw": 1559,
+          "gzip": 821
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "removeNonPrintable",
+      "nano": {
+        "bundled": {
+          "raw": 1750,
+          "gzip": 919
+        },
+        "treeShaken": {
+          "raw": 1750,
+          "gzip": 919
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "reverse",
+      "nano": {
+        "bundled": {
+          "raw": 1391,
+          "gzip": 688
+        },
+        "treeShaken": {
+          "raw": 1391,
+          "gzip": 688
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "sentenceCase",
+      "nano": {
+        "bundled": {
+          "raw": 2148,
+          "gzip": 991
+        },
+        "treeShaken": {
+          "raw": 2148,
+          "gzip": 991
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "singularize",
+      "nano": {
+        "bundled": {
+          "raw": 2703,
+          "gzip": 1146
+        },
+        "treeShaken": {
+          "raw": 2703,
+          "gzip": 1146
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "slugify",
+      "nano": {
+        "bundled": {
+          "raw": 1346,
+          "gzip": 667
+        },
+        "treeShaken": {
+          "raw": 1346,
+          "gzip": 667
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "snakeCase",
+      "nano": {
+        "bundled": {
+          "raw": 1610,
+          "gzip": 793
+        },
+        "treeShaken": {
+          "raw": 1610,
+          "gzip": 793
+        }
+      },
+      "lodash": {
+        "raw": 6856,
+        "gzip": 2889
+      },
+      "esToolkit": {
+        "raw": 238,
+        "gzip": 197
+      },
+      "winner": "es-toolkit",
+      "percentSavings": -303
+    },
+    {
+      "name": "stripHtml",
+      "nano": {
+        "bundled": {
+          "raw": 1389,
+          "gzip": 689
+        },
+        "treeShaken": {
+          "raw": 1389,
+          "gzip": 689
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "template",
+      "nano": {
+        "bundled": {
+          "raw": 1753,
+          "gzip": 887
+        },
+        "treeShaken": {
+          "raw": 1753,
+          "gzip": 887
+        }
+      },
+      "lodash": {
+        "raw": 13483,
+        "gzip": 5812
+      },
+      "esToolkit": null,
+      "winner": "nano",
+      "percentSavings": 85
+    },
+    {
+      "name": "templateSafe",
+      "nano": {
+        "bundled": {
+          "raw": 2142,
+          "gzip": 1072
+        },
+        "treeShaken": {
+          "raw": 2142,
+          "gzip": 1072
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "titleCase",
+      "nano": {
+        "bundled": {
+          "raw": 2315,
+          "gzip": 1143
+        },
+        "treeShaken": {
+          "raw": 2315,
+          "gzip": 1143
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "toASCII",
+      "nano": {
+        "bundled": {
+          "raw": 4730,
+          "gzip": 1882
+        },
+        "treeShaken": {
+          "raw": 4730,
+          "gzip": 1882
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "truncate",
+      "nano": {
+        "bundled": {
+          "raw": 1550,
+          "gzip": 780
+        },
+        "treeShaken": {
+          "raw": 1550,
+          "gzip": 780
+        }
+      },
+      "lodash": {
+        "raw": 6590,
+        "gzip": 2929
+      },
+      "esToolkit": null,
+      "winner": "nano",
+      "percentSavings": 73
+    },
+    {
+      "name": "wordCount",
+      "nano": {
+        "bundled": {
+          "raw": 1430,
+          "gzip": 713
+        },
+        "treeShaken": {
+          "raw": 1430,
+          "gzip": 713
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    }
+  ],
+  "summary": {
+    "totalNanoWins": 34,
+    "totalEsToolkitWins": 7,
+    "totalLodashWins": 0,
+    "averageSavings": -52,
+    "smallestFunction": "isEmail",
+    "largestFunction": "toASCII"
+  }
+}

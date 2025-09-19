@@ -1,24 +1,28 @@
 /* Nano String Utils - Documentation Styles */
 
 :root {
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-tertiary: #f1f5f9;
-  --color-text: #0f172a;
-  --color-text-secondary: #64748b;
+  /* Dark theme colors (permanent) */
+  --color-bg: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-text: #f8fafc;
+  --color-text-secondary: #cbd5e1;
   --color-text-muted: #94a3b8;
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-primary: #3b82f6;
-  --color-primary-light: #60a5fa;
-  --color-primary-dark: #2563eb;
-  --color-success: #10b981;
-  --color-success-light: #34d399;
-  --color-success-bg: #d1fae5;
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+  --color-border-dark: #475569;
+  --color-primary: #60a5fa;
+  --color-primary-light: #93bbfc;
+  --color-primary-dark: #3b82f6;
+  --color-success: #34d399;
+  --color-success-light: #6ee7b7;
+  --color-success-bg: #064e3b;
   --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-error-light: #f87171;
-  --color-error-bg: #fee2e2;
+  --color-error: #f87171;
+  --color-error-light: #fca5a5;
+  --color-error-bg: #7f1d1d;
+
+  /* Layout */
   --radius: 0.75rem;
   --radius-sm: 0.5rem;
   --radius-lg: 1rem;
@@ -28,26 +32,6 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-}
-
-[data-theme="dark"] {
-  --color-bg: #0f172a;
-  --color-bg-secondary: #1e293b;
-  --color-bg-tertiary: #334155;
-  --color-text: #f8fafc;
-  --color-text-secondary: #cbd5e1;
-  --color-text-muted: #94a3b8;
-  --color-border: #334155;
-  --color-border-light: #1e293b;
-  --color-primary: #60a5fa;
-  --color-primary-light: #93bbfc;
-  --color-primary-dark: #3b82f6;
-  --color-success: #34d399;
-  --color-success-light: #6ee7b7;
-  --color-success-bg: #064e3b;
-  --color-error: #f87171;
-  --color-error-light: #fca5a5;
-  --color-error-bg: #7f1d1d;
 }
 
 /* Global Styles */
@@ -149,17 +133,6 @@ body {
   width: 100%;
 }
 
-.theme-toggle {
-  background: none;
-  border: none;
-  color: var(--color-text);
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* Main Content */
 .main {
   min-height: calc(100vh - 120px);
@@ -167,13 +140,15 @@ body {
 }
 
 .playground-section,
-.migration-section {
+.migration-section,
+.bundle-size-section {
   display: none;
   margin-bottom: 4rem;
 }
 
 .playground-section.active,
-.migration-section.active {
+.migration-section.active,
+.bundle-size-section.active {
   display: block;
 }
 
@@ -191,6 +166,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.5rem;
+  padding-right: 0.75rem;
   position: sticky;
   top: 100px;
   max-height: calc(100vh - 120px);
@@ -204,20 +180,32 @@ body {
 
 .search-input {
   width: 100%;
-  padding: 0.625rem;
-  border: 2px solid transparent;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
-  background: var(--color-bg);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--color-text);
   font-size: 0.875rem;
   font-weight: 500;
   transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+.search-input:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .search-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.15);
 }
 
 .category {
@@ -249,8 +237,14 @@ body {
   gap: 0.5rem;
 }
 
+.function-categories {
+  padding-right: 0.5rem;
+}
+
 .function-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .function-item {
@@ -523,24 +517,6 @@ body {
   font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-}
-
-/* Footer */
-.footer {
-  border-top: 1px solid var(--color-border);
-  padding: 2rem 0;
-  text-align: center;
-  color: var(--color-text-secondary);
-  font-size: 0.875rem;
-}
-
-.footer a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
 }
 
 /* Scrollbar */

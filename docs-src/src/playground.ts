@@ -47,7 +47,7 @@ function selectFunction(functionName: string) {
   // Update UI
   const nameEl = document.getElementById("current-function-name");
   const descEl = document.getElementById("function-description");
-  const sizeEl = document.getElementById("bundle-size");
+  const sizeEl = document.getElementById("function-bundle-size");
   const copyBtn = document.getElementById("copy-import") as HTMLButtonElement;
   const editorEl = document.getElementById("playground-editor");
 

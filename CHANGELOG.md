@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0] - 2025-09-19
+
+### Added
+
+- **Detailed Bundle Size Analysis** - Comprehensive per-function bundle size comparison tool
+  - New `benchmarks/bundle-size.ts` tool for measuring and comparing bundle sizes across all 41 functions
+  - Automated extraction of all available functions from the library
+  - Tree-shaking analysis showing both bundled and tree-shaken sizes for nano-string-utils
+  - Side-by-side comparison with lodash and es-toolkit for equivalent functions
+  - Visual bundle size viewer integrated into documentation site with interactive charts
+  - JSON report generation with detailed metrics for each function
+  - Shows winner and percentage savings for each function comparison
+  - Interactive sorting, filtering, and comparison features in the documentation
+
+### Improved
+
+- **Documentation Site** - Enhanced with bundle size visualization
+  - Added interactive bundle size comparison table with sorting capabilities
+  - Visual size comparison bars showing relative sizes between libraries
+  - Real-time function search and filtering in bundle size viewer
+  - Consolidated CSS files for better maintainability (merged migration-improvements.css into migration.css)
+  - Fixed TypeScript warnings in bundle-size.ts (removed unused variables)
+
+### Technical
+
+- Benchmark infrastructure now includes full function inventory extraction
+- Bundle size reports include both markdown and JSON output formats
+- Added public serving of bundle size data for documentation site consumption
+
 ## [0.12.0] - 2025-09-17
 
 ### Added
@@ -312,6 +341,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.13.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.13.0
 [0.12.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.12.0
 [0.11.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.11.0
 [0.10.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.10.0

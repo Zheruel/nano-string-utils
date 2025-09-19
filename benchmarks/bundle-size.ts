@@ -2,27 +2,67 @@ import { build } from "esbuild";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { gzip } from "zlib";
+import { promisify } from "util";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const gzipAsync = promisify(gzip);
 
 interface BundleSizeResult {
   library: string;
   function: string;
   minified: number;
   gzipped: number;
+  treeShaken?: {
+    minified: number;
+    gzipped: number;
+  };
 }
 
-const libraries = {
-  "nano-string-utils": "nano-string-utils",
-  lodash: "lodash",
-  "es-toolkit": "es-toolkit",
-};
+interface DetailedSizeMetrics {
+  function: string;
+  nano: {
+    minified: number;
+    gzipped: number;
+    treeShaken: {
+      minified: number;
+      gzipped: number;
+    };
+  };
+  lodash?: {
+    minified: number;
+    gzipped: number;
+  };
+  esToolkit?: {
+    minified: number;
+    gzipped: number;
+  };
+  winner: string;
+  percentSavings?: number; // How much smaller nano is compared to smallest competitor
+}
 
-const functions = [
+// Read all functions from the generated JSON file
+async function getAllFunctions(): Promise<string[]> {
+  const functionsPath = path.join(__dirname, "all-functions.json");
+
+  // If the file doesn't exist, run the extraction script first
+  try {
+    await fs.access(functionsPath);
+  } catch {
+    console.log("Extracting function list...");
+    const { execSync } = await import("child_process");
+    execSync("node benchmarks/extract-functions.js", { stdio: "inherit" });
+  }
+
+  const content = await fs.readFile(functionsPath, "utf-8");
+  return JSON.parse(content);
+}
+
+// Known functions in lodash
+const lodashFunctions = new Set([
   "camelCase",
   "kebabCase",
   "snakeCase",
-  "pascalCase",
   "capitalize",
   "truncate",
   "deburr",
@@ -30,11 +70,29 @@ const functions = [
   "padStart",
   "padEnd",
   "template",
-];
+  "escapeHtml",
+  "words",
+  "random",
+]);
+
+// Known functions in es-toolkit
+const esToolkitFunctions = new Set([
+  "camelCase",
+  "kebabCase",
+  "snakeCase",
+  "pascalCase",
+  "capitalize",
+  "deburr",
+  "pad",
+  "escapeHtml",
+  "random",
+  "truncate",
+]);
 
 async function measureBundleSize(
   library: string,
-  functionName: string
+  functionName: string,
+  measureTreeShaken = false
 ): Promise<BundleSizeResult | null> {
   const tempDir = path.join(__dirname, ".temp");
   await fs.mkdir(tempDir, { recursive: true });
@@ -44,43 +102,24 @@ async function measureBundleSize(
   // Generate import code based on library
   let importCode = "";
   if (library === "nano-string-utils") {
-    importCode = `import { ${functionName} } from 'nano-string-utils';\nconsole.log(${functionName});`;
+    if (measureTreeShaken) {
+      // Direct import from specific file for tree-shaken measurement
+      importCode = `import { ${functionName} } from '../../dist/index.js';\nexport { ${functionName} };`;
+    } else {
+      // Regular import from index
+      importCode = `import { ${functionName} } from 'nano-string-utils';\nexport { ${functionName} };`;
+    }
   } else if (library === "lodash") {
-    // Check if function exists in lodash
-    const lodashFunctions = [
-      "camelCase",
-      "kebabCase",
-      "snakeCase",
-      "capitalize",
-      "truncate",
-      "deburr",
-      "pad",
-      "padStart",
-      "padEnd",
-      "template",
-    ];
-    if (!lodashFunctions.includes(functionName)) {
+    if (!lodashFunctions.has(functionName)) {
       return null;
     }
     // Use modular imports for lodash
-    importCode = `import ${functionName} from 'lodash/${functionName}';\nconsole.log(${functionName});`;
+    importCode = `import ${functionName} from 'lodash/${functionName}';\nexport default ${functionName};`;
   } else if (library === "es-toolkit") {
-    // Check if function exists in es-toolkit
-    const esToolkitFunctions = [
-      "camelCase",
-      "kebabCase",
-      "snakeCase",
-      "pascalCase",
-      "capitalize",
-      "deburr",
-      "pad",
-      "padStart",
-      "padEnd",
-    ];
-    if (!esToolkitFunctions.includes(functionName)) {
+    if (!esToolkitFunctions.has(functionName)) {
       return null;
     }
-    importCode = `import { ${functionName} } from 'es-toolkit';\nconsole.log(${functionName});`;
+    importCode = `import { ${functionName} } from 'es-toolkit';\nexport { ${functionName} };`;
   }
 
   await fs.writeFile(entryFile, importCode);
@@ -96,47 +135,135 @@ async function measureBundleSize(
       write: false,
       metafile: true,
       external: [],
+      treeShaking: true,
     });
 
     const minifiedSize = result.outputFiles[0].contents.byteLength;
 
-    // Calculate gzipped size using Node's built-in zlib
-    const { gzip } = await import("zlib");
-    const { promisify } = await import("util");
-    const gzipAsync = promisify(gzip);
+    // Calculate gzipped size
     const gzipped = await gzipAsync(result.outputFiles[0].contents);
     const gzippedSize = gzipped.byteLength;
 
     // Clean up temp file
     await fs.unlink(entryFile).catch(() => {});
 
-    return {
+    const baseResult: BundleSizeResult = {
       library,
       function: functionName,
       minified: minifiedSize,
       gzipped: gzippedSize,
     };
+
+    // If this is nano and we haven't measured tree-shaken yet, do it now
+    if (library === "nano-string-utils" && !measureTreeShaken) {
+      const treeShaken = await measureBundleSize(library, functionName, true);
+      if (treeShaken) {
+        baseResult.treeShaken = {
+          minified: treeShaken.minified,
+          gzipped: treeShaken.gzipped,
+        };
+      }
+    }
+
+    return baseResult;
   } catch (error) {
-    // Function doesn't exist in this library
+    // Function doesn't exist in this library or build failed
     await fs.unlink(entryFile).catch(() => {});
     return null;
   }
 }
 
 async function generateBundleSizeReport() {
+  const functions = await getAllFunctions();
   const results: BundleSizeResult[] = [];
+  const detailedMetrics: DetailedSizeMetrics[] = [];
 
-  for (const [libName, libPackage] of Object.entries(libraries)) {
-    for (const func of functions) {
-      const result = await measureBundleSize(libPackage, func);
-      if (result) {
-        results.push(result);
-        console.log(
-          `✓ Measured ${libName}/${func}: ${result.minified} bytes (${result.gzipped} gzipped)`
-        );
-      } else {
-        console.log(`- Skipped ${libName}/${func} (not available)`);
+  console.log(
+    `📊 Measuring bundle sizes for ${functions.length} functions...\n`
+  );
+
+  for (const func of functions) {
+    // Measure nano-string-utils
+    const nanoResult = await measureBundleSize("nano-string-utils", func);
+    if (nanoResult) {
+      results.push(nanoResult);
+      console.log(
+        `✓ nano-string-utils/${func}: ${nanoResult.minified}B (${nanoResult.gzipped}B gzip) | tree-shaken: ${nanoResult.treeShaken?.minified}B (${nanoResult.treeShaken?.gzipped}B gzip)`
+      );
+    }
+
+    // Measure lodash
+    const lodashResult = await measureBundleSize("lodash", func);
+    if (lodashResult) {
+      results.push(lodashResult);
+      console.log(
+        `✓ lodash/${func}: ${lodashResult.minified}B (${lodashResult.gzipped}B gzip)`
+      );
+    }
+
+    // Measure es-toolkit
+    const esToolkitResult = await measureBundleSize("es-toolkit", func);
+    if (esToolkitResult) {
+      results.push(esToolkitResult);
+      console.log(
+        `✓ es-toolkit/${func}: ${esToolkitResult.minified}B (${esToolkitResult.gzipped}B gzip)`
+      );
+    }
+
+    // Create detailed metrics for this function
+    if (nanoResult) {
+      const metric: DetailedSizeMetrics = {
+        function: func,
+        nano: {
+          minified: nanoResult.minified,
+          gzipped: nanoResult.gzipped,
+          treeShaken: {
+            minified: nanoResult.treeShaken?.minified || nanoResult.minified,
+            gzipped: nanoResult.treeShaken?.gzipped || nanoResult.gzipped,
+          },
+        },
+        winner: "nano",
+      };
+
+      if (lodashResult) {
+        metric.lodash = {
+          minified: lodashResult.minified,
+          gzipped: lodashResult.gzipped,
+        };
       }
+
+      if (esToolkitResult) {
+        metric.esToolkit = {
+          minified: esToolkitResult.minified,
+          gzipped: esToolkitResult.gzipped,
+        };
+      }
+
+      // Determine winner based on gzipped tree-shaken size
+      const sizes = [
+        {
+          name: "nano",
+          size: nanoResult.treeShaken?.gzipped || nanoResult.gzipped,
+        },
+        { name: "lodash", size: lodashResult?.gzipped || Infinity },
+        { name: "es-toolkit", size: esToolkitResult?.gzipped || Infinity },
+      ].filter((s) => s.size !== Infinity);
+
+      metric.winner = sizes.reduce((min, curr) =>
+        curr.size < min.size ? curr : min
+      ).name;
+
+      // Calculate savings percentage
+      const competitors = sizes.filter((s) => s.name !== "nano");
+      if (competitors.length > 0) {
+        const smallestCompetitor = Math.min(...competitors.map((c) => c.size));
+        const nanoSize = nanoResult.treeShaken?.gzipped || nanoResult.gzipped;
+        metric.percentSavings = Math.round(
+          ((smallestCompetitor - nanoSize) / smallestCompetitor) * 100
+        );
+      }
+
+      detailedMetrics.push(metric);
     }
   }
 
@@ -144,7 +271,7 @@ async function generateBundleSizeReport() {
   const tempDir = path.join(__dirname, ".temp");
   await fs.rmdir(tempDir, { recursive: true }).catch(() => {});
 
-  return results;
+  return { results, detailedMetrics };
 }
 
 function formatBytes(bytes: number): string {
@@ -153,74 +280,150 @@ function formatBytes(bytes: number): string {
   return kb < 10 ? `${kb.toFixed(1)}KB` : `${Math.round(kb)}KB`;
 }
 
-function generateMarkdownTable(results: BundleSizeResult[]): string {
-  const functions = [...new Set(results.map((r) => r.function))].sort();
+function generateMarkdownTable(metrics: DetailedSizeMetrics[]): string {
+  let markdown = "# Bundle Size Comparison\n\n";
+  markdown += "## Overview\n\n";
 
-  let markdown = "## Bundle Size Comparison\n\n";
+  // Summary stats
+  const totalNanoWins = metrics.filter((m) => m.winner === "nano").length;
+  const avgSavings =
+    metrics
+      .filter((m) => m.percentSavings !== undefined)
+      .reduce((sum, m) => sum + (m.percentSavings || 0), 0) / metrics.length;
+
+  markdown += `- **Total Functions**: ${metrics.length}\n`;
+  markdown += `- **Nano Wins**: ${totalNanoWins}/${metrics.length}\n`;
+  markdown += `- **Average Size Reduction**: ${Math.round(avgSavings)}%\n\n`;
+
+  markdown += "## Detailed Comparison\n\n";
   markdown +=
-    "Sizes shown are for minified (gzipped) bundles when importing a single function.\n\n";
+    "Sizes shown are minified (gzipped). For nano-string-utils, tree-shaken size is shown when different from bundled.\n\n";
   markdown +=
-    "| Function | nano-string-utils | lodash | es-toolkit | Winner |\n";
+    "| Function | nano-string-utils | lodash | es-toolkit | Winner | Savings |\n";
   markdown +=
-    "|----------|-------------------|--------|------------|--------|\n";
+    "|----------|-------------------|--------|------------|--------|----------|\n";
 
-  for (const func of functions) {
-    const nanoResult = results.find(
-      (r) => r.library === "nano-string-utils" && r.function === func
-    );
-    const lodashResult = results.find(
-      (r) => r.library === "lodash" && r.function === func
-    );
-    const esToolkitResult = results.find(
-      (r) => r.library === "es-toolkit" && r.function === func
-    );
+  for (const metric of metrics.sort((a, b) =>
+    a.function.localeCompare(b.function)
+  )) {
+    const nanoSize =
+      metric.nano.treeShaken.gzipped !== metric.nano.gzipped
+        ? `${formatBytes(metric.nano.minified)} (${formatBytes(
+            metric.nano.gzipped
+          )}) → ${formatBytes(metric.nano.treeShaken.minified)} (${formatBytes(
+            metric.nano.treeShaken.gzipped
+          )})`
+        : `${formatBytes(metric.nano.minified)} (${formatBytes(
+            metric.nano.gzipped
+          )})`;
 
-    const sizes = [
-      { name: "nano", size: nanoResult?.gzipped || Infinity },
-      { name: "lodash", size: lodashResult?.gzipped || Infinity },
-      { name: "es-toolkit", size: esToolkitResult?.gzipped || Infinity },
-    ].filter((s) => s.size !== Infinity);
-
-    const winner =
-      sizes.length > 0
-        ? sizes.reduce((min, curr) => (curr.size < min.size ? curr : min)).name
-        : "-";
-
-    const nanoSize = nanoResult
-      ? `${formatBytes(nanoResult.minified)} (${formatBytes(
-          nanoResult.gzipped
-        )})`
-      : "-";
-    const lodashSize = lodashResult
-      ? `${formatBytes(lodashResult.minified)} (${formatBytes(
-          lodashResult.gzipped
-        )})`
-      : "-";
-    const esToolkitSize = esToolkitResult
-      ? `${formatBytes(esToolkitResult.minified)} (${formatBytes(
-          esToolkitResult.gzipped
+    const lodashSize = metric.lodash
+      ? `${formatBytes(metric.lodash.minified)} (${formatBytes(
+          metric.lodash.gzipped
         )})`
       : "-";
 
-    markdown += `| ${func} | ${nanoSize} | ${lodashSize} | ${esToolkitSize} | ${winner} |\n`;
+    const esToolkitSize = metric.esToolkit
+      ? `${formatBytes(metric.esToolkit.minified)} (${formatBytes(
+          metric.esToolkit.gzipped
+        )})`
+      : "-";
+
+    const savingsStr =
+      metric.percentSavings !== undefined ? `${metric.percentSavings}%` : "-";
+
+    const winnerIcon = metric.winner === "nano" ? "🏆" : "";
+
+    markdown += `| ${metric.function} | ${nanoSize} | ${lodashSize} | ${esToolkitSize} | ${metric.winner} ${winnerIcon} | ${savingsStr} |\n`;
   }
 
   return markdown;
 }
 
+async function generateJSONReport(metrics: DetailedSizeMetrics[]) {
+  const outputPath = path.join(__dirname, "bundle-sizes.json");
+
+  const report = {
+    generated: new Date().toISOString(),
+    totalFunctions: metrics.length,
+    functions: metrics.map((m) => ({
+      name: m.function,
+      nano: {
+        bundled: {
+          raw: m.nano.minified,
+          gzip: m.nano.gzipped,
+        },
+        treeShaken: {
+          raw: m.nano.treeShaken.minified,
+          gzip: m.nano.treeShaken.gzipped,
+        },
+      },
+      lodash: m.lodash
+        ? {
+            raw: m.lodash.minified,
+            gzip: m.lodash.gzipped,
+          }
+        : null,
+      esToolkit: m.esToolkit
+        ? {
+            raw: m.esToolkit.minified,
+            gzip: m.esToolkit.gzipped,
+          }
+        : null,
+      winner: m.winner,
+      percentSavings: m.percentSavings,
+    })),
+    summary: {
+      totalNanoWins: metrics.filter((m) => m.winner === "nano").length,
+      totalEsToolkitWins: metrics.filter((m) => m.winner === "es-toolkit")
+        .length,
+      totalLodashWins: metrics.filter((m) => m.winner === "lodash").length,
+      averageSavings: Math.round(
+        metrics
+          .filter((m) => m.percentSavings !== undefined)
+          .reduce((sum, m) => sum + (m.percentSavings || 0), 0) / metrics.length
+      ),
+      smallestFunction: metrics.reduce((min, curr) =>
+        curr.nano.treeShaken.gzipped < min.nano.treeShaken.gzipped ? curr : min
+      ).function,
+      largestFunction: metrics.reduce((max, curr) =>
+        curr.nano.treeShaken.gzipped > max.nano.treeShaken.gzipped ? curr : max
+      ).function,
+    },
+  };
+
+  await fs.writeFile(outputPath, JSON.stringify(report, null, 2));
+  return outputPath;
+}
+
 // Run if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  console.log("📊 Measuring bundle sizes...\n");
+  console.log("🚀 nano-string-utils Bundle Size Analysis\n");
   generateBundleSizeReport()
-    .then((results) => {
-      console.log("\n" + generateMarkdownTable(results));
+    .then(async ({ results, detailedMetrics }) => {
+      // Generate and save markdown report
+      const markdown = generateMarkdownTable(detailedMetrics);
+      console.log("\n" + markdown);
 
-      // Save results to file
-      const outputPath = path.join(__dirname, "bundle-size-results.md");
-      return fs.writeFile(outputPath, generateMarkdownTable(results));
-    })
-    .then(() => {
-      console.log("\n✅ Results saved to benchmarks/bundle-size-results.md");
+      const mdPath = path.join(__dirname, "bundle-size-results.md");
+      await fs.writeFile(mdPath, markdown);
+      console.log(`\n✅ Markdown report saved to ${mdPath}`);
+
+      // Generate and save JSON report
+      const jsonPath = await generateJSONReport(detailedMetrics);
+      console.log(`✅ JSON report saved to ${jsonPath}`);
+
+      // Copy to public directory for serving in documentation site
+      const publicJsonPath = path.join(
+        __dirname,
+        "..",
+        "docs-src",
+        "public",
+        "bundle-sizes.json"
+      );
+      await fs.mkdir(path.dirname(publicJsonPath), { recursive: true });
+      await fs.copyFile(jsonPath, publicJsonPath);
+      console.log(`✅ JSON copied to public at ${publicJsonPath}`);
     })
     .catch(console.error);
 }
