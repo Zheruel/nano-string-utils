@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { stdin as getStdin } from 'process';
+import {
+  runtime,
+  getArgs,
+  exit,
+  readStdin as getStdinData,
+  resolvePath,
+  dynamicImport,
+  log,
+  error as logError
+} from './runtime-utils.js';
 
 // Function registry with metadata
 const FUNCTIONS = {
@@ -66,32 +72,8 @@ const FUNCTIONS = {
   fuzzyMatch: { desc: 'Fuzzy string matching', example: 'fuzzyMatch "hello" "helo"', needsTwo: true, hasOptions: true },
 };
 
-// Read stdin if available
-async function readStdin() {
-  return new Promise((resolve) => {
-    let data = '';
-    let timeout;
-
-    getStdin.on('readable', () => {
-      clearTimeout(timeout);
-      let chunk;
-      while ((chunk = getStdin.read()) !== null) {
-        data += chunk;
-      }
-    });
-
-    getStdin.on('end', () => {
-      clearTimeout(timeout);
-      resolve(data.trim());
-    });
-
-    // Set a short timeout to check if stdin has data
-    timeout = setTimeout(() => {
-      getStdin.pause();
-      resolve('');
-    }, 10);
-  });
-}
+// Read stdin if available (delegates to runtime-utils)
+const readStdin = getStdinData;
 
 // Parse command line options
 function parseOptions(args) {
@@ -128,19 +110,20 @@ function parseOptions(args) {
 function showHelp(functionName = null) {
   if (functionName && FUNCTIONS[functionName]) {
     const fn = FUNCTIONS[functionName];
-    console.log(`\nUsage: nano-string ${functionName} ${fn.needsTwo ? '<string1> <string2>' : '<input>'} ${fn.hasOptions ? '[options]' : ''}`);
-    console.log(`\nDescription: ${fn.desc}`);
-    console.log(`\nExample:\n  nano-string ${fn.example}`);
+    log(`\nUsage: nano-string ${functionName} ${fn.needsTwo ? '<string1> <string2>' : '<input>'} ${fn.hasOptions ? '[options]' : ''}`);
+    log(`\nDescription: ${fn.desc}`);
+    log(`\nExample:\n  nano-string ${fn.example}`);
 
     if (fn.hasOptions) {
-      console.log('\nNote: Options can be passed as --key value pairs');
-      console.log('      Complex data can be passed as JSON: --data \'{"key":"value"}\'');
+      log('\nNote: Options can be passed as --key value pairs');
+      log('      Complex data can be passed as JSON: --data \'{"key":"value"}\'');
     }
 
-    console.log('\nPipe support:\n  echo "text" | nano-string ' + functionName);
+    log('\nPipe support:\n  echo "text" | nano-string ' + functionName);
+    log(`\nRuntime: ${runtime}`);
   } else {
-    console.log('\nUsage: nano-string <function> [input] [options]');
-    console.log('\nAvailable functions:\n');
+    log('\nUsage: nano-string <function> [input] [options]');
+    log('\nAvailable functions:\n');
 
     const categories = {
       'Case Conversions': ['slugify', 'camelCase', 'snakeCase', 'kebabCase', 'pascalCase', 'constantCase', 'dotCase', 'pathCase', 'sentenceCase', 'titleCase'],
@@ -155,47 +138,48 @@ function showHelp(functionName = null) {
     };
 
     for (const [category, funcs] of Object.entries(categories)) {
-      console.log(`  ${category}:`);
+      log(`  ${category}:`);
       for (const func of funcs) {
         if (FUNCTIONS[func]) {
-          console.log(`    ${func.padEnd(20)} ${FUNCTIONS[func].desc}`);
+          log(`    ${func.padEnd(20)} ${FUNCTIONS[func].desc}`);
         }
       }
-      console.log();
+      log();
     }
 
-    console.log('Examples:');
-    console.log('  nano-string slugify "Hello World"');
-    console.log('  echo "Hello World" | nano-string kebabCase');
-    console.log('  nano-string truncate "Long text here" --length 10');
-    console.log('  nano-string template "Hello {{name}}" --data \'{"name":"World"}\'');
-    console.log('\nFor help on a specific function:');
-    console.log('  nano-string <function> --help');
+    log('Examples:');
+    log('  nano-string slugify "Hello World"');
+    log('  echo "Hello World" | nano-string kebabCase');
+    log('  nano-string truncate "Long text here" --length 10');
+    log('  nano-string template "Hello {{name}}" --data \'{"name":"World"}\'');
+    log('\nFor help on a specific function:');
+    log('  nano-string <function> --help');
+    log(`\nRuntime: ${runtime}`);
   }
 }
 
 // Main CLI logic
 async function main() {
-  const args = process.argv.slice(2);
+  const args = getArgs();
 
   if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
     showHelp();
-    process.exit(0);
+    exit(0);
   }
 
   const functionName = args[0];
 
   // Check if function exists
   if (!FUNCTIONS[functionName]) {
-    console.error(`Error: Unknown function "${functionName}"`);
-    console.error('Run "nano-string --help" to see available functions');
-    process.exit(1);
+    logError(`Error: Unknown function "${functionName}"`);
+    logError('Run "nano-string --help" to see available functions');
+    exit(1);
   }
 
   // Handle function-specific help
   if (args.includes('--help') || args.includes('-h')) {
     showHelp(functionName);
-    process.exit(0);
+    exit(0);
   }
 
   const { options, positional } = parseOptions(args.slice(1));
@@ -203,10 +187,8 @@ async function main() {
 
   try {
     // Dynamically import the function
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-    const modulePath = join(__dirname, '..', 'dist', 'index.js');
-    const nanoStringUtils = await import(modulePath);
+    const modulePath = await resolvePath(import.meta.url, '..', 'dist', 'index.js');
+    const nanoStringUtils = await dynamicImport(modulePath);
 
     const fn = nanoStringUtils[functionName];
     if (!fn) {
@@ -227,9 +209,9 @@ async function main() {
 
     // Validate input
     if (!input && functionName !== 'randomString') {
-      console.error('Error: No input provided');
-      console.error(`Usage: nano-string ${functionName} <input>`);
-      process.exit(1);
+      logError('Error: No input provided');
+      logError(`Usage: nano-string ${functionName} <input>`);
+      exit(1);
     }
 
     // Execute function
@@ -238,9 +220,9 @@ async function main() {
     if (fnMeta.needsTwo) {
       // Functions that need two strings
       if (!secondInput) {
-        console.error(`Error: ${functionName} requires two string arguments`);
-        console.error(`Usage: nano-string ${functionName} <string1> <string2>`);
-        process.exit(1);
+        logError(`Error: ${functionName} requires two string arguments`);
+        logError(`Usage: nano-string ${functionName} <string1> <string2>`);
+        exit(1);
       }
       result = Object.keys(options).length > 0 ? fn(input, secondInput, options) : fn(input, secondInput);
     } else if (functionName === 'randomString') {
@@ -250,17 +232,17 @@ async function main() {
     } else if (functionName === 'template' || functionName === 'templateSafe') {
       // Template functions need data
       if (!options.data) {
-        console.error('Error: template functions require --data option');
-        console.error('Example: nano-string template "Hello {{name}}" --data \'{"name":"World"}\'');
-        process.exit(1);
+        logError('Error: template functions require --data option');
+        logError('Example: nano-string template "Hello {{name}}" --data \'{"name":"World"}\'');
+        exit(1);
       }
       result = fn(input, options.data, options);
     } else if (functionName === 'highlight') {
       // Highlight needs query
       if (!options.query && !options.search) {
-        console.error('Error: highlight requires --query option');
-        console.error('Example: nano-string highlight "hello world" --query "world"');
-        process.exit(1);
+        logError('Error: highlight requires --query option');
+        logError('Example: nano-string highlight "hello world" --query "world"');
+        exit(1);
       }
       result = fn(input, options.query || options.search, options);
     } else if (Object.keys(options).length > 0) {
@@ -281,27 +263,27 @@ async function main() {
 
     // Output result
     if (typeof result === 'boolean') {
-      console.log(result ? 'true' : 'false');
-      process.exit(result ? 0 : 1);
+      log(result ? 'true' : 'false');
+      exit(result ? 0 : 1);
     } else if (typeof result === 'object') {
-      console.log(JSON.stringify(result, null, 2));
+      log(JSON.stringify(result, null, 2));
     } else {
-      console.log(result);
+      log(result);
     }
-  } catch (error) {
-    console.error('Error:', error.message);
+  } catch (err) {
+    logError('Error:', err.message);
 
     // Provide helpful error messages
-    if (error.message.includes('Cannot find module')) {
-      console.error('\nNote: Make sure to run "npm run build" first to generate the dist folder');
+    if (err.message.includes('Cannot find module')) {
+      logError('\nNote: Make sure to run "npm run build" first to generate the dist folder');
     }
 
-    process.exit(1);
+    exit(1);
   }
 }
 
 // Run the CLI
-main().catch(error => {
-  console.error('Unexpected error:', error);
-  process.exit(1);
+main().catch(err => {
+  logError('Unexpected error:', err);
+  exit(1);
 });

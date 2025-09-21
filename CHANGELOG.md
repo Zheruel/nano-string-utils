@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2025-09-21
+
+### Added
+
+- **Full Deno and Bun Runtime Support** - nano-string-utils now works seamlessly across all modern JavaScript runtimes
+  - CLI tool now runs natively in Deno and Bun without any modifications
+  - Added runtime abstraction layer (`bin/runtime-utils.js`) for unified cross-runtime behavior
+  - New runtime compatibility tests for Deno (`tests/runtime-tests/deno-test.ts`) and Bun (`tests/runtime-tests/bun-test.ts`)
+  - CI/CD pipeline extended with automated runtime compatibility testing
+  - All 41 utility functions verified to work identically across Node.js, Deno, and Bun
+
+### Improved
+
+- **CLI Tool** - Enhanced with multi-runtime support
+  - Automatic runtime detection (Node.js, Deno, or Bun)
+  - Unified stdin handling across all runtimes
+  - Cross-runtime path resolution and dynamic imports
+  - Works with `deno run`, `bun run`, and Node.js execution
+  - Maintains zero runtime dependencies
+
+- **Documentation** - Updated README with runtime compatibility matrix
+  - Added runtime badges (Node.js, Deno, Bun) to showcase support
+  - Installation instructions for each runtime
+  - CLI usage examples for Node.js, Deno, and Bun
+  - Clear compatibility matrix showing full support across all runtimes
+
+### Technical
+
+- GitHub Actions workflow now includes runtime compatibility job
+- Tests run against Deno v2.x and latest Bun version
+- CLI tested with both core functionality and pipe operations in all runtimes
+
 ## [0.13.0] - 2025-09-19
 
 ### Added

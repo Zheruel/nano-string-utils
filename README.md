@@ -8,6 +8,9 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue.svg)](https://www.typescriptlang.org/)
 [![CI/CD](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml/badge.svg)](https://github.com/Zheruel/nano-string-utils/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-≥18-brightgreen.svg)](https://nodejs.org/)
+[![Deno](https://img.shields.io/badge/Deno-✓-blue.svg)](https://deno.land)
+[![Bun](https://img.shields.io/badge/Bun-✓-orange.svg)](https://bun.sh)
 
 ## Documentation
 
@@ -28,61 +31,131 @@ Ultra-lightweight string utilities with zero dependencies. Tree-shakeable, fully
 - 🛡️ **Null-safe** - All functions handle null/undefined gracefully without throwing errors
 - 📝 **Well documented** - JSDoc comments for all functions
 
+## Runtime Compatibility
+
+nano-string-utils works seamlessly across all modern JavaScript runtimes:
+
+| Runtime     | Support | Installation                          | CLI |
+| ----------- | ------- | ------------------------------------- | --- |
+| Node.js ≥18 | ✅ Full | `npm install nano-string-utils`       | ✅  |
+| Deno        | ✅ Full | `deno add @zheruel/nano-string-utils` | ✅  |
+| Bun         | ✅ Full | `bun add nano-string-utils`           | ✅  |
+| Browser     | ✅ Full | Via bundler or CDN                    | ❌  |
+
+All core functions use standard JavaScript APIs and work identically across runtimes. The CLI tool supports Node.js, Deno, and Bun.
+
 ## Installation
 
-### From npm
+### Node.js
 
 ```bash
 npm install nano-string-utils
-```
-
-```bash
+# or
 yarn add nano-string-utils
-```
-
-```bash
+# or
 pnpm add nano-string-utils
 ```
 
-### From JSR
+### Deno
 
-```bash
-npx jsr add @zheruel/nano-string-utils
-```
+```typescript
+// From JSR (recommended)
+import { slugify } from "jsr:@zheruel/nano-string-utils";
 
-```bash
+// Or add to your project
 deno add @zheruel/nano-string-utils
 ```
 
-## Usage
+### Bun
 
-### ESM
+```bash
+bun add nano-string-utils
+```
+
+## Quick Start
 
 ```javascript
-import { slugify, camelCase, truncate } from "nano-string-utils";
+import {
+  slugify,
+  camelCase,
+  truncate,
+  isEmail,
+  fuzzyMatch,
+} from "nano-string-utils";
 
+// Transform strings with ease
 slugify("Hello World!"); // 'hello-world'
 camelCase("hello-world"); // 'helloWorld'
 truncate("Long text here", 10); // 'Long te...'
+
+// Validate inputs
+isEmail("user@example.com"); // true
+isEmail("invalid.email"); // false
+
+// Advanced string matching
+fuzzyMatch("gto", "goToLine"); // { matched: true, score: 0.546 }
+fuzzyMatch("abc", "xyz"); // null (no match)
 ```
 
-### CommonJS
+### Most Popular Functions
+
+#### `slugify(str: string): string`
+
+Convert any string to a URL-safe slug.
 
 ```javascript
-const { slugify, camelCase, truncate } = require("nano-string-utils");
-
 slugify("Hello World!"); // 'hello-world'
-camelCase("hello-world"); // 'helloWorld'
-truncate("Long text here", 10); // 'Long te...'
+slugify("  Multiple   Spaces  "); // 'multiple-spaces'
+slugify("Special@#Characters!"); // 'special-characters'
 ```
+
+#### `camelCase(str: string): string`
+
+Convert strings to camelCase for JavaScript variables.
+
+```javascript
+camelCase("hello-world"); // 'helloWorld'
+camelCase("HELLO_WORLD"); // 'helloWorld'
+camelCase("Hello World"); // 'helloWorld'
+```
+
+#### `truncate(str: string, length: number, suffix?: string): string`
+
+Intelligently truncate text with customizable suffix.
+
+```javascript
+truncate("Long text here", 10); // 'Long te...'
+truncate("Long text here", 10, "→"); // 'Long tex→'
+```
+
+#### `isEmail(str: string): boolean`
+
+Validate email addresses with a robust regex.
+
+```javascript
+isEmail("user@example.com"); // true
+isEmail("test@sub.domain.com"); // true
+isEmail("invalid.email"); // false
+```
+
+#### `fuzzyMatch(query: string, target: string): FuzzyMatchResult | null`
+
+Perform fuzzy string matching for search features.
+
+```javascript
+fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
+fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
+```
+
+> 📖 **See all 40+ functions in the API Reference below**
 
 ## CLI
 
-Nano String Utils includes a command-line interface for quick string transformations directly in your terminal.
+Nano String Utils includes a command-line interface for quick string transformations directly in your terminal. The CLI works with Node.js, Deno, and Bun!
 
-### Installation
+### Installation & Usage
 
-When installed globally or used with `npx`, the CLI is available as `nano-string`:
+#### Node.js
 
 ```bash
 # Global installation
@@ -91,6 +164,26 @@ nano-string slugify "Hello World"
 
 # Using npx (no installation required)
 npx nano-string-utils slugify "Hello World"
+```
+
+#### Deno
+
+```bash
+# Direct execution (no installation required)
+deno run --allow-read https://unpkg.com/nano-string-utils/bin/nano-string.js slugify "Hello World"
+
+# Or if installed locally
+deno run --allow-read node_modules/nano-string-utils/bin/nano-string.js slugify "Hello World"
+```
+
+#### Bun
+
+```bash
+# Using bunx (no installation required)
+bunx nano-string-utils slugify "Hello World"
+
+# Or if installed
+bun run nano-string-utils slugify "Hello World"
 ```
 
 ### Basic Usage
@@ -102,6 +195,7 @@ nano-string <function> <input> [options]
 ### Examples
 
 #### Simple transformations
+
 ```bash
 nano-string slugify "Hello World!"           # hello-world
 nano-string camelCase "hello-world"          # helloWorld
@@ -111,12 +205,14 @@ nano-string reverse "hello"                  # olleh
 ```
 
 #### Using pipes
+
 ```bash
 echo "Hello World" | nano-string slugify     # hello-world
 cat file.txt | nano-string truncate --length 50
 ```
 
 #### Functions with options
+
 ```bash
 # Truncate with custom length
 nano-string truncate "Long text here" --length 10  # Long te...
@@ -132,6 +228,7 @@ nano-string randomString --length 10  # Generates 10-character string
 ```
 
 #### Validation functions
+
 ```bash
 nano-string isEmail "test@example.com"       # true
 nano-string isUrl "https://example.com"      # true
@@ -139,6 +236,7 @@ nano-string isASCII "hello"                  # true
 ```
 
 #### Analysis functions
+
 ```bash
 nano-string wordCount "hello world test"     # 3
 nano-string levenshtein "kitten" "sitting"   # 3
@@ -148,59 +246,27 @@ nano-string diff "hello" "hallo"             # Shows differences
 ### Available Commands
 
 To see all available functions:
+
 ```bash
 nano-string --help
 ```
 
 For help on a specific function:
+
 ```bash
 nano-string slugify --help
 ```
 
-### Supported Functions
-
-The CLI supports most functions from the library:
-- **Case Conversions**: slugify, camelCase, snakeCase, kebabCase, pascalCase, constantCase, dotCase, pathCase, sentenceCase, titleCase
-- **String Manipulation**: capitalize, reverse, truncate, excerpt, pad, padStart, padEnd
-- **Text Processing**: stripHtml, escapeHtml, deburr, normalizeWhitespace, removeNonPrintable, toASCII
-- **Validation**: isEmail, isUrl, isASCII
-- **Analysis**: wordCount, levenshtein, levenshteinNormalized, diff
-- **Generation**: randomString, hashString
-- **Unicode**: graphemes, codePoints
-- **Pluralization**: pluralize, singularize
-- **Templates**: template, templateSafe, highlight, fuzzyMatch
-
 ## API Reference
 
-### String Transformation
+The library provides 40+ string utility functions organized by category. Click on any category to explore the available functions.
 
-#### `template(str: string, data: Record<string, any>, options?: TemplateOptions): string`
+<details>
+<summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
 
-Interpolates variables in a template string.
+### Case Conversion
 
-```javascript
-template("Hello {{name}}!", { name: "World" }); // 'Hello World!'
-template("{{user.name}} is {{user.age}}", {
-  user: { name: "Alice", age: 30 },
-}); // 'Alice is 30'
-template(
-  "Hello ${name}!",
-  { name: "World" },
-  {
-    delimiters: ["${", "}"],
-  }
-); // 'Hello World!'
-```
-
-#### `templateSafe(str: string, data: Record<string, any>, options?: TemplateOptions): string`
-
-Interpolates variables with HTML escaping for safe output.
-
-```javascript
-templateSafe("Hello {{name}}!", {
-  name: '<script>alert("XSS")</script>',
-}); // 'Hello &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;!'
-```
+Transform strings between different naming conventions commonly used in programming.
 
 #### `slugify(str: string): string`
 
@@ -274,34 +340,18 @@ dotCase("XMLHttpRequest"); // 'xml.http.request'
 dotCase("com/example/package"); // 'com.example.package'
 ```
 
-#### `capitalize(str: string): string`
+#### `pathCase(str: string): string`
 
-Capitalizes the first letter of a string and lowercases the rest.
-
-```javascript
-capitalize("hello world"); // 'Hello world'
-capitalize("HELLO"); // 'Hello'
-```
-
-#### `reverse(str: string): string`
-
-Reverses a string.
+Converts a string to path/case (forward slash separated).
 
 ```javascript
-reverse("hello"); // 'olleh'
-reverse("world"); // 'dlrow'
-```
-
-#### `deburr(str: string): string`
-
-Removes diacritics/accents from Latin characters.
-
-```javascript
-deburr("café"); // 'cafe'
-deburr("naïve"); // 'naive'
-deburr("Bjørn"); // 'Bjorn'
-deburr("São Paulo"); // 'Sao Paulo'
-deburr("Müller"); // 'Muller'
+pathCase("hello world"); // 'hello/world'
+pathCase("helloWorld"); // 'hello/world'
+pathCase("hello-world"); // 'hello/world'
+pathCase("hello_world"); // 'hello/world'
+pathCase("XMLHttpRequest"); // 'xml/http/request'
+pathCase("src.components.Header"); // 'src/components/header'
+pathCase("com.example.package"); // 'com/example/package'
 ```
 
 #### `titleCase(str: string, options?: { exceptions?: string[] }): string`
@@ -336,21 +386,32 @@ sentenceCase("i love javascript"); // 'I love javascript'
 sentenceCase("what? when? where?"); // 'What? When? Where?'
 ```
 
-#### `pathCase(str: string): string`
+</details>
 
-Converts a string to path/case (forward slash separated).
-
-```javascript
-pathCase("hello world"); // 'hello/world'
-pathCase("helloWorld"); // 'hello/world'
-pathCase("hello-world"); // 'hello/world'
-pathCase("hello_world"); // 'hello/world'
-pathCase("XMLHttpRequest"); // 'xml/http/request'
-pathCase("src.components.Header"); // 'src/components/header'
-pathCase("com.example.package"); // 'com/example/package'
-```
+<details>
+<summary><b>✂️ String Manipulation (11 functions)</b></summary>
 
 ### String Manipulation
+
+Essential functions for transforming and manipulating text content.
+
+#### `capitalize(str: string): string`
+
+Capitalizes the first letter of a string and lowercases the rest.
+
+```javascript
+capitalize("hello world"); // 'Hello world'
+capitalize("HELLO"); // 'Hello'
+```
+
+#### `reverse(str: string): string`
+
+Reverses a string.
+
+```javascript
+reverse("hello"); // 'olleh'
+reverse("world"); // 'dlrow'
+```
 
 #### `truncate(str: string, length: number, suffix?: string): string`
 
@@ -360,6 +421,96 @@ Truncates a string to a specified length with an optional suffix.
 truncate("Long text here", 10); // 'Long te...'
 truncate("Long text here", 10, "→"); // 'Long tex→'
 ```
+
+#### `excerpt(str: string, length: number, suffix?: string): string`
+
+Creates a smart excerpt from text with word boundary awareness.
+
+```javascript
+excerpt("The quick brown fox jumps over the lazy dog", 20); // 'The quick brown fox...'
+excerpt("Hello world. This is a test.", 15); // 'Hello world...'
+excerpt("Long technical documentation text here", 25, "…"); // 'Long technical…'
+excerpt("Supercalifragilisticexpialidocious", 10); // 'Supercalif...'
+```
+
+#### `pad(str: string, length: number, chars?: string): string`
+
+Pads a string to a given length by adding characters to both sides (centers the string).
+
+```javascript
+pad("Hi", 6); // '  Hi  '
+pad("Hi", 6, "-"); // '--Hi--'
+pad("Hi", 7, "-"); // '--Hi---'
+```
+
+#### `padStart(str: string, length: number, chars?: string): string`
+
+Pads a string to a given length by adding characters to the left.
+
+```javascript
+padStart("5", 3, "0"); // '005'
+padStart("Hi", 5, "."); // '...Hi'
+padStart("Hi", 6, "=-"); // '=-=-Hi'
+```
+
+#### `padEnd(str: string, length: number, chars?: string): string`
+
+Pads a string to a given length by adding characters to the right.
+
+```javascript
+padEnd("Hi", 5, "."); // 'Hi...'
+padEnd("Hi", 6, "=-"); // 'Hi=-=-'
+padEnd("5", 3, "0"); // '500'
+```
+
+#### `deburr(str: string): string`
+
+Removes diacritics/accents from Latin characters.
+
+```javascript
+deburr("café"); // 'cafe'
+deburr("naïve"); // 'naive'
+deburr("Bjørn"); // 'Bjorn'
+deburr("São Paulo"); // 'Sao Paulo'
+deburr("Müller"); // 'Muller'
+```
+
+#### `wordCount(str: string): number`
+
+Counts the number of words in a string.
+
+```javascript
+wordCount("Hello world test"); // 3
+wordCount("One-word counts as one"); // 5
+```
+
+#### `randomString(length: number, charset?: string): string`
+
+Generates a random string of specified length.
+
+```javascript
+randomString(10); // 'aBc123XyZ9'
+randomString(5, "abc"); // 'abcab'
+randomString(8, "0123456789"); // '42318765'
+```
+
+#### `hashString(str: string): number`
+
+Generates a simple hash from a string (non-cryptographic).
+
+```javascript
+hashString("hello"); // 99162322
+hashString("world"); // 113318802
+```
+
+</details>
+
+<details>
+<summary><b>📝 Text Processing (8 functions)</b></summary>
+
+### Text Processing
+
+Advanced text processing utilities for handling HTML, whitespace, and special characters.
 
 #### `stripHtml(str: string): string`
 
@@ -377,26 +528,6 @@ Escapes HTML special characters.
 ```javascript
 escapeHtml('<div>Hello & "world"</div>'); // '&lt;div&gt;Hello &amp; &quot;world&quot;&lt;/div&gt;'
 escapeHtml("It's <b>bold</b>"); // 'It&#x27;s &lt;b&gt;bold&lt;/b&gt;'
-```
-
-#### `excerpt(str: string, length: number, suffix?: string): string`
-
-Creates a smart excerpt from text with word boundary awareness.
-
-```javascript
-excerpt("The quick brown fox jumps over the lazy dog", 20); // 'The quick brown fox...'
-excerpt("Hello world. This is a test.", 15); // 'Hello world...'
-excerpt("Long technical documentation text here", 25, "…"); // 'Long technical…'
-excerpt("Supercalifragilisticexpialidocious", 10); // 'Supercalif...'
-```
-
-#### `wordCount(str: string): number`
-
-Counts the number of words in a string.
-
-```javascript
-wordCount("Hello world test"); // 3
-wordCount("One-word counts as one"); // 5
 ```
 
 #### `normalizeWhitespace(str: string, options?: NormalizeWhitespaceOptions): string`
@@ -440,42 +571,113 @@ removeNonPrintable("👨‍👩‍👧‍👦"); // '👨‍👩‍👧‍👦' 
 removeNonPrintable("text\x1B[32mgreen\x1B[0m"); // 'text[32mgreen[0m' (ANSI escapes removed)
 ```
 
-#### `highlight(str: string, terms: string | string[], options?: HighlightOptions): string`
+#### `toASCII(str: string, options?: { placeholder?: string }): string`
 
-Highlights search terms in text by wrapping them with markers.
+Converts a string to ASCII-safe representation by removing diacritics, converting common Unicode symbols, and optionally replacing non-ASCII characters.
 
 ```javascript
-highlight("The quick brown fox", "quick"); // 'The <mark>quick</mark> brown fox'
-highlight("Hello WORLD", "world"); // '<mark>Hello</mark> <mark>WORLD</mark>' (case-insensitive by default)
-
-// Multiple terms
-highlight("The quick brown fox", ["quick", "fox"]); // 'The <mark>quick</mark> brown <mark>fox</mark>'
-
-// Custom wrapper
-highlight("Error: Connection failed", ["error", "failed"], {
-  wrapper: ["**", "**"],
-}); // '**Error**: Connection **failed**'
-
-// Whole word matching
-highlight("Java and JavaScript", "Java", { wholeWord: true }); // '<mark>Java</mark> and JavaScript'
-
-// With CSS class
-highlight("Hello world", "Hello", { className: "highlight" }); // '<mark class="highlight">Hello</mark> world'
-
-// HTML escaping for security
-highlight("<div>Hello</div>", "Hello", { escapeHtml: true }); // '&lt;div&gt;<mark>Hello</mark>&lt;/div&gt;'
-
-// Case-sensitive matching
-highlight("Hello hello", "hello", { caseSensitive: true }); // 'Hello <mark>hello</mark>'
+toASCII("café"); // 'cafe'
+toASCII("Hello "world""); // 'Hello "world"'
+toASCII("em—dash"); // 'em-dash'
+toASCII("€100"); // 'EUR100'
+toASCII("½ + ¼ = ¾"); // '1/2 + 1/4 = 3/4'
+toASCII("→ ← ↑ ↓"); // '-> <- ^ v'
+toASCII("α β γ"); // 'a b g'
+toASCII("Привет"); // 'Privet'
+toASCII("你好"); // '' (removes non-convertible characters)
+toASCII("你好", { placeholder: "?" }); // '??'
+toASCII("Hello 世界", { placeholder: "?" }); // 'Hello ??'
+toASCII("© 2024 Müller™"); // '(c) 2024 Muller(TM)'
 ```
 
-Options:
+#### `pluralize(word: string, count?: number): string`
 
-- `caseSensitive` - Enable case-sensitive matching (default: false)
-- `wholeWord` - Match whole words only (default: false)
-- `wrapper` - Custom wrapper tags (default: ['<mark>', '</mark>'])
-- `className` - CSS class for mark tags
-- `escapeHtml` - Escape HTML in text before highlighting (default: false)
+Converts a singular word to its plural form using English pluralization rules. Optionally takes a count to conditionally pluralize.
+
+```javascript
+pluralize("box"); // 'boxes'
+pluralize("baby"); // 'babies'
+pluralize("person"); // 'people'
+pluralize("analysis"); // 'analyses'
+pluralize("cactus"); // 'cacti'
+
+// With count parameter
+pluralize("item", 1); // 'item' (singular for count of 1)
+pluralize("item", 0); // 'items' (plural for count of 0)
+pluralize("item", 5); // 'items' (plural for count > 1)
+
+// Preserves casing
+pluralize("Box"); // 'Boxes'
+pluralize("PERSON"); // 'PEOPLE'
+```
+
+#### `singularize(word: string): string`
+
+Converts a plural word to its singular form using English singularization rules.
+
+```javascript
+singularize("boxes"); // 'box'
+singularize("babies"); // 'baby'
+singularize("people"); // 'person'
+singularize("analyses"); // 'analysis'
+singularize("cacti"); // 'cactus'
+singularize("data"); // 'datum'
+
+// Preserves casing
+singularize("Boxes"); // 'Box'
+singularize("PEOPLE"); // 'PERSON'
+```
+
+</details>
+
+<details>
+<summary><b>✅ Validation Functions (4 functions)</b></summary>
+
+### String Validation
+
+Utilities for validating string formats and content.
+
+#### `isEmail(str: string): boolean`
+
+Validates if a string is a valid email format.
+
+```javascript
+isEmail("user@example.com"); // true
+isEmail("invalid.email"); // false
+isEmail("test@sub.domain.com"); // true
+```
+
+#### `isUrl(str: string): boolean`
+
+Validates if a string is a valid URL format.
+
+```javascript
+isUrl("https://example.com"); // true
+isUrl("http://localhost:3000"); // true
+isUrl("not a url"); // false
+isUrl("ftp://files.com/file.zip"); // true
+```
+
+#### `isASCII(str: string): boolean`
+
+Checks if a string contains only ASCII characters (code points 0-127).
+
+```javascript
+isASCII("Hello World!"); // true
+isASCII("café"); // false
+isASCII("👍"); // false
+isASCII("abc123!@#"); // true
+isASCII(""); // true
+```
+
+</details>
+
+<details>
+<summary><b>🔍 String Analysis & Comparison (6 functions)</b></summary>
+
+### String Analysis & Comparison
+
+Advanced utilities for analyzing and comparing strings.
 
 #### `diff(oldStr: string, newStr: string): string`
 
@@ -599,35 +801,51 @@ Scoring algorithm prioritizes:
 - Early matches in the string
 - Acronym-style matches
 
-#### `pad(str: string, length: number, chars?: string): string`
+#### `highlight(str: string, terms: string | string[], options?: HighlightOptions): string`
 
-Pads a string to a given length by adding characters to both sides (centers the string).
-
-```javascript
-pad("Hi", 6); // '  Hi  '
-pad("Hi", 6, "-"); // '--Hi--'
-pad("Hi", 7, "-"); // '--Hi---'
-```
-
-#### `padStart(str: string, length: number, chars?: string): string`
-
-Pads a string to a given length by adding characters to the left.
+Highlights search terms in text by wrapping them with markers.
 
 ```javascript
-padStart("5", 3, "0"); // '005'
-padStart("Hi", 5, "."); // '...Hi'
-padStart("Hi", 6, "=-"); // '=-=-Hi'
+highlight("The quick brown fox", "quick"); // 'The <mark>quick</mark> brown fox'
+highlight("Hello WORLD", "world"); // '<mark>Hello</mark> <mark>WORLD</mark>' (case-insensitive by default)
+
+// Multiple terms
+highlight("The quick brown fox", ["quick", "fox"]); // 'The <mark>quick</mark> brown <mark>fox</mark>'
+
+// Custom wrapper
+highlight("Error: Connection failed", ["error", "failed"], {
+  wrapper: ["**", "**"],
+}); // '**Error**: Connection **failed**'
+
+// Whole word matching
+highlight("Java and JavaScript", "Java", { wholeWord: true }); // '<mark>Java</mark> and JavaScript'
+
+// With CSS class
+highlight("Hello world", "Hello", { className: "highlight" }); // '<mark class="highlight">Hello</mark> world'
+
+// HTML escaping for security
+highlight("<div>Hello</div>", "Hello", { escapeHtml: true }); // '&lt;div&gt;<mark>Hello</mark>&lt;/div&gt;'
+
+// Case-sensitive matching
+highlight("Hello hello", "hello", { caseSensitive: true }); // 'Hello <mark>hello</mark>'
 ```
 
-#### `padEnd(str: string, length: number, chars?: string): string`
+Options:
 
-Pads a string to a given length by adding characters to the right.
+- `caseSensitive` - Enable case-sensitive matching (default: false)
+- `wholeWord` - Match whole words only (default: false)
+- `wrapper` - Custom wrapper tags (default: ['<mark>', '</mark>'])
+- `className` - CSS class for mark tags
+- `escapeHtml` - Escape HTML in text before highlighting (default: false)
 
-```javascript
-padEnd("Hi", 5, "."); // 'Hi...'
-padEnd("Hi", 6, "=-"); // 'Hi=-=-'
-padEnd("5", 3, "0"); // '500'
-```
+</details>
+
+<details>
+<summary><b>🌍 Unicode & International (5 functions)</b></summary>
+
+### Unicode & International
+
+Handle complex Unicode characters, emoji, and international text.
 
 #### `graphemes(str: string): string[]`
 
@@ -655,7 +873,51 @@ codePoints("a👍b"); // [97, 128077, 98]
 codePoints("👨‍👩‍👧‍👦"); // [128104, 8205, 128105, 8205, 128103, 8205, 128102]
 ```
 
+</details>
+
+<details>
+<summary><b>🎯 Templates & Interpolation (2 functions)</b></summary>
+
+### Templates & Interpolation
+
+Safe and flexible string template interpolation.
+
+#### `template(str: string, data: Record<string, any>, options?: TemplateOptions): string`
+
+Interpolates variables in a template string.
+
+```javascript
+template("Hello {{name}}!", { name: "World" }); // 'Hello World!'
+template("{{user.name}} is {{user.age}}", {
+  user: { name: "Alice", age: 30 },
+}); // 'Alice is 30'
+template(
+  "Hello ${name}!",
+  { name: "World" },
+  {
+    delimiters: ["${", "}"],
+  }
+); // 'Hello World!'
+```
+
+#### `templateSafe(str: string, data: Record<string, any>, options?: TemplateOptions): string`
+
+Interpolates variables with HTML escaping for safe output.
+
+```javascript
+templateSafe("Hello {{name}}!", {
+  name: '<script>alert("XSS")</script>',
+}); // 'Hello &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;!'
+```
+
+</details>
+
+<details>
+<summary><b>⚡ Performance Utilities (1 function)</b></summary>
+
 ### Performance Utilities
+
+Optimize expensive string operations with caching.
 
 #### `memoize<T>(fn: T, options?: MemoizeOptions): T`
 
@@ -713,146 +975,10 @@ Options:
 - `maxSize` - Maximum cached results (default: 100)
 - `getKey` - Custom cache key generator function
 
-### String Generation
+</details>
 
-#### `randomString(length: number, charset?: string): string`
-
-Generates a random string of specified length.
-
-```javascript
-randomString(10); // 'aBc123XyZ9'
-randomString(5, "abc"); // 'abcab'
-randomString(8, "0123456789"); // '42318765'
-```
-
-#### `hashString(str: string): number`
-
-Generates a simple hash from a string (non-cryptographic).
-
-```javascript
-hashString("hello"); // 99162322
-hashString("world"); // 113318802
-```
-
-### String Validation
-
-#### `isEmail(str: string): boolean`
-
-Validates if a string is a valid email format.
-
-```javascript
-isEmail("user@example.com"); // true
-isEmail("invalid.email"); // false
-isEmail("test@sub.domain.com"); // true
-```
-
-#### `isUrl(str: string): boolean`
-
-Validates if a string is a valid URL format.
-
-```javascript
-isUrl("https://example.com"); // true
-isUrl("http://localhost:3000"); // true
-isUrl("not a url"); // false
-isUrl("ftp://files.com/file.zip"); // true
-```
-
-#### `isASCII(str: string): boolean`
-
-Checks if a string contains only ASCII characters (code points 0-127).
-
-```javascript
-isASCII("Hello World!"); // true
-isASCII("café"); // false
-isASCII("👍"); // false
-isASCII("abc123!@#"); // true
-isASCII(""); // true
-```
-
-#### `toASCII(str: string, options?: { placeholder?: string }): string`
-
-Converts a string to ASCII-safe representation by removing diacritics, converting common Unicode symbols, and optionally replacing non-ASCII characters.
-
-```javascript
-toASCII("café"); // 'cafe'
-toASCII("Hello "world""); // 'Hello "world"'
-toASCII("em—dash"); // 'em-dash'
-toASCII("€100"); // 'EUR100'
-toASCII("½ + ¼ = ¾"); // '1/2 + 1/4 = 3/4'
-toASCII("→ ← ↑ ↓"); // '-> <- ^ v'
-toASCII("α β γ"); // 'a b g'
-toASCII("Привет"); // 'Privet'
-toASCII("你好"); // '' (removes non-convertible characters)
-toASCII("你好", { placeholder: "?" }); // '??'
-toASCII("Hello 世界", { placeholder: "?" }); // 'Hello ??'
-toASCII("© 2024 Müller™"); // '(c) 2024 Muller(TM)'
-```
-
-Features:
-
-- Removes diacritics/accents (café → cafe)
-- Converts smart quotes to regular quotes
-- Converts Unicode dashes to hyphens
-- Converts mathematical symbols (≈ → ~, ≠ → !=)
-- Converts currency symbols (€ → EUR, £ → GBP)
-- Converts fractions (½ → 1/2)
-- Transliterates common Greek and Cyrillic letters
-- Handles emojis and multi-byte Unicode correctly
-- Optional placeholder for non-convertible characters
-
-#### `pluralize(word: string, count?: number): string`
-
-Converts a singular word to its plural form using English pluralization rules. Optionally takes a count to conditionally pluralize.
-
-```javascript
-pluralize("box"); // 'boxes'
-pluralize("baby"); // 'babies'
-pluralize("person"); // 'people'
-pluralize("analysis"); // 'analyses'
-pluralize("cactus"); // 'cacti'
-
-// With count parameter
-pluralize("item", 1); // 'item' (singular for count of 1)
-pluralize("item", 0); // 'items' (plural for count of 0)
-pluralize("item", 5); // 'items' (plural for count > 1)
-
-// Preserves casing
-pluralize("Box"); // 'Boxes'
-pluralize("PERSON"); // 'PEOPLE'
-```
-
-Features:
-
-- Handles common irregular plurals (person→people, child→children, etc.)
-- Supports standard rules (s/es, y→ies, f→ves)
-- Handles Latin/Greek patterns (analysis→analyses, datum→data, cactus→cacti)
-- Preserves original casing
-- Optional count parameter for conditional pluralization
-
-#### `singularize(word: string): string`
-
-Converts a plural word to its singular form using English singularization rules.
-
-```javascript
-singularize("boxes"); // 'box'
-singularize("babies"); // 'baby'
-singularize("people"); // 'person'
-singularize("analyses"); // 'analysis'
-singularize("cacti"); // 'cactus'
-singularize("data"); // 'datum'
-
-// Preserves casing
-singularize("Boxes"); // 'Box'
-singularize("PEOPLE"); // 'PERSON'
-```
-
-Features:
-
-- Reverses common pluralization patterns
-- Handles irregular plural mappings
-- Supports Latin/Greek plural forms
-- Preserves original casing
-- Handles edge cases like unchanged plurals (sheep→sheep)
+<details>
+<summary><b>🔧 TypeScript Utilities</b></summary>
 
 ### Branded Types (TypeScript)
 
@@ -1049,6 +1175,8 @@ Benefits:
 - ✅ **Better IDE support** - Autocomplete shows exact transformed strings
 - ✅ **Type safety** - Catch typos and incorrect transformations during development
 - ✅ **Backward compatible** - Runtime strings work exactly as before
+
+</details>
 
 ### Null/Undefined Safety
 

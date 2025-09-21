@@ -120,11 +120,60 @@ jobs:
           name: build-artifacts
           path: dist/
 
+  runtime-compatibility:
+    name: Runtime Compatibility
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the library
+        run: npm run build
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Test with Deno
+        run: deno run --allow-read tests/runtime-tests/deno-test.ts
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Test with Bun
+        run: bun tests/runtime-tests/bun-test.ts
+
+      - name: Test CLI with Deno
+        run: |
+          echo "Testing CLI with Deno..."
+          deno run --allow-read bin/nano-string.js slugify "Hello Deno World"
+          echo "hello-world" | deno run --allow-read bin/nano-string.js kebabCase
+
+      - name: Test CLI with Bun
+        run: |
+          echo "Testing CLI with Bun..."
+          bun bin/nano-string.js camelCase "hello-bun-world"
+          echo "bun-test" | bun bin/nano-string.js constantCase
+
   validate:
     name: Validate Package
     runs-on: ubuntu-latest
     needs: [build]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -154,21 +203,23 @@ jobs:
   ci-success:
     name: CI Success
     runs-on: ubuntu-latest
-    needs: [typecheck, test, build, validate]
+    needs: [typecheck, test, build, validate, runtime-compatibility]
     if: always()
-    
+
     steps:
       - name: Check all jobs status
         run: |
           if [[ "${{ needs.typecheck.result }}" != "success" || \
                 "${{ needs.test.result }}" != "success" || \
                 "${{ needs.build.result }}" != "success" || \
-                "${{ needs.validate.result }}" != "success" ]]; then
+                "${{ needs.validate.result }}" != "success" || \
+                "${{ needs.runtime-compatibility.result }}" != "success" ]]; then
             echo "❌ One or more CI checks failed"
             echo "TypeCheck: ${{ needs.typecheck.result }}"
             echo "Test: ${{ needs.test.result }}"
             echo "Build: ${{ needs.build.result }}"
             echo "Validate: ${{ needs.validate.result }}"
+            echo "Runtime Compatibility: ${{ needs.runtime-compatibility.result }}"
             exit 1
           fi
           echo "✅ All CI checks passed successfully!"
