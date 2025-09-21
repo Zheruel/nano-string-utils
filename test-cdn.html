@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nano String Utils - CDN Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #4a90e2;
+      padding-bottom: 0.5rem;
+    }
+    .test-section {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .test-result {
+      background: #f8f9fa;
+      border-left: 4px solid #28a745;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+    }
+    .test-result.error {
+      border-left-color: #dc3545;
+      background: #fff5f5;
+    }
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    code {
+      background: #e9ecef;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Nano String Utils - CDN Test Page</h1>
+
+  <div class="test-section">
+    <h2>CDN Loading Status</h2>
+    <div id="loading-status">
+      <p>Loading from CDN...</p>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2>Available Functions</h2>
+    <div id="available-functions" class="grid"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Function Tests</h2>
+    <div id="test-results"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Interactive Playground</h2>
+    <div>
+      <label for="function-select">Function:</label>
+      <select id="function-select" style="margin: 0.5rem;">
+        <option value="">Select a function...</option>
+      </select>
+    </div>
+    <div>
+      <label for="input-text">Input:</label>
+      <input type="text" id="input-text" placeholder="Enter text to transform" style="width: 300px; margin: 0.5rem;">
+      <button onclick="runFunction()">Run</button>
+    </div>
+    <div id="playground-result"></div>
+  </div>
+
+  <!-- Load from local build first for testing -->
+  <script src="./dist/index.iife.js"></script>
+
+  <!-- Fallback to CDN if local fails -->
+  <script>
+    if (typeof nanoStringUtils === 'undefined') {
+      console.log('Local build not found, loading from CDN...');
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/nano-string-utils@latest/dist/index.iife.js';
+      script.onload = () => initializePage();
+      script.onerror = () => {
+        document.getElementById('loading-status').innerHTML =
+          '<span class="status error">Failed to load from CDN</span>';
+      };
+      document.head.appendChild(script);
+    } else {
+      initializePage();
+    }
+
+    function initializePage() {
+      const statusEl = document.getElementById('loading-status');
+      const functionsEl = document.getElementById('available-functions');
+      const resultsEl = document.getElementById('test-results');
+      const selectEl = document.getElementById('function-select');
+
+      if (typeof nanoStringUtils !== 'undefined') {
+        statusEl.innerHTML = '<span class="status success">✓ Library loaded successfully</span>';
+
+        // Display available functions
+        const functions = Object.keys(nanoStringUtils).sort();
+        functionsEl.innerHTML = functions.map(fn =>
+          `<div><code>${fn}</code></div>`
+        ).join('');
+
+        // Populate select dropdown
+        functions.forEach(fn => {
+          const option = document.createElement('option');
+          option.value = fn;
+          option.textContent = fn;
+          selectEl.appendChild(option);
+        });
+
+        // Run tests
+        runTests();
+      } else {
+        statusEl.innerHTML = '<span class="status error">✗ Library not loaded</span>';
+      }
+    }
+
+    function runTests() {
+      const resultsEl = document.getElementById('test-results');
+      const tests = [
+        {
+          name: 'slugify',
+          input: 'Hello World!',
+          expected: 'hello-world'
+        },
+        {
+          name: 'camelCase',
+          input: 'hello-world',
+          expected: 'helloWorld'
+        },
+        {
+          name: 'snakeCase',
+          input: 'Hello World',
+          expected: 'hello_world'
+        },
+        {
+          name: 'kebabCase',
+          input: 'HelloWorld',
+          expected: 'hello-world'
+        },
+        {
+          name: 'pascalCase',
+          input: 'hello world',
+          expected: 'HelloWorld'
+        },
+        {
+          name: 'constantCase',
+          input: 'hello world',
+          expected: 'HELLO_WORLD'
+        },
+        {
+          name: 'titleCase',
+          input: 'the quick brown fox',
+          expected: 'The Quick Brown Fox'
+        },
+        {
+          name: 'capitalize',
+          input: 'hello',
+          expected: 'Hello'
+        },
+        {
+          name: 'reverse',
+          input: 'hello',
+          expected: 'olleh'
+        },
+        {
+          name: 'truncate',
+          input: 'Long text here',
+          expected: 'Long te...',
+          args: [10]
+        },
+        {
+          name: 'wordCount',
+          input: 'Hello world test',
+          expected: 3
+        },
+        {
+          name: 'isEmail',
+          input: 'test@example.com',
+          expected: true
+        },
+        {
+          name: 'isUrl',
+          input: 'https://example.com',
+          expected: true
+        },
+        {
+          name: 'isASCII',
+          input: 'Hello World',
+          expected: true
+        },
+        {
+          name: 'stripHtml',
+          input: '<p>Hello <b>world</b>!</p>',
+          expected: 'Hello world!'
+        }
+      ];
+
+      let html = '';
+      tests.forEach(test => {
+        try {
+          const fn = nanoStringUtils[test.name];
+          if (!fn) {
+            html += `<div class="test-result error">
+              <strong>${test.name}:</strong> Function not found
+            </div>`;
+            return;
+          }
+
+          const args = test.args ? [test.input, ...test.args] : [test.input];
+          const result = fn(...args);
+          const passed = result === test.expected;
+
+          html += `<div class="test-result ${passed ? '' : 'error'}">
+            <strong>${test.name}:</strong><br>
+            Input: <code>${test.input}</code><br>
+            Expected: <code>${test.expected}</code><br>
+            Got: <code>${result}</code><br>
+            Status: <span class="status ${passed ? 'success' : 'error'}">${passed ? '✓ PASS' : '✗ FAIL'}</span>
+          </div>`;
+        } catch (error) {
+          html += `<div class="test-result error">
+            <strong>${test.name}:</strong> Error - ${error.message}
+          </div>`;
+        }
+      });
+
+      resultsEl.innerHTML = html;
+    }
+
+    function runFunction() {
+      const fn = document.getElementById('function-select').value;
+      const input = document.getElementById('input-text').value;
+      const resultEl = document.getElementById('playground-result');
+
+      if (!fn || !nanoStringUtils[fn]) {
+        resultEl.innerHTML = '<div class="test-result error">Please select a function</div>';
+        return;
+      }
+
+      try {
+        const result = nanoStringUtils[fn](input);
+        resultEl.innerHTML = `
+          <div class="test-result">
+            <strong>Result:</strong> <code>${JSON.stringify(result)}</code>
+          </div>
+        `;
+      } catch (error) {
+        resultEl.innerHTML = `
+          <div class="test-result error">
+            <strong>Error:</strong> ${error.message}
+          </div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
