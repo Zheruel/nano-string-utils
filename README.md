@@ -72,6 +72,33 @@ deno add @zheruel/nano-string-utils
 bun add nano-string-utils
 ```
 
+### Browser (CDN)
+
+```html
+<!-- Latest version -->
+<script src="https://unpkg.com/nano-string-utils/dist/index.iife.js"></script>
+
+<!-- Or specific version -->
+<script src="https://cdn.jsdelivr.net/npm/nano-string-utils@0.15.0/dist/index.iife.js"></script>
+
+<script>
+  // All functions available on global nanoStringUtils object
+  const slug = nanoStringUtils.slugify("Hello World!");
+  console.log(slug); // 'hello-world'
+</script>
+```
+
+For modern browsers with ES modules:
+
+```html
+<script type="module">
+  import { slugify, camelCase } from 'https://unpkg.com/nano-string-utils/dist/index.js';
+
+  console.log(slugify("Hello World")); // 'hello-world'
+  console.log(camelCase("hello-world")); // 'helloWorld'
+</script>
+```
+
 ## Quick Start
 
 ```javascript

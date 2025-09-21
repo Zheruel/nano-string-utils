@@ -1,11 +1,16 @@
 {
   "name": "nano-string-utils",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "Ultra-lightweight string utilities with zero dependencies",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "unpkg": "./dist/index.iife.js",
+  "jsdelivr": "./dist/index.iife.js",
+  "browser": {
+    "./dist/index.cjs": "./dist/index.js"
+  },
   "bin": {
     "nano-string": "./bin/nano-string.js"
   },

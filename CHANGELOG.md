@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0] - 2025-09-21
+
+### Added
+
+- **CDN Optimization** - Full support for CDN usage via unpkg and jsDelivr
+  - Added IIFE/UMD build format that exposes `nanoStringUtils` global variable
+  - Added `unpkg`, `jsdelivr`, and `browser` fields to package.json for optimal CDN serving
+  - Browser users can now use the library via `<script>` tags without any build tools
+  - Support for both classic script tags and ES modules from CDN
+  - Created comprehensive CDN test page (`test-cdn.html`) for validation
+  - Updated README with detailed CDN usage examples
+
+### Improved
+
+- **Build System** - Enhanced tsup configuration for triple output format (ESM, CJS, IIFE)
+  - IIFE build automatically minified and tree-shaken
+  - Source maps generated for all build formats
+  - Global namespace properly configured as `nanoStringUtils`
+
 ## [0.14.0] - 2025-09-21
 
 ### Added
