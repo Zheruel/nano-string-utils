@@ -79,7 +79,7 @@ bun add nano-string-utils
 <script src="https://unpkg.com/nano-string-utils/dist/index.iife.js"></script>
 
 <!-- Or specific version -->
-<script src="https://cdn.jsdelivr.net/npm/nano-string-utils@0.15.0/dist/index.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nano-string-utils@0.16.0/dist/index.iife.js"></script>
 
 <script>
   // All functions available on global nanoStringUtils object
@@ -92,7 +92,10 @@ For modern browsers with ES modules:
 
 ```html
 <script type="module">
-  import { slugify, camelCase } from 'https://unpkg.com/nano-string-utils/dist/index.js';
+  import {
+    slugify,
+    camelCase,
+  } from "https://unpkg.com/nano-string-utils/dist/index.js";
 
   console.log(slugify("Hello World")); // 'hello-world'
   console.log(camelCase("hello-world")); // 'helloWorld'
@@ -174,7 +177,7 @@ fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
 fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
 ```
 
-> 📖 **See all 40+ functions in the API Reference below**
+> 📖 **See all 44 functions in the API Reference below**
 
 ## CLI
 
@@ -252,6 +255,10 @@ nano-string padStart "hi" --length 5 --char "*"  # ***hi
 
 # Generate random strings
 nano-string randomString --length 10  # Generates 10-character string
+
+# Text processing
+nano-string smartSplit "Dr. Smith went to the store. He bought milk."  # ['Dr. Smith went to the store.', 'He bought milk.']
+nano-string humanizeList "apple,banana,orange" --conjunction "or"  # apple, banana, or orange
 ```
 
 #### Validation functions
@@ -286,7 +293,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 40+ string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 44 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -533,11 +540,11 @@ hashString("world"); // 113318802
 </details>
 
 <details>
-<summary><b>📝 Text Processing (8 functions)</b></summary>
+<summary><b>📝 Text Processing (11 functions)</b></summary>
 
 ### Text Processing
 
-Advanced text processing utilities for handling HTML, whitespace, and special characters.
+Advanced text processing utilities for handling HTML, whitespace, special characters, and entity extraction.
 
 #### `stripHtml(str: string): string`
 
@@ -653,6 +660,109 @@ singularize("data"); // 'datum'
 // Preserves casing
 singularize("Boxes"); // 'Box'
 singularize("PEOPLE"); // 'PERSON'
+```
+
+#### `extractEntities(text: string): ExtractedEntities`
+
+Extracts various entities from text including emails, URLs, mentions, hashtags, phones, dates, and prices.
+
+```javascript
+// Extract from mixed content
+const text =
+  "Contact @john at john@example.com or call (555) 123-4567. Check #updates at https://example.com. Price: $99.99";
+const entities = extractEntities(text);
+// Returns:
+// {
+//   emails: ['john@example.com'],
+//   urls: ['https://example.com'],
+//   mentions: ['@john'],
+//   hashtags: ['#updates'],
+//   phones: ['(555) 123-4567'],
+//   dates: [],
+//   prices: ['$99.99']
+// }
+
+// Extract from social media content
+const tweet =
+  "Hey @alice and @bob! Check out #javascript #typescript at https://github.com/example";
+const social = extractEntities(tweet);
+// social.mentions: ['@alice', '@bob']
+// social.hashtags: ['#javascript', '#typescript']
+// social.urls: ['https://github.com/example']
+
+// Extract contact information
+const contact = "Email: support@company.com, Phone: +1-800-555-0100";
+const info = extractEntities(contact);
+// info.emails: ['support@company.com']
+// info.phones: ['+1-800-555-0100']
+
+// Extract dates and prices
+const invoice = "Invoice Date: 2024-01-15, Due: 01/30/2024, Amount: $1,234.56";
+const billing = extractEntities(invoice);
+// billing.dates: ['2024-01-15', '01/30/2024']
+// billing.prices: ['$1,234.56']
+```
+
+#### `smartSplit(text: string): string[]`
+
+Intelligently splits text into sentences while properly handling abbreviations, ellipses, and decimal numbers.
+
+```javascript
+// Basic sentence splitting
+smartSplit("Hello world. How are you? I'm fine!");
+// ['Hello world.', 'How are you?', "I'm fine!"]
+
+// Handles abbreviations correctly
+smartSplit("Dr. Smith went to the store. He bought milk.");
+// ['Dr. Smith went to the store.', 'He bought milk.']
+
+// Preserves decimal numbers
+smartSplit("The price is $10.50. That's expensive!");
+// ['The price is $10.50.', "That's expensive!"]
+
+// Handles multiple abbreviations
+smartSplit(
+  "Mr. and Mrs. Johnson live on St. Paul Ave. They moved from the U.S.A. last year."
+);
+// ['Mr. and Mrs. Johnson live on St. Paul Ave.', 'They moved from the U.S.A. last year.']
+
+// Handles ellipses
+smartSplit("I was thinking... Maybe we should go. What do you think?");
+// ['I was thinking...', 'Maybe we should go.', 'What do you think?']
+```
+
+#### `humanizeList(items: unknown[], options?: HumanizeListOptions): string`
+
+Converts an array into a grammatically correct, human-readable list with proper conjunctions and optional Oxford comma.
+
+```javascript
+// Basic usage
+humanizeList(["apple", "banana", "orange"]);
+// 'apple, banana, and orange'
+
+// Two items
+humanizeList(["yes", "no"]);
+// 'yes and no'
+
+// With custom conjunction
+humanizeList(["red", "green", "blue"], { conjunction: "or" });
+// 'red, green, or blue'
+
+// Without Oxford comma
+humanizeList(["a", "b", "c"], { oxford: false });
+// 'a, b and c'
+
+// With quotes
+humanizeList(["run", "jump", "swim"], { quotes: true });
+// '"run", "jump", and "swim"'
+
+// Handles mixed types and nulls
+humanizeList([1, null, "text", undefined, true]);
+// '1, text, and true'
+
+// Empty arrays
+humanizeList([]);
+// ''
 ```
 
 </details>
@@ -1278,9 +1388,12 @@ Each utility is optimized to be as small as possible:
 | fuzzyMatch            | ~500 bytes      |
 | pluralize             | ~350 bytes      |
 | singularize           | ~320 bytes      |
+| smartSplit            | ~1.1KB          |
+| humanizeList          | ~850 bytes      |
 | memoize               | ~400 bytes      |
+| extractEntities       | ~1.1KB          |
 
-Total package size: **< 6.5KB** minified + gzipped
+Total package size: **< 7.5KB** minified + gzipped
 
 ## Requirements
 
@@ -1384,7 +1497,7 @@ npm run bench:size
 
 | Library           | Bundle Size | Dependencies | Tree-shakeable        | TypeScript |
 | ----------------- | ----------- | ------------ | --------------------- | ---------- |
-| nano-string-utils | < 6.5KB     | 0            | ✅                    | ✅         |
+| nano-string-utils | < 7.5KB     | 0            | ✅                    | ✅         |
 | lodash            | ~70KB       | 0            | ⚠️ Requires lodash-es | ✅         |
 | underscore.string | ~20KB       | 0            | ❌                    | ❌         |
 | voca              | ~30KB       | 0            | ❌                    | ✅         |

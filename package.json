@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Ultra-lightweight string utilities with zero dependencies",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -91,11 +91,11 @@
   "size-limit": [
     {
       "path": "dist/index.js",
-      "limit": "6.5 KB"
+      "limit": "7.5 KB"
     },
     {
       "path": "dist/index.cjs",
-      "limit": "6.5 KB"
+      "limit": "7.5 KB"
     }
   ]
 }

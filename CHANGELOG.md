@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-09-22
+
+### Added
+
+- **New Functions** - Three powerful text processing utilities
+  - `extractEntities()` - Extract emails, URLs, mentions, hashtags, phones, dates, and prices from text
+  - `smartSplit()` - Intelligently split text into sentences with abbreviation handling
+  - `humanizeList()` - Convert arrays to grammatically correct human-readable lists with Oxford comma support
+
+### Changed
+
+- **Bundle Size** - Increased size limit from 6.5KB to 7.5KB to accommodate new features
+- **Documentation** - Updated function count from 41 to 44 functions
+
 ## [0.15.0] - 2025-09-21
 
 ### Added
@@ -40,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved
 
 - **CLI Tool** - Enhanced with multi-runtime support
+
   - Automatic runtime detection (Node.js, Deno, or Bun)
   - Unified stdin handling across all runtimes
   - Cross-runtime path resolution and dynamic imports

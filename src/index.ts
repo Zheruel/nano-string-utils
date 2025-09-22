@@ -49,6 +49,9 @@ export {
 export { pluralize } from "./pluralize.js";
 export { singularize } from "./singularize.js";
 export { memoize, type MemoizeOptions } from "./memoize.js";
+export { extractEntities, type ExtractedEntities } from "./extractEntities.js";
+export { smartSplit } from "./smartSplit.js";
+export { humanizeList, type HumanizeListOptions } from "./humanizeList.js";
 
 // Branded types namespace export
 export * as branded from "./types/index.js";
