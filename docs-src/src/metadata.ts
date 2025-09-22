@@ -592,4 +592,91 @@ export const functionMetadata: Record<string, FunctionMeta> = {
       { code: "memoize((a, b) => a + b)", result: "[Function: memoized]" },
     ],
   },
+
+  extractEntities: {
+    description:
+      "Extracts various entities from text including emails, URLs, mentions, hashtags, phones, dates, and prices",
+    size: "1.1KB",
+    params: [
+      {
+        name: "text",
+        type: "string",
+        default:
+          "Contact @john at john@example.com or call (555) 123-4567. Check #updates at https://example.com. Price: $99.99",
+      },
+    ],
+    examples: [
+      {
+        code: 'extractEntities("Contact @john at john@example.com")',
+        result: '{ emails: ["john@example.com"], mentions: ["@john"], ... }',
+      },
+      {
+        code: 'extractEntities("Visit https://example.com for $99.99 #deals")',
+        result:
+          '{ urls: ["https://example.com"], prices: ["$99.99"], hashtags: ["#deals"], ... }',
+      },
+      {
+        code: 'extractEntities("Call (555) 123-4567 on 2024-01-15")',
+        result: '{ phones: ["(555) 123-4567"], dates: ["2024-01-15"], ... }',
+      },
+    ],
+  },
+  smartSplit: {
+    description:
+      "Intelligently splits text into sentences while handling abbreviations, decimals, and edge cases",
+    size: "0.8KB",
+    params: [
+      {
+        name: "text",
+        type: "string",
+        default:
+          "Dr. Smith went to the store. He bought milk for $3.50. What a deal!",
+      },
+    ],
+    examples: [
+      {
+        code: 'smartSplit("Hello world. How are you?")',
+        result: '["Hello world.", "How are you?"]',
+      },
+      {
+        code: 'smartSplit("Dr. Smith arrived. He was late.")',
+        result: '["Dr. Smith arrived.", "He was late."]',
+      },
+      {
+        code: 'smartSplit("The price is $3.50. What a deal!")',
+        result: '["The price is $3.50.", "What a deal!"]',
+      },
+    ],
+  },
+  humanizeList: {
+    description:
+      "Converts arrays into human-readable lists with proper grammar and Oxford comma",
+    size: "0.5KB",
+    params: [
+      {
+        name: "items",
+        type: "unknown[]",
+        default: '["apple", "banana", "orange"]',
+      },
+      {
+        name: "options",
+        type: "HumanizeListOptions",
+        default: "{}",
+      },
+    ],
+    examples: [
+      {
+        code: 'humanizeList(["apple", "banana", "orange"])',
+        result: '"apple, banana, and orange"',
+      },
+      {
+        code: 'humanizeList(["red", "blue"], { conjunction: "or" })',
+        result: '"red or blue"',
+      },
+      {
+        code: "humanizeList([1, 2, 3], { quotes: true })",
+        result: '"\\"1\\", \\"2\\", and \\"3\\""',
+      },
+    ],
+  },
 };
