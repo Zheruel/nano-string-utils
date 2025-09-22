@@ -79,7 +79,7 @@ bun add nano-string-utils
 <script src="https://unpkg.com/nano-string-utils/dist/index.iife.js"></script>
 
 <!-- Or specific version -->
-<script src="https://cdn.jsdelivr.net/npm/nano-string-utils@0.15.0/dist/index.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nano-string-utils@0.16.0/dist/index.iife.js"></script>
 
 <script>
   // All functions available on global nanoStringUtils object
