@@ -4,6 +4,7 @@
   "codePoints",
   "constantCase",
   "deburr",
+  "detectScript",
   "diff",
   "dotCase",
   "escapeHtml",

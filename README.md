@@ -177,7 +177,7 @@ fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
 fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
 ```
 
-> 📖 **See all 44 functions in the API Reference below**
+> 📖 **See all 45 functions in the API Reference below**
 
 ## CLI
 
@@ -293,7 +293,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 44 string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 47 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -540,7 +540,7 @@ hashString("world"); // 113318802
 </details>
 
 <details>
-<summary><b>📝 Text Processing (11 functions)</b></summary>
+<summary><b>📝 Text Processing (13 functions)</b></summary>
 
 ### Text Processing
 
@@ -553,6 +553,17 @@ Removes HTML tags from a string.
 ```javascript
 stripHtml("<p>Hello <b>world</b>!</p>"); // 'Hello world!'
 stripHtml("<div>Text</div>"); // 'Text'
+```
+
+#### `sanitize(str: string, options?: SanitizeOptions): string`
+
+Security-focused string sanitization for safe use in web applications by removing or escaping dangerous content.
+
+```javascript
+sanitize("<script>alert('xss')</script>Hello"); // 'Hello'
+sanitize("<b>Bold</b> text", { allowedTags: ["b"] }); // '<b>Bold</b> text'
+sanitize("javascript:alert(1)"); // ''
+sanitize("<div onclick='alert(1)'>Click</div>"); // 'Click'
 ```
 
 #### `escapeHtml(str: string): string`
@@ -805,6 +816,39 @@ isASCII("café"); // false
 isASCII("👍"); // false
 isASCII("abc123!@#"); // true
 isASCII(""); // true
+```
+
+#### `detectScript(str: string): 'latin' | 'cjk' | 'arabic' | 'cyrillic' | 'hebrew' | 'devanagari' | 'greek' | 'thai' | 'unknown'`
+
+Detects the dominant writing system (script) in a text string.
+
+```javascript
+detectScript("Hello World"); // 'latin'
+detectScript("你好世界"); // 'cjk'
+detectScript("مرحبا بالعالم"); // 'arabic'
+detectScript("Привет мир"); // 'cyrillic'
+detectScript("שלום עולם"); // 'hebrew'
+detectScript("नमस्ते दुनिया"); // 'devanagari'
+detectScript("Γειά σου κόσμε"); // 'greek'
+detectScript("สวัสดีชาวโลก"); // 'thai'
+detectScript(""); // 'unknown'
+```
+
+#### `classifyText(str: string): { type: string, confidence: number }`
+
+Classifies text content by type (URL, email, code, JSON, markdown, HTML, question, phone, numeric, or plain text) with confidence scoring.
+
+```javascript
+classifyText("https://example.com"); // { type: 'url', confidence: 1 }
+classifyText("user@example.com"); // { type: 'email', confidence: 1 }
+classifyText("What is TypeScript?"); // { type: 'question', confidence: 1 }
+classifyText('{"key": "value"}'); // { type: 'json', confidence: 1 }
+classifyText("function hello() { return 42; }"); // { type: 'code', confidence: 0.85 }
+classifyText("<div>Hello</div>"); // { type: 'html', confidence: 0.9 }
+classifyText("# Title\n\nText"); // { type: 'markdown', confidence: 0.7 }
+classifyText("+1-555-123-4567"); // { type: 'phone', confidence: 0.95 }
+classifyText("42 + 17 = 59"); // { type: 'numeric', confidence: 0.8 }
+classifyText("Just plain text"); // { type: 'text', confidence: 0.7 }
 ```
 
 </details>
@@ -1361,6 +1405,7 @@ Each utility is optimized to be as small as possible:
 | capitalize            | ~100 bytes      |
 | truncate              | ~150 bytes      |
 | stripHtml             | ~120 bytes      |
+| sanitize              | ~1.2 KB         |
 | escapeHtml            | ~180 bytes      |
 | excerpt               | ~220 bytes      |
 | randomString          | ~200 bytes      |
@@ -1392,8 +1437,10 @@ Each utility is optimized to be as small as possible:
 | humanizeList          | ~850 bytes      |
 | memoize               | ~400 bytes      |
 | extractEntities       | ~1.1KB          |
+| detectScript          | ~1.1KB          |
+| classifyText          | ~2.3KB          |
 
-Total package size: **< 7.5KB** minified + gzipped
+Total package size: **< 8.5KB** minified + gzipped
 
 ## Requirements
 
