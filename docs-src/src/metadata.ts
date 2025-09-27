@@ -279,6 +279,19 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  detectScript: {
+    description: "Detects the dominant writing system (script) in text",
+    size: "1.1KB",
+    params: [{ name: "str", type: "string", default: "Hello World" }],
+    examples: [
+      { code: 'detectScript("Hello World")', result: '"latin"' },
+      { code: 'detectScript("你好世界")', result: '"cjk"' },
+      { code: 'detectScript("مرحبا بالعالم")', result: '"arabic"' },
+      { code: 'detectScript("Привет мир")', result: '"cyrillic"' },
+      { code: 'detectScript("שלום עולם")', result: '"hebrew"' },
+    ],
+  },
+
   // Advanced Functions
   template: {
     description: "Interpolates variables in a template string",
@@ -676,6 +689,63 @@ export const functionMetadata: Record<string, FunctionMeta> = {
       {
         code: "humanizeList([1, 2, 3], { quotes: true })",
         result: '"\\"1\\", \\"2\\", and \\"3\\""',
+      },
+    ],
+  },
+  classifyText: {
+    description:
+      "Classifies text content by type (URL, email, code, JSON, markdown, HTML, question, phone, numeric, or plain text) with confidence scoring",
+    size: "2.3KB",
+    params: [
+      {
+        name: "text",
+        type: "string",
+        default: '"https://example.com"',
+      },
+    ],
+    examples: [
+      {
+        code: 'classifyText("https://example.com")',
+        result: '{ type: "url", confidence: 1 }',
+      },
+      {
+        code: 'classifyText("What is TypeScript?")',
+        result: '{ type: "question", confidence: 1 }',
+      },
+      {
+        code: 'classifyText("function hello() { return 42; }")',
+        result: '{ type: "code", confidence: 0.85 }',
+      },
+    ],
+  },
+  sanitize: {
+    description:
+      "Security-focused string sanitization for safe use in web applications by removing or escaping dangerous content",
+    size: "2.5KB",
+    params: [
+      {
+        name: "str",
+        type: "string",
+        default: "\"<script>alert('xss')</script>Hello\"",
+      },
+      {
+        name: "options",
+        type: "object",
+        default: "{}",
+      },
+    ],
+    examples: [
+      {
+        code: "sanitize(\"<script>alert('xss')</script>Hello\")",
+        result: '"Hello"',
+      },
+      {
+        code: 'sanitize("<b>Bold</b> text", { allowedTags: ["b"] })',
+        result: '"<b>Bold</b> text"',
+      },
+      {
+        code: 'sanitize("javascript:alert(1)")',
+        result: '""',
       },
     ],
   },

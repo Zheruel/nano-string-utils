@@ -1,6 +1,6 @@
 {
-  "generated": "2025-09-22T19:47:40.221Z",
-  "totalFunctions": 44,
+  "generated": "2025-09-27T10:16:47.743Z",
+  "totalFunctions": 47,
   "functions": [
     {
       "name": "camelCase",
@@ -85,11 +85,11 @@
       "nano": {
         "bundled": {
           "raw": 1676,
-          "gzip": 879
+          "gzip": 880
         },
         "treeShaken": {
           "raw": 1676,
-          "gzip": 879
+          "gzip": 880
         }
       },
       "lodash": {
@@ -102,6 +102,22 @@
       },
       "winner": "es-toolkit",
       "percentSavings": -165
+    },
+    {
+      "name": "detectScript",
+      "nano": {
+        "bundled": {
+          "raw": 2374,
+          "gzip": 1161
+        },
+        "treeShaken": {
+          "raw": 2374,
+          "gzip": 1161
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
     },
     {
       "name": "diff",
@@ -124,11 +140,11 @@
       "nano": {
         "bundled": {
           "raw": 1653,
-          "gzip": 785
+          "gzip": 786
         },
         "treeShaken": {
           "raw": 1653,
-          "gzip": 785
+          "gzip": 786
         }
       },
       "lodash": null,
@@ -156,11 +172,11 @@
       "nano": {
         "bundled": {
           "raw": 1667,
-          "gzip": 841
+          "gzip": 840
         },
         "treeShaken": {
           "raw": 1667,
-          "gzip": 841
+          "gzip": 840
         }
       },
       "lodash": null,
@@ -188,11 +204,11 @@
       "nano": {
         "bundled": {
           "raw": 2506,
-          "gzip": 1212
+          "gzip": 1213
         },
         "treeShaken": {
           "raw": 2506,
-          "gzip": 1212
+          "gzip": 1213
         }
       },
       "lodash": null,
@@ -204,11 +220,11 @@
       "nano": {
         "bundled": {
           "raw": 1541,
-          "gzip": 758
+          "gzip": 759
         },
         "treeShaken": {
           "raw": 1541,
-          "gzip": 758
+          "gzip": 759
         }
       },
       "lodash": null,
@@ -251,12 +267,12 @@
       "name": "humanizeList",
       "nano": {
         "bundled": {
-          "raw": 1648,
-          "gzip": 856
+          "raw": 1652,
+          "gzip": 857
         },
         "treeShaken": {
-          "raw": 1648,
-          "gzip": 856
+          "raw": 1652,
+          "gzip": 857
         }
       },
       "lodash": null,
@@ -268,11 +284,11 @@
       "nano": {
         "bundled": {
           "raw": 1448,
-          "gzip": 720
+          "gzip": 721
         },
         "treeShaken": {
           "raw": 1448,
-          "gzip": 720
+          "gzip": 721
         }
       },
       "lodash": null,
@@ -339,11 +355,11 @@
       "nano": {
         "bundled": {
           "raw": 2083,
-          "gzip": 1029
+          "gzip": 1030
         },
         "treeShaken": {
           "raw": 2083,
-          "gzip": 1029
+          "gzip": 1030
         }
       },
       "lodash": null,
@@ -355,11 +371,11 @@
       "nano": {
         "bundled": {
           "raw": 2243,
-          "gzip": 1085
+          "gzip": 1086
         },
         "treeShaken": {
           "raw": 2243,
-          "gzip": 1085
+          "gzip": 1086
         }
       },
       "lodash": null,
@@ -446,11 +462,11 @@
       "nano": {
         "bundled": {
           "raw": 1545,
-          "gzip": 784
+          "gzip": 785
         },
         "treeShaken": {
           "raw": 1545,
-          "gzip": 784
+          "gzip": 785
         }
       },
       "lodash": {
@@ -566,11 +582,11 @@
       "nano": {
         "bundled": {
           "raw": 2148,
-          "gzip": 991
+          "gzip": 992
         },
         "treeShaken": {
           "raw": 2148,
-          "gzip": 991
+          "gzip": 992
         }
       },
       "lodash": null,
@@ -614,11 +630,11 @@
       "nano": {
         "bundled": {
           "raw": 2370,
-          "gzip": 1153
+          "gzip": 1152
         },
         "treeShaken": {
           "raw": 2370,
-          "gzip": 1153
+          "gzip": 1152
         }
       },
       "lodash": null,
@@ -767,13 +783,45 @@
       "lodash": null,
       "esToolkit": null,
       "winner": "nano"
+    },
+    {
+      "name": "classifyText",
+      "nano": {
+        "bundled": {
+          "raw": 2354,
+          "gzip": 986
+        },
+        "treeShaken": {
+          "raw": 2354,
+          "gzip": 986
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "sanitize",
+      "nano": {
+        "bundled": {
+          "raw": 2550,
+          "gzip": 1250
+        },
+        "treeShaken": {
+          "raw": 2550,
+          "gzip": 1250
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
     }
   ],
   "summary": {
-    "totalNanoWins": 37,
+    "totalNanoWins": 40,
     "totalEsToolkitWins": 7,
     "totalLodashWins": 0,
-    "averageSavings": -49,
+    "averageSavings": -48,
     "smallestFunction": "isEmail",
     "largestFunction": "toASCII"
   }

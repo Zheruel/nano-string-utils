@@ -52,6 +52,9 @@ export { memoize, type MemoizeOptions } from "./memoize.js";
 export { extractEntities, type ExtractedEntities } from "./extractEntities.js";
 export { smartSplit } from "./smartSplit.js";
 export { humanizeList, type HumanizeListOptions } from "./humanizeList.js";
+export { detectScript } from "./detectScript.js";
+export { classifyText, type Classification } from "./classifyText.js";
+export { sanitize, type SanitizeOptions } from "./sanitize.js";
 
 // Branded types namespace export
 export * as branded from "./types/index.js";
