@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.0] - 2025-10-01
+
+### Added
+
+- **New Function: `redact()`** - Redact sensitive information from text for UI/logging purposes
+  - Built-in pattern support for SSN, credit cards, emails, and phone numbers
+  - Multiple redaction strategies: `partial` (show last N chars) and `full` (complete masking)
+  - Selective type redaction - choose which data types to redact
+  - Custom pattern support with regex and replacement functions
+  - Configurable partial length (default: 4 characters)
+  - Smart format preservation for phone numbers (parentheses, dots, dashes)
+  - Consistent output formatting (e.g., SSNs always use dash format)
+  - Security notice in documentation emphasizing proper use cases
+  - 42 comprehensive test cases covering all redaction types and edge cases
+  - Bundle size: ~1.3KB gzipped
+
+### Changed
+
+- **Bundle Size** - Increased size limit from 9 KB to 9.1 KB to accommodate new redaction function
+- **Documentation** - Updated function count from 47 to 48 functions
+- **Interactive Playground** - Added `redact()` to documentation site with live examples
+
 ## [0.16.0] - 2025-09-22
 
 ### Added
@@ -407,6 +429,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.18.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.18.0
+[0.16.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.16.0
 [0.13.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.13.0
 [0.12.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.12.0
 [0.11.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.11.0
