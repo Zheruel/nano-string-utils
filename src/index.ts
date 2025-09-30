@@ -55,6 +55,7 @@ export { humanizeList, type HumanizeListOptions } from "./humanizeList.js";
 export { detectScript } from "./detectScript.js";
 export { classifyText, type Classification } from "./classifyText.js";
 export { sanitize, type SanitizeOptions } from "./sanitize.js";
+export { redact } from "./redact.js";
 
 // Branded types namespace export
 export * as branded from "./types/index.js";

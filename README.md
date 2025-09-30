@@ -293,7 +293,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 47 string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 48 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -540,7 +540,7 @@ hashString("world"); // 113318802
 </details>
 
 <details>
-<summary><b>📝 Text Processing (13 functions)</b></summary>
+<summary><b>📝 Text Processing (14 functions)</b></summary>
 
 ### Text Processing
 
@@ -564,6 +564,33 @@ sanitize("<script>alert('xss')</script>Hello"); // 'Hello'
 sanitize("<b>Bold</b> text", { allowedTags: ["b"] }); // '<b>Bold</b> text'
 sanitize("javascript:alert(1)"); // ''
 sanitize("<div onclick='alert(1)'>Click</div>"); // 'Click'
+```
+
+#### `redact(text: string, options?: RedactOptions): string`
+
+Redacts sensitive information from text for UI/logging purposes. Supports SSN, credit cards, emails, and phone numbers with customizable redaction strategies.
+
+**⚠️ Security Notice**: This is for UI/logging purposes to prevent accidental exposure. Not a substitute for proper data security practices or encryption.
+
+```javascript
+// Default: redact all types with partial strategy (show last 4)
+redact("My SSN is 123-45-6789"); // 'My SSN is ***-**-6789'
+redact("Card: 4532-1234-5678-9010"); // 'Card: **** **** **** 9010'
+redact("Email: user@example.com"); // 'Email: use***@example.com'
+redact("Phone: (555) 123-4567"); // 'Phone: (***) ***-4567'
+
+// Selective type redaction
+redact("Email: user@example.com, SSN: 123-45-6789", {
+  types: ["email"], // Only redact emails
+}); // 'Email: use***@example.com, SSN: 123-45-6789'
+
+// Full redaction (no partial reveal)
+redact("SSN: 123-45-6789", { strategy: "full" }); // 'SSN: ***-**-****'
+
+// Custom patterns
+redact("Secret: ABC-123", {
+  customPatterns: [{ pattern: /[A-Z]{3}-\d{3}/g, replacement: "[REDACTED]" }],
+}); // 'Secret: [REDACTED]'
 ```
 
 #### `escapeHtml(str: string): string`
@@ -1406,6 +1433,7 @@ Each utility is optimized to be as small as possible:
 | truncate              | ~150 bytes      |
 | stripHtml             | ~120 bytes      |
 | sanitize              | ~1.2 KB         |
+| redact                | ~1.3 KB         |
 | escapeHtml            | ~180 bytes      |
 | excerpt               | ~220 bytes      |
 | randomString          | ~200 bytes      |

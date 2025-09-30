@@ -749,4 +749,40 @@ export const functionMetadata: Record<string, FunctionMeta> = {
       },
     ],
   },
+  redact: {
+    description:
+      "Redacts sensitive information from text for UI/logging purposes (SSN, credit cards, emails, phone numbers)",
+    size: "1.3KB",
+    params: [
+      {
+        name: "text",
+        type: "string",
+        default: '"My SSN is 123-45-6789"',
+      },
+      {
+        name: "options",
+        type: "object",
+        optional: true,
+        default: "{}",
+      },
+    ],
+    examples: [
+      {
+        code: 'redact("My SSN is 123-45-6789")',
+        result: '"My SSN is ***-**-6789"',
+      },
+      {
+        code: 'redact("Card: 4532-1234-5678-9010")',
+        result: '"Card: **** **** **** 9010"',
+      },
+      {
+        code: 'redact("Email: user@example.com", { types: ["email"] })',
+        result: '"Email: use***@example.com"',
+      },
+      {
+        code: 'redact("SSN: 123-45-6789", { strategy: "full" })',
+        result: '"SSN: ***-**-****"',
+      },
+    ],
+  },
 };
