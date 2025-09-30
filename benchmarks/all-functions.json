@@ -1,6 +1,7 @@
 [
   "camelCase",
   "capitalize",
+  "classifyText",
   "codePoints",
   "constantCase",
   "deburr",
@@ -30,8 +31,10 @@
   "pathCase",
   "pluralize",
   "randomString",
+  "redact",
   "removeNonPrintable",
   "reverse",
+  "sanitize",
   "sentenceCase",
   "singularize",
   "slugify",
