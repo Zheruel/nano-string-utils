@@ -33,6 +33,7 @@ import type { CamelCase } from "./types/string-literals.js";
 export function camelCase<T extends string>(str: T): CamelCase<T>;
 export function camelCase(str: string): string;
 export function camelCase(str: string): string {
+  if (!str) return str;
   const wordList = words(str);
   return wordList
     .map((word, index) =>
