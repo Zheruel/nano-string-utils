@@ -7,6 +7,77 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.0] - 2025-10-04
+
+### Performance
+
+- **Significant Bundle Size Reductions** - Achieved 98% win rate against competitors (47/48 functions)
+
+  - Overall 7% average size reduction through code optimization
+  - `camelCase`: 72% reduction (827B → 232B gzipped)
+  - `capitalize`: 86% reduction (697B → 99B gzipped)
+  - `truncate`: 94% smaller than lodash (180B vs 2.9KB)
+  - `template`: 95% smaller than lodash (302B vs 5.7KB)
+  - `padStart`/`padEnd`: 93% smaller than lodash
+  - Package total: < 8.5KB minified + gzipped
+
+- **Runtime Performance Improvements** - Competitive with industry-leading libraries
+  - Wins 10 out of 14 benchmarked functions vs es-toolkit
+  - Ultra-fast case conversions: 3.4M-4.3M ops/s
+  - Efficient truncate: 23.4M ops/s
+  - Fast template interpolation: 998K ops/s
+
+### Added
+
+- **Performance Benchmarking Infrastructure**
+
+  - New `benchmarks/performance-benchmarks.ts` - comprehensive benchmark suite
+  - Compares nano-string-utils against lodash and es-toolkit
+  - Measures operations per second with statistical margins
+  - Generates `performance-benchmarks.json` for documentation
+  - Interactive performance visualization in documentation site
+
+- **Interactive Documentation Enhancements**
+  - New performance benchmark viewer with live charts
+  - Added `docs-src/src/performance.ts` with visual performance comparisons
+  - Enhanced bundle size display with better formatting
+  - Link to interactive performance benchmarks in README
+
+### Improved
+
+- **Code Optimizations**
+
+  - Simplified case conversion implementations (`camelCase`, `pascalCase`, `kebabCase`, `snakeCase`)
+  - More concise mapping logic and removed redundant checks
+  - Optimized `pad()` function with more efficient string concatenation
+  - Unicode-aware word splitting engine - now properly handles emojis, extended pictographic characters, and Unicode letters from all scripts
+
+- **Tree-Shaking Improvements**
+
+  - Refactored branded types from namespace export to individual exports
+  - Separately exports types, guards, assertions, and builders
+  - Enables better dead code elimination - users only bundle what they import
+
+- **Bundle Size Tracking**
+  - Updated methodology to report gzipped sizes (more realistic)
+  - Enhanced `bundle-size-results.md` with accurate metrics
+  - Improved visual distinction between winners in comparisons
+
+### Fixed
+
+- **Null/Undefined Handling** - Restored proper null/undefined checks that were removed during optimization
+  - `camelCase`, `kebabCase`, `snakeCase`, `pascalCase` now correctly handle null/undefined inputs
+  - `pad()` now correctly handles null/undefined inputs
+  - All 1195 tests passing
+
+### Documentation
+
+- **README Updates**
+  - Replaced minified sizes with gzipped sizes for accuracy
+  - Updated performance comparisons with real benchmark data
+  - Improved comparison tables with latest metrics
+  - Added comprehensive benchmark results and methodology
+
 ## [0.18.0] - 2025-10-01
 
 ### Added
