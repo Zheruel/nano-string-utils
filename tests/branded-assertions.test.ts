@@ -1,34 +1,35 @@
 import { describe, test, expect } from "vitest";
-import { branded } from "../src/index.js";
+import {
+  BrandedTypeError,
+  assertEmail,
+  assertUrl,
+  assertSlug,
+} from "../src/index.js";
 
 describe("Branded Type Assertions", () => {
   describe("assertEmail", () => {
     test("passes for valid email addresses", () => {
-      expect(() => branded.assertEmail("user@example.com")).not.toThrow();
-      expect(() => branded.assertEmail("test@domain.co.uk")).not.toThrow();
+      expect(() => assertEmail("user@example.com")).not.toThrow();
+      expect(() => assertEmail("test@domain.co.uk")).not.toThrow();
     });
 
     test("throws BrandedTypeError for invalid emails", () => {
-      expect(() => branded.assertEmail("notanemail")).toThrow(
-        branded.BrandedTypeError
-      );
-      expect(() => branded.assertEmail("notanemail")).toThrow(
+      expect(() => assertEmail("notanemail")).toThrow(BrandedTypeError);
+      expect(() => assertEmail("notanemail")).toThrow(
         'Invalid Email: "notanemail"'
       );
-      expect(() => branded.assertEmail("@example.com")).toThrow(
-        branded.BrandedTypeError
-      );
+      expect(() => assertEmail("@example.com")).toThrow(BrandedTypeError);
     });
 
     test("throws with custom message", () => {
-      expect(() =>
-        branded.assertEmail("invalid", "Custom email error")
-      ).toThrow('Invalid Custom email error: "invalid"');
+      expect(() => assertEmail("invalid", "Custom email error")).toThrow(
+        'Invalid Custom email error: "invalid"'
+      );
     });
 
     test("type assertion works", () => {
       const input: string = "user@example.com";
-      branded.assertEmail(input);
+      assertEmail(input);
       // After assertion, TypeScript knows input is Email
       // This is a compile-time check, runtime just verifies no throw
       expect(input).toBe("user@example.com");
@@ -37,31 +38,25 @@ describe("Branded Type Assertions", () => {
 
   describe("assertUrl", () => {
     test("passes for valid URLs", () => {
-      expect(() => branded.assertUrl("https://example.com")).not.toThrow();
-      expect(() => branded.assertUrl("http://localhost:3000")).not.toThrow();
+      expect(() => assertUrl("https://example.com")).not.toThrow();
+      expect(() => assertUrl("http://localhost:3000")).not.toThrow();
     });
 
     test("throws BrandedTypeError for invalid URLs", () => {
-      expect(() => branded.assertUrl("not a url")).toThrow(
-        branded.BrandedTypeError
-      );
-      expect(() => branded.assertUrl("not a url")).toThrow(
-        'Invalid URL: "not a url"'
-      );
-      expect(() => branded.assertUrl("example.com")).toThrow(
-        branded.BrandedTypeError
-      );
+      expect(() => assertUrl("not a url")).toThrow(BrandedTypeError);
+      expect(() => assertUrl("not a url")).toThrow('Invalid URL: "not a url"');
+      expect(() => assertUrl("example.com")).toThrow(BrandedTypeError);
     });
 
     test("throws with custom message", () => {
-      expect(() => branded.assertUrl("invalid", "Custom URL error")).toThrow(
+      expect(() => assertUrl("invalid", "Custom URL error")).toThrow(
         'Invalid Custom URL error: "invalid"'
       );
     });
 
     test("type assertion works", () => {
       const input: string = "https://example.com";
-      branded.assertUrl(input);
+      assertUrl(input);
       // After assertion, TypeScript knows input is URL
       expect(input).toBe("https://example.com");
     });
@@ -69,31 +64,27 @@ describe("Branded Type Assertions", () => {
 
   describe("assertSlug", () => {
     test("passes for valid slugs", () => {
-      expect(() => branded.assertSlug("hello-world")).not.toThrow();
-      expect(() => branded.assertSlug("my-post-123")).not.toThrow();
+      expect(() => assertSlug("hello-world")).not.toThrow();
+      expect(() => assertSlug("my-post-123")).not.toThrow();
     });
 
     test("throws BrandedTypeError for invalid slugs", () => {
-      expect(() => branded.assertSlug("Hello World")).toThrow(
-        branded.BrandedTypeError
-      );
-      expect(() => branded.assertSlug("Hello World")).toThrow(
+      expect(() => assertSlug("Hello World")).toThrow(BrandedTypeError);
+      expect(() => assertSlug("Hello World")).toThrow(
         'Invalid Slug: "Hello World"'
       );
-      expect(() => branded.assertSlug("UPPERCASE")).toThrow(
-        branded.BrandedTypeError
-      );
+      expect(() => assertSlug("UPPERCASE")).toThrow(BrandedTypeError);
     });
 
     test("throws with custom message", () => {
-      expect(() =>
-        branded.assertSlug("Invalid Slug!", "Custom slug error")
-      ).toThrow('Invalid Custom slug error: "Invalid Slug!"');
+      expect(() => assertSlug("Invalid Slug!", "Custom slug error")).toThrow(
+        'Invalid Custom slug error: "Invalid Slug!"'
+      );
     });
 
     test("type assertion works", () => {
       const input: string = "hello-world";
-      branded.assertSlug(input);
+      assertSlug(input);
       // After assertion, TypeScript knows input is Slug
       expect(input).toBe("hello-world");
     });
@@ -101,18 +92,18 @@ describe("Branded Type Assertions", () => {
 
   describe("BrandedTypeError", () => {
     test("is an instance of Error", () => {
-      const error = new branded.BrandedTypeError("Email", "invalid");
+      const error = new BrandedTypeError("Email", "invalid");
       expect(error).toBeInstanceOf(Error);
-      expect(error).toBeInstanceOf(branded.BrandedTypeError);
+      expect(error).toBeInstanceOf(BrandedTypeError);
     });
 
     test("has correct name property", () => {
-      const error = new branded.BrandedTypeError("Email", "invalid");
+      const error = new BrandedTypeError("Email", "invalid");
       expect(error.name).toBe("BrandedTypeError");
     });
 
     test("has correct message format", () => {
-      const error = new branded.BrandedTypeError("Email", "test@invalid");
+      const error = new BrandedTypeError("Email", "test@invalid");
       expect(error.message).toBe('Invalid Email: "test@invalid"');
     });
   });

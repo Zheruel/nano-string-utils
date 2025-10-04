@@ -1,17 +1,17 @@
 {
-  "generated": "2025-09-30T23:10:38.583Z",
+  "generated": "2025-10-04T11:18:23.280Z",
   "totalFunctions": 48,
   "functions": [
     {
       "name": "camelCase",
       "nano": {
         "bundled": {
-          "raw": 1673,
-          "gzip": 827
+          "raw": 298,
+          "gzip": 232
         },
         "treeShaken": {
-          "raw": 1673,
-          "gzip": 827
+          "raw": 298,
+          "gzip": 232
         }
       },
       "lodash": {
@@ -22,19 +22,19 @@
         "raw": 367,
         "gzip": 273
       },
-      "winner": "es-toolkit",
-      "percentSavings": -203
+      "winner": "nano",
+      "percentSavings": 15
     },
     {
       "name": "capitalize",
       "nano": {
         "bundled": {
-          "raw": 1412,
-          "gzip": 697
+          "raw": 88,
+          "gzip": 99
         },
         "treeShaken": {
-          "raw": 1412,
-          "gzip": 697
+          "raw": 88,
+          "gzip": 99
         }
       },
       "lodash": {
@@ -45,19 +45,19 @@
         "raw": 97,
         "gzip": 107
       },
-      "winner": "es-toolkit",
-      "percentSavings": -551
+      "winner": "nano",
+      "percentSavings": 7
     },
     {
       "name": "classifyText",
       "nano": {
         "bundled": {
-          "raw": 3136,
-          "gzip": 1485
+          "raw": 1812,
+          "gzip": 898
         },
         "treeShaken": {
-          "raw": 3136,
-          "gzip": 1485
+          "raw": 1812,
+          "gzip": 898
         }
       },
       "lodash": null,
@@ -68,12 +68,12 @@
       "name": "codePoints",
       "nano": {
         "bundled": {
-          "raw": 1457,
-          "gzip": 728
+          "raw": 133,
+          "gzip": 131
         },
         "treeShaken": {
-          "raw": 1457,
-          "gzip": 728
+          "raw": 133,
+          "gzip": 131
         }
       },
       "lodash": null,
@@ -84,12 +84,12 @@
       "name": "constantCase",
       "nano": {
         "bundled": {
-          "raw": 1665,
-          "gzip": 805
+          "raw": 341,
+          "gzip": 228
         },
         "treeShaken": {
-          "raw": 1665,
-          "gzip": 805
+          "raw": 341,
+          "gzip": 228
         }
       },
       "lodash": null,
@@ -100,12 +100,12 @@
       "name": "deburr",
       "nano": {
         "bundled": {
-          "raw": 1676,
-          "gzip": 879
+          "raw": 352,
+          "gzip": 273
         },
         "treeShaken": {
-          "raw": 1676,
-          "gzip": 879
+          "raw": 352,
+          "gzip": 273
         }
       },
       "lodash": {
@@ -116,19 +116,19 @@
         "raw": 544,
         "gzip": 332
       },
-      "winner": "es-toolkit",
-      "percentSavings": -165
+      "winner": "nano",
+      "percentSavings": 18
     },
     {
       "name": "detectScript",
       "nano": {
         "bundled": {
-          "raw": 2374,
-          "gzip": 1161
+          "raw": 1050,
+          "gzip": 540
         },
         "treeShaken": {
-          "raw": 2374,
-          "gzip": 1161
+          "raw": 1050,
+          "gzip": 540
         }
       },
       "lodash": null,
@@ -139,12 +139,12 @@
       "name": "diff",
       "nano": {
         "bundled": {
-          "raw": 1796,
-          "gzip": 863
+          "raw": 472,
+          "gzip": 265
         },
         "treeShaken": {
-          "raw": 1796,
-          "gzip": 863
+          "raw": 472,
+          "gzip": 265
         }
       },
       "lodash": null,
@@ -155,12 +155,12 @@
       "name": "dotCase",
       "nano": {
         "bundled": {
-          "raw": 1653,
-          "gzip": 786
+          "raw": 329,
+          "gzip": 207
         },
         "treeShaken": {
-          "raw": 1653,
-          "gzip": 786
+          "raw": 329,
+          "gzip": 207
         }
       },
       "lodash": null,
@@ -171,12 +171,12 @@
       "name": "escapeHtml",
       "nano": {
         "bundled": {
-          "raw": 1461,
-          "gzip": 741
+          "raw": 137,
+          "gzip": 136
         },
         "treeShaken": {
-          "raw": 1461,
-          "gzip": 741
+          "raw": 137,
+          "gzip": 136
         }
       },
       "lodash": null,
@@ -187,12 +187,12 @@
       "name": "excerpt",
       "nano": {
         "bundled": {
-          "raw": 1667,
-          "gzip": 841
+          "raw": 343,
+          "gzip": 261
         },
         "treeShaken": {
-          "raw": 1667,
-          "gzip": 841
+          "raw": 343,
+          "gzip": 261
         }
       },
       "lodash": null,
@@ -203,12 +203,12 @@
       "name": "extractEntities",
       "nano": {
         "bundled": {
-          "raw": 2354,
-          "gzip": 1140
+          "raw": 1030,
+          "gzip": 573
         },
         "treeShaken": {
-          "raw": 2354,
-          "gzip": 1140
+          "raw": 1030,
+          "gzip": 573
         }
       },
       "lodash": null,
@@ -219,12 +219,12 @@
       "name": "fuzzyMatch",
       "nano": {
         "bundled": {
-          "raw": 2506,
-          "gzip": 1212
+          "raw": 1182,
+          "gzip": 613
         },
         "treeShaken": {
-          "raw": 2506,
-          "gzip": 1212
+          "raw": 1182,
+          "gzip": 613
         }
       },
       "lodash": null,
@@ -235,12 +235,12 @@
       "name": "graphemes",
       "nano": {
         "bundled": {
-          "raw": 1541,
-          "gzip": 759
+          "raw": 217,
+          "gzip": 171
         },
         "treeShaken": {
-          "raw": 1541,
-          "gzip": 759
+          "raw": 217,
+          "gzip": 171
         }
       },
       "lodash": null,
@@ -251,12 +251,12 @@
       "name": "hashString",
       "nano": {
         "bundled": {
-          "raw": 1498,
-          "gzip": 761
+          "raw": 174,
+          "gzip": 155
         },
         "treeShaken": {
-          "raw": 1498,
-          "gzip": 761
+          "raw": 174,
+          "gzip": 155
         }
       },
       "lodash": null,
@@ -267,12 +267,12 @@
       "name": "highlight",
       "nano": {
         "bundled": {
-          "raw": 1989,
-          "gzip": 1059
+          "raw": 665,
+          "gzip": 461
         },
         "treeShaken": {
-          "raw": 1989,
-          "gzip": 1059
+          "raw": 665,
+          "gzip": 461
         }
       },
       "lodash": null,
@@ -283,12 +283,12 @@
       "name": "humanizeList",
       "nano": {
         "bundled": {
-          "raw": 1652,
-          "gzip": 857
+          "raw": 328,
+          "gzip": 251
         },
         "treeShaken": {
-          "raw": 1652,
-          "gzip": 857
+          "raw": 328,
+          "gzip": 251
         }
       },
       "lodash": null,
@@ -299,12 +299,12 @@
       "name": "isASCII",
       "nano": {
         "bundled": {
-          "raw": 1448,
-          "gzip": 721
+          "raw": 124,
+          "gzip": 128
         },
         "treeShaken": {
-          "raw": 1448,
-          "gzip": 721
+          "raw": 124,
+          "gzip": 128
         }
       },
       "lodash": null,
@@ -315,12 +315,12 @@
       "name": "isEmail",
       "nano": {
         "bundled": {
-          "raw": 1346,
-          "gzip": 665
+          "raw": 187,
+          "gzip": 148
         },
         "treeShaken": {
-          "raw": 1346,
-          "gzip": 665
+          "raw": 187,
+          "gzip": 148
         }
       },
       "lodash": null,
@@ -331,12 +331,12 @@
       "name": "isUrl",
       "nano": {
         "bundled": {
-          "raw": 1344,
-          "gzip": 665
+          "raw": 175,
+          "gzip": 155
         },
         "treeShaken": {
-          "raw": 1344,
-          "gzip": 665
+          "raw": 175,
+          "gzip": 155
         }
       },
       "lodash": null,
@@ -347,12 +347,12 @@
       "name": "kebabCase",
       "nano": {
         "bundled": {
-          "raw": 1610,
-          "gzip": 793
+          "raw": 238,
+          "gzip": 197
         },
         "treeShaken": {
-          "raw": 1610,
-          "gzip": 793
+          "raw": 238,
+          "gzip": 197
         }
       },
       "lodash": {
@@ -363,19 +363,19 @@
         "raw": 238,
         "gzip": 197
       },
-      "winner": "es-toolkit",
-      "percentSavings": -303
+      "winner": "nano",
+      "percentSavings": 0
     },
     {
       "name": "levenshtein",
       "nano": {
         "bundled": {
-          "raw": 2083,
-          "gzip": 1029
+          "raw": 759,
+          "gzip": 413
         },
         "treeShaken": {
-          "raw": 2083,
-          "gzip": 1029
+          "raw": 759,
+          "gzip": 413
         }
       },
       "lodash": null,
@@ -386,12 +386,12 @@
       "name": "levenshteinNormalized",
       "nano": {
         "bundled": {
-          "raw": 2243,
-          "gzip": 1084
+          "raw": 919,
+          "gzip": 471
         },
         "treeShaken": {
-          "raw": 2243,
-          "gzip": 1084
+          "raw": 919,
+          "gzip": 471
         }
       },
       "lodash": null,
@@ -402,12 +402,12 @@
       "name": "memoize",
       "nano": {
         "bundled": {
-          "raw": 1879,
-          "gzip": 928
+          "raw": 555,
+          "gzip": 334
         },
         "treeShaken": {
-          "raw": 1879,
-          "gzip": 928
+          "raw": 555,
+          "gzip": 334
         }
       },
       "lodash": null,
@@ -418,12 +418,12 @@
       "name": "normalizeWhitespace",
       "nano": {
         "bundled": {
-          "raw": 1811,
-          "gzip": 860
+          "raw": 487,
+          "gzip": 268
         },
         "treeShaken": {
-          "raw": 1811,
-          "gzip": 860
+          "raw": 487,
+          "gzip": 268
         }
       },
       "lodash": null,
@@ -434,12 +434,12 @@
       "name": "pad",
       "nano": {
         "bundled": {
-          "raw": 1784,
-          "gzip": 896
+          "raw": 287,
+          "gzip": 209
         },
         "treeShaken": {
-          "raw": 1784,
-          "gzip": 896
+          "raw": 287,
+          "gzip": 209
         }
       },
       "lodash": {
@@ -451,18 +451,18 @@
         "gzip": 118
       },
       "winner": "es-toolkit",
-      "percentSavings": -659
+      "percentSavings": -77
     },
     {
       "name": "padEnd",
       "nano": {
         "bundled": {
-          "raw": 1551,
-          "gzip": 788
+          "raw": 227,
+          "gzip": 183
         },
         "treeShaken": {
-          "raw": 1551,
-          "gzip": 788
+          "raw": 227,
+          "gzip": 183
         }
       },
       "lodash": {
@@ -471,18 +471,18 @@
       },
       "esToolkit": null,
       "winner": "nano",
-      "percentSavings": 70
+      "percentSavings": 93
     },
     {
       "name": "padStart",
       "nano": {
         "bundled": {
-          "raw": 1545,
-          "gzip": 785
+          "raw": 221,
+          "gzip": 179
         },
         "treeShaken": {
-          "raw": 1545,
-          "gzip": 785
+          "raw": 221,
+          "gzip": 179
         }
       },
       "lodash": {
@@ -491,18 +491,18 @@
       },
       "esToolkit": null,
       "winner": "nano",
-      "percentSavings": 70
+      "percentSavings": 93
     },
     {
       "name": "pascalCase",
       "nano": {
         "bundled": {
-          "raw": 1662,
-          "gzip": 821
+          "raw": 273,
+          "gzip": 219
         },
         "treeShaken": {
-          "raw": 1662,
-          "gzip": 821
+          "raw": 273,
+          "gzip": 219
         }
       },
       "lodash": null,
@@ -510,19 +510,19 @@
         "raw": 299,
         "gzip": 231
       },
-      "winner": "es-toolkit",
-      "percentSavings": -255
+      "winner": "nano",
+      "percentSavings": 5
     },
     {
       "name": "pathCase",
       "nano": {
         "bundled": {
-          "raw": 1654,
-          "gzip": 785
+          "raw": 330,
+          "gzip": 207
         },
         "treeShaken": {
-          "raw": 1654,
-          "gzip": 785
+          "raw": 330,
+          "gzip": 207
         }
       },
       "lodash": null,
@@ -533,12 +533,12 @@
       "name": "pluralize",
       "nano": {
         "bundled": {
-          "raw": 2256,
-          "gzip": 1033
+          "raw": 932,
+          "gzip": 459
         },
         "treeShaken": {
-          "raw": 2256,
-          "gzip": 1033
+          "raw": 932,
+          "gzip": 459
         }
       },
       "lodash": null,
@@ -549,12 +549,12 @@
       "name": "randomString",
       "nano": {
         "bundled": {
-          "raw": 1559,
-          "gzip": 821
+          "raw": 235,
+          "gzip": 219
         },
         "treeShaken": {
-          "raw": 1559,
-          "gzip": 821
+          "raw": 235,
+          "gzip": 219
         }
       },
       "lodash": null,
@@ -565,12 +565,12 @@
       "name": "redact",
       "nano": {
         "bundled": {
-          "raw": 2887,
-          "gzip": 1308
+          "raw": 1563,
+          "gzip": 727
         },
         "treeShaken": {
-          "raw": 2887,
-          "gzip": 1308
+          "raw": 1563,
+          "gzip": 727
         }
       },
       "lodash": null,
@@ -581,12 +581,12 @@
       "name": "removeNonPrintable",
       "nano": {
         "bundled": {
-          "raw": 1750,
-          "gzip": 918
+          "raw": 426,
+          "gzip": 304
         },
         "treeShaken": {
-          "raw": 1750,
-          "gzip": 918
+          "raw": 426,
+          "gzip": 304
         }
       },
       "lodash": null,
@@ -597,12 +597,12 @@
       "name": "reverse",
       "nano": {
         "bundled": {
-          "raw": 1391,
-          "gzip": 687
+          "raw": 67,
+          "gzip": 82
         },
         "treeShaken": {
-          "raw": 1391,
-          "gzip": 687
+          "raw": 67,
+          "gzip": 82
         }
       },
       "lodash": null,
@@ -613,12 +613,12 @@
       "name": "sanitize",
       "nano": {
         "bundled": {
-          "raw": 3109,
-          "gzip": 1401
+          "raw": 1785,
+          "gzip": 812
         },
         "treeShaken": {
-          "raw": 3109,
-          "gzip": 1401
+          "raw": 1785,
+          "gzip": 812
         }
       },
       "lodash": null,
@@ -629,12 +629,12 @@
       "name": "sentenceCase",
       "nano": {
         "bundled": {
-          "raw": 2148,
-          "gzip": 992
+          "raw": 824,
+          "gzip": 414
         },
         "treeShaken": {
-          "raw": 2148,
-          "gzip": 992
+          "raw": 824,
+          "gzip": 414
         }
       },
       "lodash": null,
@@ -645,12 +645,12 @@
       "name": "singularize",
       "nano": {
         "bundled": {
-          "raw": 2703,
-          "gzip": 1146
+          "raw": 1379,
+          "gzip": 562
         },
         "treeShaken": {
-          "raw": 2703,
-          "gzip": 1146
+          "raw": 1379,
+          "gzip": 562
         }
       },
       "lodash": null,
@@ -661,12 +661,12 @@
       "name": "slugify",
       "nano": {
         "bundled": {
-          "raw": 1346,
-          "gzip": 667
+          "raw": 140,
+          "gzip": 138
         },
         "treeShaken": {
-          "raw": 1346,
-          "gzip": 667
+          "raw": 140,
+          "gzip": 138
         }
       },
       "lodash": null,
@@ -677,12 +677,12 @@
       "name": "smartSplit",
       "nano": {
         "bundled": {
-          "raw": 2370,
-          "gzip": 1152
+          "raw": 1046,
+          "gzip": 566
         },
         "treeShaken": {
-          "raw": 2370,
-          "gzip": 1152
+          "raw": 1046,
+          "gzip": 566
         }
       },
       "lodash": null,
@@ -693,12 +693,12 @@
       "name": "snakeCase",
       "nano": {
         "bundled": {
-          "raw": 1610,
-          "gzip": 793
+          "raw": 238,
+          "gzip": 197
         },
         "treeShaken": {
-          "raw": 1610,
-          "gzip": 793
+          "raw": 238,
+          "gzip": 197
         }
       },
       "lodash": {
@@ -709,19 +709,19 @@
         "raw": 238,
         "gzip": 197
       },
-      "winner": "es-toolkit",
-      "percentSavings": -303
+      "winner": "nano",
+      "percentSavings": 0
     },
     {
       "name": "stripHtml",
       "nano": {
         "bundled": {
-          "raw": 1389,
-          "gzip": 689
+          "raw": 65,
+          "gzip": 85
         },
         "treeShaken": {
-          "raw": 1389,
-          "gzip": 689
+          "raw": 65,
+          "gzip": 85
         }
       },
       "lodash": null,
@@ -732,12 +732,12 @@
       "name": "template",
       "nano": {
         "bundled": {
-          "raw": 1753,
-          "gzip": 887
+          "raw": 429,
+          "gzip": 302
         },
         "treeShaken": {
-          "raw": 1753,
-          "gzip": 887
+          "raw": 429,
+          "gzip": 302
         }
       },
       "lodash": {
@@ -746,18 +746,18 @@
       },
       "esToolkit": null,
       "winner": "nano",
-      "percentSavings": 85
+      "percentSavings": 95
     },
     {
       "name": "templateSafe",
       "nano": {
         "bundled": {
-          "raw": 2142,
-          "gzip": 1071
+          "raw": 818,
+          "gzip": 502
         },
         "treeShaken": {
-          "raw": 2142,
-          "gzip": 1071
+          "raw": 818,
+          "gzip": 502
         }
       },
       "lodash": null,
@@ -768,12 +768,12 @@
       "name": "titleCase",
       "nano": {
         "bundled": {
-          "raw": 2315,
-          "gzip": 1142
+          "raw": 991,
+          "gzip": 562
         },
         "treeShaken": {
-          "raw": 2315,
-          "gzip": 1142
+          "raw": 991,
+          "gzip": 562
         }
       },
       "lodash": null,
@@ -784,12 +784,12 @@
       "name": "toASCII",
       "nano": {
         "bundled": {
-          "raw": 4730,
-          "gzip": 1882
+          "raw": 3406,
+          "gzip": 1268
         },
         "treeShaken": {
-          "raw": 4730,
-          "gzip": 1882
+          "raw": 3406,
+          "gzip": 1268
         }
       },
       "lodash": null,
@@ -800,12 +800,12 @@
       "name": "truncate",
       "nano": {
         "bundled": {
-          "raw": 1550,
-          "gzip": 781
+          "raw": 226,
+          "gzip": 180
         },
         "treeShaken": {
-          "raw": 1550,
-          "gzip": 781
+          "raw": 226,
+          "gzip": 180
         }
       },
       "lodash": {
@@ -814,18 +814,18 @@
       },
       "esToolkit": null,
       "winner": "nano",
-      "percentSavings": 73
+      "percentSavings": 94
     },
     {
       "name": "wordCount",
       "nano": {
         "bundled": {
-          "raw": 1430,
-          "gzip": 713
+          "raw": 110,
+          "gzip": 123
         },
         "treeShaken": {
-          "raw": 1430,
-          "gzip": 713
+          "raw": 110,
+          "gzip": 123
         }
       },
       "lodash": null,
@@ -834,11 +834,11 @@
     }
   ],
   "summary": {
-    "totalNanoWins": 41,
-    "totalEsToolkitWins": 7,
+    "totalNanoWins": 47,
+    "totalEsToolkitWins": 1,
     "totalLodashWins": 0,
-    "averageSavings": -45,
-    "smallestFunction": "isEmail",
+    "averageSavings": 7,
+    "smallestFunction": "reverse",
     "largestFunction": "toASCII"
   }
 }

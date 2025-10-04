@@ -12,13 +12,14 @@ describe("Tree-shaking for Branded Types", () => {
     expect(typeof assertEmail).toBe("function");
   });
 
-  test("can import branded namespace from main export", async () => {
-    const { branded } = await import("../src/index.js");
+  test("can import individual branded functions from main export", async () => {
+    const { isValidEmail, toEmail, assertEmail, BrandedTypeError } =
+      await import("../src/index.js");
 
-    expect(typeof branded.isValidEmail).toBe("function");
-    expect(typeof branded.toEmail).toBe("function");
-    expect(typeof branded.assertEmail).toBe("function");
-    expect(typeof branded.BrandedTypeError).toBe("function");
+    expect(typeof isValidEmail).toBe("function");
+    expect(typeof toEmail).toBe("function");
+    expect(typeof assertEmail).toBe("function");
+    expect(typeof BrandedTypeError).toBe("function");
   });
 
   test("branded functions are independent", async () => {

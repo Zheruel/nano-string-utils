@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Ultra-lightweight string utilities with zero dependencies",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -39,6 +39,7 @@
     "test:coverage": "npm run build && vitest run --coverage",
     "bench": "vitest bench",
     "bench:perf": "vitest bench benchmarks/performance.bench.ts",
+    "bench:generate": "npm run build && npx tsx benchmarks/performance-benchmarks.ts",
     "bench:size": "tsx benchmarks/bundle-size.ts",
     "bench:all": "tsx benchmarks/run-benchmarks.ts",
     "typecheck": "tsc --noEmit",

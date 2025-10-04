@@ -57,5 +57,23 @@ export { classifyText, type Classification } from "./classifyText.js";
 export { sanitize, type SanitizeOptions } from "./sanitize.js";
 export { redact } from "./redact.js";
 
-// Branded types namespace export
-export * as branded from "./types/index.js";
+// Branded types - individual exports for optimal tree-shaking
+export type {
+  Brand,
+  Email,
+  URL,
+  Slug,
+  ValidationResult,
+} from "./types/branded.js";
+export { BrandedTypeError } from "./types/branded.js";
+export { isValidEmail, isValidUrl, isSlug } from "./types/guards.js";
+export { assertEmail, assertUrl, assertSlug } from "./types/assertions.js";
+export {
+  toEmail,
+  toUrl,
+  toSlug,
+  unsafeEmail,
+  unsafeUrl,
+  unsafeSlug,
+  ensureSlug,
+} from "./types/builders.js";

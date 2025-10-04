@@ -141,14 +141,16 @@ body {
 
 .playground-section,
 .migration-section,
-.bundle-size-section {
+.bundle-size-section,
+.performance-section {
   display: none;
   margin-bottom: 4rem;
 }
 
 .playground-section.active,
 .migration-section.active,
-.bundle-size-section.active {
+.bundle-size-section.active,
+.performance-section.active {
   display: block;
 }
 

@@ -1417,56 +1417,56 @@ This means:
 
 Each utility is optimized to be as small as possible:
 
-| Function              | Size (minified) |
-| --------------------- | --------------- |
-| slugify               | ~200 bytes      |
-| camelCase             | ~250 bytes      |
-| snakeCase             | ~220 bytes      |
-| kebabCase             | ~200 bytes      |
-| pascalCase            | ~180 bytes      |
-| constantCase          | ~230 bytes      |
-| dotCase               | ~210 bytes      |
-| pathCase              | ~210 bytes      |
-| sentenceCase          | ~280 bytes      |
-| titleCase             | ~320 bytes      |
-| capitalize            | ~100 bytes      |
-| truncate              | ~150 bytes      |
-| stripHtml             | ~120 bytes      |
-| sanitize              | ~1.2 KB         |
-| redact                | ~1.3 KB         |
-| escapeHtml            | ~180 bytes      |
-| excerpt               | ~220 bytes      |
-| randomString          | ~200 bytes      |
-| hashString            | ~150 bytes      |
-| reverse               | ~80 bytes       |
-| deburr                | ~200 bytes      |
-| isEmail               | ~180 bytes      |
-| isUrl                 | ~200 bytes      |
-| isASCII               | ~100 bytes      |
-| toASCII               | ~450 bytes      |
-| wordCount             | ~100 bytes      |
-| normalizeWhitespace   | ~280 bytes      |
-| removeNonPrintable    | ~200 bytes      |
-| template              | ~350 bytes      |
-| templateSafe          | ~400 bytes      |
-| pad                   | ~180 bytes      |
-| padStart              | ~150 bytes      |
-| padEnd                | ~150 bytes      |
-| graphemes             | ~250 bytes      |
-| codePoints            | ~120 bytes      |
-| highlight             | ~320 bytes      |
-| diff                  | ~280 bytes      |
-| levenshtein           | ~380 bytes      |
-| levenshteinNormalized | ~100 bytes      |
-| fuzzyMatch            | ~500 bytes      |
-| pluralize             | ~350 bytes      |
-| singularize           | ~320 bytes      |
-| smartSplit            | ~1.1KB          |
-| humanizeList          | ~850 bytes      |
-| memoize               | ~400 bytes      |
-| extractEntities       | ~1.1KB          |
-| detectScript          | ~1.1KB          |
-| classifyText          | ~2.3KB          |
+| Function              | Size (gzipped) |
+| --------------------- | -------------- |
+| slugify               | 138 bytes      |
+| camelCase             | 232 bytes      |
+| snakeCase             | 197 bytes      |
+| kebabCase             | 197 bytes      |
+| pascalCase            | 219 bytes      |
+| constantCase          | 228 bytes      |
+| dotCase               | 207 bytes      |
+| pathCase              | 207 bytes      |
+| sentenceCase          | 414 bytes      |
+| titleCase             | 562 bytes      |
+| capitalize            | 99 bytes       |
+| truncate              | 180 bytes      |
+| stripHtml             | 85 bytes       |
+| sanitize              | 812 bytes      |
+| redact                | 727 bytes      |
+| escapeHtml            | 136 bytes      |
+| excerpt               | 261 bytes      |
+| randomString          | 219 bytes      |
+| hashString            | 155 bytes      |
+| reverse               | 82 bytes       |
+| deburr                | 273 bytes      |
+| isEmail               | 148 bytes      |
+| isUrl                 | 155 bytes      |
+| isASCII               | 128 bytes      |
+| toASCII               | 1.3 KB         |
+| wordCount             | 123 bytes      |
+| normalizeWhitespace   | 268 bytes      |
+| removeNonPrintable    | 304 bytes      |
+| template              | 302 bytes      |
+| templateSafe          | 502 bytes      |
+| pad                   | 209 bytes      |
+| padStart              | 179 bytes      |
+| padEnd                | 183 bytes      |
+| graphemes             | 171 bytes      |
+| codePoints            | 131 bytes      |
+| highlight             | 461 bytes      |
+| diff                  | 265 bytes      |
+| levenshtein           | 413 bytes      |
+| levenshteinNormalized | 471 bytes      |
+| fuzzyMatch            | 613 bytes      |
+| pluralize             | 459 bytes      |
+| singularize           | 562 bytes      |
+| smartSplit            | 566 bytes      |
+| humanizeList          | 251 bytes      |
+| memoize               | 334 bytes      |
+| extractEntities       | 573 bytes      |
+| detectScript          | 540 bytes      |
+| classifyText          | 898 bytes      |
 
 Total package size: **< 8.5KB** minified + gzipped
 
@@ -1520,9 +1520,9 @@ In a world of bloated dependencies, `nano-string-utils` stands out by providing 
 
 - **Security First**: Zero dependencies means zero supply chain vulnerabilities
 - **Performance**: Optimized for both speed and size
-  - 2.1-2.6x faster than lodash for truncate
-  - 25x faster than lodash for template
-  - 2.4x faster than lodash for capitalize
+  - Ultra-fast case conversions (3.4M-4.3M ops/s)
+  - Efficient truncate operations (23.4M ops/s)
+  - Fast template interpolation (998K ops/s)
 - **Developer Experience**: Full TypeScript support with comprehensive JSDoc comments
 - **Production Ready**: 100% test coverage with extensive edge case handling
 - **Modern**: Built for ES2022+ with full ESM support and CommonJS compatibility
@@ -1550,29 +1550,46 @@ npm run bench:size
 
 | Function   | nano-string-utils | lodash | es-toolkit | Winner  |
 | ---------- | ----------------- | ------ | ---------- | ------- |
-| camelCase  | 193B              | 3.4KB  | 269B       | nano ✅ |
-| capitalize | 90B               | 1.7KB  | 99B        | nano ✅ |
-| kebabCase  | 161B              | 2.8KB  | 193B       | nano ✅ |
-| truncate   | 125B              | 2.9KB  | -          | nano ✅ |
+| camelCase  | 232B              | 3.4KB  | 273B       | nano ✅ |
+| capitalize | 99B               | 1.7KB  | 107B       | nano ✅ |
+| kebabCase  | 197B              | 2.8KB  | 197B       | tied    |
+| truncate   | 180B              | 2.9KB  | -          | nano ✅ |
 
-[View full benchmark results](./benchmarks/BENCHMARK_RESULTS.md)
+#### Performance Comparison
+
+| Function   | nano-string-utils | lodash | es-toolkit  | Winner     |
+| ---------- | ----------------- | ------ | ----------- | ---------- |
+| capitalize | 21.3M ops/s       | -      | 21.3M ops/s | tied ✅    |
+| truncate   | 23.4M ops/s       | -      | -           | nano ✅    |
+| deburr     | 2.25M ops/s       | -      | 2.34M ops/s | es-toolkit |
+| escapeHtml | 2.28M ops/s       | -      | 2.26M ops/s | nano ✅    |
+| camelCase  | 3.40M ops/s       | -      | 3.35M ops/s | nano ✅    |
+| kebabCase  | 4.32M ops/s       | -      | 4.34M ops/s | es-toolkit |
+| snakeCase  | 4.34M ops/s       | -      | 4.33M ops/s | nano ✅    |
+| pascalCase | 3.97M ops/s       | -      | 3.95M ops/s | nano ✅    |
+| pad        | 11.7M ops/s       | -      | 18.6M ops/s | es-toolkit |
+| padStart   | 7.97M ops/s       | -      | -           | nano ✅    |
+| padEnd     | 7.97M ops/s       | -      | -           | nano ✅    |
+| template   | 998K ops/s        | -      | -           | nano ✅    |
+
+**[📊 View full interactive performance benchmarks](https://zheruel.github.io/nano-string-utils/#performance)**
 
 ### Key Findings
 
-- 🏆 **Smallest bundle sizes**: nano-string-utils wins 10 out of 11 tested functions
-- ⚡ **Superior performance**: 2-25x faster than lodash for key operations
+- 🏆 **Smallest bundle sizes**: nano-string-utils wins 47 out of 48 tested functions (98% win rate)
+- ⚡ **Competitive performance**: Wins 10 out of 14 benchmarked functions against es-toolkit
 - 📊 **Detailed benchmarks**: See [benchmark-results.md](./benchmarks/benchmark-results.md) for full comparison
 - ⚡ **Optimized performance**:
-  - **2.25x faster** than lodash for short string truncation
-  - Case conversions improved by **30-40%** in latest optimizations
-  - Truncate function improved by **97.6%** (42x faster!)
+  - **Case conversions**: 3.4M-4.3M ops/s, competitive with es-toolkit
+  - **Truncate**: 23.4M ops/s for fast string truncation
+  - **Template**: 998K ops/s for string interpolation
 - 🌳 **Superior tree-shaking**: Each function is independently importable with minimal overhead
 
 ## Comparison with Alternatives
 
 | Library           | Bundle Size | Dependencies | Tree-shakeable        | TypeScript |
 | ----------------- | ----------- | ------------ | --------------------- | ---------- |
-| nano-string-utils | < 7.5KB     | 0            | ✅                    | ✅         |
+| nano-string-utils | < 8.5KB     | 0            | ✅                    | ✅         |
 | lodash            | ~70KB       | 0            | ⚠️ Requires lodash-es | ✅         |
 | underscore.string | ~20KB       | 0            | ❌                    | ❌         |
 | voca              | ~30KB       | 0            | ❌                    | ✅         |
