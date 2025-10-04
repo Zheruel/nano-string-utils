@@ -33,11 +33,6 @@ import type { SnakeCase } from "./types/string-literals.js";
 export function snakeCase<T extends string>(str: T): SnakeCase<T>;
 export function snakeCase(str: string): string;
 export function snakeCase(str: string): string {
-  if (!str) return str;
-
   const wordList = words(str);
-
-  if (wordList.length === 0) return "";
-
   return wordList.map((word) => word.toLowerCase()).join("_");
 }

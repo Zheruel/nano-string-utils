@@ -78,16 +78,34 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
   const createControls = (): string => {
     return `
       <div class="bundle-summary">
-        <p class="summary-line">
-          Analyzing <strong>${bundleData.totalFunctions}</strong> functions •
-          <span class="success-text">nano wins ${
-            bundleData.summary.totalNanoWins
-          }/${bundleData.totalFunctions}</span> •
-          Average size reduction: <strong class="success-text">${Math.abs(
-            bundleData.summary.averageSavings
-          )}%</strong>
-        </p>
+        <div class="summary-stats">
+          <div class="stat-card">
+            <div class="stat-value">${bundleData.totalFunctions}</div>
+            <div class="stat-label">Functions Tested</div>
+          </div>
+          <div class="stat-card nano-win">
+            <div class="stat-value">${bundleData.summary.totalNanoWins}</div>
+            <div class="stat-label">Nano Wins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">${bundleData.summary.totalLodashWins}</div>
+            <div class="stat-label">Lodash Wins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">${
+              bundleData.summary.totalEsToolkitWins
+            }</div>
+            <div class="stat-label">es-toolkit Wins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">${Math.abs(
+              bundleData.summary.averageSavings
+            )}%</div>
+            <div class="stat-label">Avg Size Reduction</div>
+          </div>
+        </div>
       </div>
+
       <div class="bundle-controls">
         <input
           type="text"
@@ -96,6 +114,24 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
           value="${filterText}"
           class="search-input"
         />
+        <label class="sort-label">Sort by:</label>
+        <select id="bundle-sort-field" class="sort-select">
+          <option value="name" ${
+            sortField === "name" ? "selected" : ""
+          }>Name</option>
+          <option value="size" ${
+            sortField === "size" ? "selected" : ""
+          }>Size</option>
+          <option value="savings" ${
+            sortField === "savings" ? "selected" : ""
+          }>Savings</option>
+          <option value="winner" ${
+            sortField === "winner" ? "selected" : ""
+          }>Winner</option>
+        </select>
+        <button id="bundle-sort-order" class="sort-button" data-order="${sortOrder}">
+          ${sortOrder === "asc" ? "↑" : "↓"}
+        </button>
       </div>
     `;
   };
@@ -150,16 +186,11 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
         <table class="bundle-table">
           <thead>
             <tr>
-              <th class="sortable ${
-                sortField === "name" ? `sorted-${sortOrder}` : ""
-              }" data-sort="name">
+              <th>
                 <span class="th-text">Function</span>
               </th>
-              <th class="sortable ${
-                sortField === "size" ? `sorted-${sortOrder}` : ""
-              }" data-sort="size">
-                <span class="th-text">Nano Size</span>
-                <div class="th-subtitle">(tree-shaken)</div>
+              <th>
+                <span class="th-text">Nano</span>
               </th>
               <th>
                 <span class="th-text">Lodash</span>
@@ -167,14 +198,10 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
               <th>
                 <span class="th-text">ES-Toolkit</span>
               </th>
-              <th class="sortable ${
-                sortField === "winner" ? `sorted-${sortOrder}` : ""
-              }" data-sort="winner">
+              <th>
                 <span class="th-text">Winner</span>
               </th>
-              <th class="sortable ${
-                sortField === "savings" ? `sorted-${sortOrder}` : ""
-              }" data-sort="savings">
+              <th>
                 <span class="th-text">Savings</span>
               </th>
             </tr>
@@ -210,10 +237,18 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
             }
           </td>
           <td class="size-cell">
-            ${lodashSize ? formatBytes(lodashSize) : "-"}
+            ${
+              lodashSize
+                ? formatBytes(lodashSize)
+                : '<span class="no-data">—</span>'
+            }
           </td>
           <td class="size-cell">
-            ${esToolkitSize ? formatBytes(esToolkitSize) : "-"}
+            ${
+              esToolkitSize
+                ? formatBytes(esToolkitSize)
+                : '<span class="no-data">—</span>'
+            }
           </td>
           <td class="winner-cell">
             ${
@@ -300,6 +335,9 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
   const updateTableAndChart = (): void => {
     const tableContainer = document.getElementById("table-container");
     const chartContainer = document.getElementById("chart-container");
+    const sortOrderButton = document.getElementById(
+      "bundle-sort-order"
+    ) as HTMLButtonElement;
 
     if (tableContainer) {
       tableContainer.innerHTML = createTable();
@@ -309,20 +347,11 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
       chartContainer.innerHTML = createSizeDistribution();
     }
 
-    // Re-attach sort listeners to new headers
-    const sortableHeaders = container.querySelectorAll(".sortable");
-    sortableHeaders.forEach((header) => {
-      header.addEventListener("click", () => {
-        const field = header.getAttribute("data-sort") as SortField;
-        if (sortField === field) {
-          sortOrder = sortOrder === "asc" ? "desc" : "asc";
-        } else {
-          sortField = field;
-          sortOrder = "asc";
-        }
-        updateTableAndChart();
-      });
-    });
+    // Update sort button arrow
+    if (sortOrderButton) {
+      sortOrderButton.textContent = sortOrder === "asc" ? "↑" : "↓";
+      sortOrderButton.setAttribute("data-order", sortOrder);
+    }
   };
 
   const render = (): void => {
@@ -353,6 +382,12 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
     const searchInput = document.getElementById(
       "bundle-search"
     ) as HTMLInputElement;
+    const sortFieldSelect = document.getElementById(
+      "bundle-sort-field"
+    ) as HTMLSelectElement;
+    const sortOrderButton = document.getElementById(
+      "bundle-sort-order"
+    ) as HTMLButtonElement;
 
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
@@ -361,20 +396,19 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
       });
     }
 
-    // Initial sort listeners
-    const sortableHeaders = container.querySelectorAll(".sortable");
-    sortableHeaders.forEach((header) => {
-      header.addEventListener("click", () => {
-        const field = header.getAttribute("data-sort") as SortField;
-        if (sortField === field) {
-          sortOrder = sortOrder === "asc" ? "desc" : "asc";
-        } else {
-          sortField = field;
-          sortOrder = "asc";
-        }
+    if (sortFieldSelect) {
+      sortFieldSelect.addEventListener("change", (e) => {
+        sortField = (e.target as HTMLSelectElement).value as SortField;
         updateTableAndChart();
       });
-    });
+    }
+
+    if (sortOrderButton) {
+      sortOrderButton.addEventListener("click", () => {
+        sortOrder = sortOrder === "asc" ? "desc" : "asc";
+        updateTableAndChart();
+      });
+    }
   };
 
   try {

@@ -3,8 +3,8 @@
 ## Overview
 
 - **Total Functions**: 48
-- **Nano Wins**: 41/48
-- **Average Size Reduction**: -45%
+- **Nano Wins**: 47/48
+- **Average Size Reduction**: 7%
 
 ## Detailed Comparison
 
@@ -12,51 +12,51 @@ Sizes shown are minified (gzipped). For nano-string-utils, tree-shaken size is s
 
 | Function              | nano-string-utils | lodash        | es-toolkit  | Winner     | Savings |
 | --------------------- | ----------------- | ------------- | ----------- | ---------- | ------- |
-| camelCase             | 1.6KB (827B)      | 8.3KB (3.4KB) | 367B (273B) | es-toolkit | -203%   |
-| capitalize            | 1.4KB (697B)      | 3.7KB (1.7KB) | 97B (107B)  | es-toolkit | -551%   |
-| classifyText          | 3.1KB (1.5KB)     | -             | -           | nano 🏆    | -       |
-| codePoints            | 1.4KB (728B)      | -             | -           | nano 🏆    | -       |
-| constantCase          | 1.6KB (805B)      | -             | -           | nano 🏆    | -       |
-| deburr                | 1.6KB (879B)      | 4.6KB (1.8KB) | 544B (332B) | es-toolkit | -165%   |
-| detectScript          | 2.3KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| diff                  | 1.8KB (863B)      | -             | -           | nano 🏆    | -       |
-| dotCase               | 1.6KB (786B)      | -             | -           | nano 🏆    | -       |
-| escapeHtml            | 1.4KB (741B)      | -             | -           | nano 🏆    | -       |
-| excerpt               | 1.6KB (841B)      | -             | -           | nano 🏆    | -       |
-| extractEntities       | 2.3KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| fuzzyMatch            | 2.4KB (1.2KB)     | -             | -           | nano 🏆    | -       |
-| graphemes             | 1.5KB (759B)      | -             | -           | nano 🏆    | -       |
-| hashString            | 1.5KB (761B)      | -             | -           | nano 🏆    | -       |
-| highlight             | 1.9KB (1.0KB)     | -             | -           | nano 🏆    | -       |
-| humanizeList          | 1.6KB (857B)      | -             | -           | nano 🏆    | -       |
-| isASCII               | 1.4KB (721B)      | -             | -           | nano 🏆    | -       |
-| isEmail               | 1.3KB (665B)      | -             | -           | nano 🏆    | -       |
-| isUrl                 | 1.3KB (665B)      | -             | -           | nano 🏆    | -       |
-| kebabCase             | 1.6KB (793B)      | 6.7KB (2.8KB) | 238B (197B) | es-toolkit | -303%   |
-| levenshtein           | 2.0KB (1.0KB)     | -             | -           | nano 🏆    | -       |
-| levenshteinNormalized | 2.2KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| memoize               | 1.8KB (928B)      | -             | -           | nano 🏆    | -       |
-| normalizeWhitespace   | 1.8KB (860B)      | -             | -           | nano 🏆    | -       |
-| pad                   | 1.7KB (896B)      | 5.8KB (2.6KB) | 109B (118B) | es-toolkit | -659%   |
-| padEnd                | 1.5KB (788B)      | 5.7KB (2.5KB) | -           | nano 🏆    | 70%     |
-| padStart              | 1.5KB (785B)      | 5.7KB (2.5KB) | -           | nano 🏆    | 70%     |
-| pascalCase            | 1.6KB (821B)      | -             | 299B (231B) | es-toolkit | -255%   |
-| pathCase              | 1.6KB (785B)      | -             | -           | nano 🏆    | -       |
-| pluralize             | 2.2KB (1.0KB)     | -             | -           | nano 🏆    | -       |
-| randomString          | 1.5KB (821B)      | -             | -           | nano 🏆    | -       |
-| redact                | 2.8KB (1.3KB)     | -             | -           | nano 🏆    | -       |
-| removeNonPrintable    | 1.7KB (918B)      | -             | -           | nano 🏆    | -       |
-| reverse               | 1.4KB (687B)      | -             | -           | nano 🏆    | -       |
-| sanitize              | 3.0KB (1.4KB)     | -             | -           | nano 🏆    | -       |
-| sentenceCase          | 2.1KB (992B)      | -             | -           | nano 🏆    | -       |
-| singularize           | 2.6KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| slugify               | 1.3KB (667B)      | -             | -           | nano 🏆    | -       |
-| smartSplit            | 2.3KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| snakeCase             | 1.6KB (793B)      | 6.7KB (2.8KB) | 238B (197B) | es-toolkit | -303%   |
-| stripHtml             | 1.4KB (689B)      | -             | -           | nano 🏆    | -       |
-| template              | 1.7KB (887B)      | 13KB (5.7KB)  | -           | nano 🏆    | 85%     |
-| templateSafe          | 2.1KB (1.0KB)     | -             | -           | nano 🏆    | -       |
-| titleCase             | 2.3KB (1.1KB)     | -             | -           | nano 🏆    | -       |
-| toASCII               | 4.6KB (1.8KB)     | -             | -           | nano 🏆    | -       |
-| truncate              | 1.5KB (781B)      | 6.4KB (2.9KB) | -           | nano 🏆    | 73%     |
-| wordCount             | 1.4KB (713B)      | -             | -           | nano 🏆    | -       |
+| camelCase             | 298B (232B)       | 8.3KB (3.4KB) | 367B (273B) | nano 🏆    | 15%     |
+| capitalize            | 88B (99B)         | 3.7KB (1.7KB) | 97B (107B)  | nano 🏆    | 7%      |
+| classifyText          | 1.8KB (898B)      | -             | -           | nano 🏆    | -       |
+| codePoints            | 133B (131B)       | -             | -           | nano 🏆    | -       |
+| constantCase          | 341B (228B)       | -             | -           | nano 🏆    | -       |
+| deburr                | 352B (273B)       | 4.6KB (1.8KB) | 544B (332B) | nano 🏆    | 18%     |
+| detectScript          | 1.0KB (540B)      | -             | -           | nano 🏆    | -       |
+| diff                  | 472B (265B)       | -             | -           | nano 🏆    | -       |
+| dotCase               | 329B (207B)       | -             | -           | nano 🏆    | -       |
+| escapeHtml            | 137B (136B)       | -             | -           | nano 🏆    | -       |
+| excerpt               | 343B (261B)       | -             | -           | nano 🏆    | -       |
+| extractEntities       | 1.0KB (573B)      | -             | -           | nano 🏆    | -       |
+| fuzzyMatch            | 1.2KB (613B)      | -             | -           | nano 🏆    | -       |
+| graphemes             | 217B (171B)       | -             | -           | nano 🏆    | -       |
+| hashString            | 174B (155B)       | -             | -           | nano 🏆    | -       |
+| highlight             | 665B (461B)       | -             | -           | nano 🏆    | -       |
+| humanizeList          | 328B (251B)       | -             | -           | nano 🏆    | -       |
+| isASCII               | 124B (128B)       | -             | -           | nano 🏆    | -       |
+| isEmail               | 187B (148B)       | -             | -           | nano 🏆    | -       |
+| isUrl                 | 175B (155B)       | -             | -           | nano 🏆    | -       |
+| kebabCase             | 238B (197B)       | 6.7KB (2.8KB) | 238B (197B) | nano 🏆    | 0%      |
+| levenshtein           | 759B (413B)       | -             | -           | nano 🏆    | -       |
+| levenshteinNormalized | 919B (471B)       | -             | -           | nano 🏆    | -       |
+| memoize               | 555B (334B)       | -             | -           | nano 🏆    | -       |
+| normalizeWhitespace   | 487B (268B)       | -             | -           | nano 🏆    | -       |
+| pad                   | 287B (209B)       | 5.8KB (2.6KB) | 109B (118B) | es-toolkit | -77%    |
+| padEnd                | 227B (183B)       | 5.7KB (2.5KB) | -           | nano 🏆    | 93%     |
+| padStart              | 221B (179B)       | 5.7KB (2.5KB) | -           | nano 🏆    | 93%     |
+| pascalCase            | 273B (219B)       | -             | 299B (231B) | nano 🏆    | 5%      |
+| pathCase              | 330B (207B)       | -             | -           | nano 🏆    | -       |
+| pluralize             | 932B (459B)       | -             | -           | nano 🏆    | -       |
+| randomString          | 235B (219B)       | -             | -           | nano 🏆    | -       |
+| redact                | 1.5KB (727B)      | -             | -           | nano 🏆    | -       |
+| removeNonPrintable    | 426B (304B)       | -             | -           | nano 🏆    | -       |
+| reverse               | 67B (82B)         | -             | -           | nano 🏆    | -       |
+| sanitize              | 1.7KB (812B)      | -             | -           | nano 🏆    | -       |
+| sentenceCase          | 824B (414B)       | -             | -           | nano 🏆    | -       |
+| singularize           | 1.3KB (562B)      | -             | -           | nano 🏆    | -       |
+| slugify               | 140B (138B)       | -             | -           | nano 🏆    | -       |
+| smartSplit            | 1.0KB (566B)      | -             | -           | nano 🏆    | -       |
+| snakeCase             | 238B (197B)       | 6.7KB (2.8KB) | 238B (197B) | nano 🏆    | 0%      |
+| stripHtml             | 65B (85B)         | -             | -           | nano 🏆    | -       |
+| template              | 429B (302B)       | 13KB (5.7KB)  | -           | nano 🏆    | 95%     |
+| templateSafe          | 818B (502B)       | -             | -           | nano 🏆    | -       |
+| titleCase             | 991B (562B)       | -             | -           | nano 🏆    | -       |
+| toASCII               | 3.3KB (1.2KB)     | -             | -           | nano 🏆    | -       |
+| truncate              | 226B (180B)       | 6.4KB (2.9KB) | -           | nano 🏆    | 94%     |
+| wordCount             | 110B (123B)       | -             | -           | nano 🏆    | -       |

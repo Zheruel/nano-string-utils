@@ -1,0 +1,15 @@
+/* Performance Benchmarks - Additional Styles */
+
+/* Additional Performance-specific styles */
+.comparison-cell {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.comparison-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* All other styles inherited from bundle-size.css */

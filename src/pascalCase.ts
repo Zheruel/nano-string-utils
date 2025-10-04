@@ -34,17 +34,8 @@ import type { PascalCase } from "./types/string-literals.js";
 export function pascalCase<T extends string>(str: T): PascalCase<T>;
 export function pascalCase(str: string): string;
 export function pascalCase(str: string): string {
-  if (!str) return str;
-
   const wordList = words(str);
-
-  if (wordList.length === 0) return "";
-
-  // Capitalize first letter of each word
   return wordList
-    .map((word) => {
-      const lower = word.toLowerCase();
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
-    })
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join("");
 }

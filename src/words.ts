@@ -4,9 +4,11 @@
  * @internal
  */
 
-// Simple, fast regex that works for 99% of cases
-// Matches sequences of word characters (letters/numbers)
-const WORD_PATTERN = /[a-zA-Z]+[0-9]*|[0-9]+/g;
+// Unicode-aware word splitting pattern
+// Matches: uppercase followed by lowercase, numbers, consecutive uppercase (acronyms),
+// emojis, and any other unicode letters
+const WORD_PATTERN =
+  /\p{Lu}?\p{Ll}+|[0-9]+|\p{Lu}+(?!\p{Ll})|\p{Emoji_Presentation}|\p{Extended_Pictographic}|\p{L}+/gu;
 
 /**
  * Splits a string into an array of words
@@ -14,15 +16,6 @@ const WORD_PATTERN = /[a-zA-Z]+[0-9]*|[0-9]+/g;
  * @returns An array of words
  * @internal
  */
-export const words = (str: string): string[] => {
-  if (!str) return [];
-
-  // Normalize: add spaces at case boundaries and replace delimiters
-  // This is faster than complex regex patterns
-  const normalized = str
-    .replace(/([a-z])([A-Z])/g, "$1 $2") // camelCase -> camel Case
-    .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2") // HTTPResponse -> HTTP Response
-    .replace(/[_\-\/\\,.\s]+/g, " "); // Delimiters to spaces
-
-  return normalized.match(WORD_PATTERN) || [];
-};
+export function words(str: string): string[] {
+  return Array.from(str.match(WORD_PATTERN) ?? []);
+}

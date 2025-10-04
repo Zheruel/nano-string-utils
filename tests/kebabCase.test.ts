@@ -39,7 +39,7 @@ describe("kebabCase", () => {
   });
 
   it("handles numbers", () => {
-    expect(kebabCase("hello123World")).toBe("hello123-world");
+    expect(kebabCase("hello123World")).toBe("hello-123-world");
   });
 
   it("removes special characters", () => {

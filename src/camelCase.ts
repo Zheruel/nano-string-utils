@@ -33,18 +33,12 @@ import type { CamelCase } from "./types/string-literals.js";
 export function camelCase<T extends string>(str: T): CamelCase<T>;
 export function camelCase(str: string): string;
 export function camelCase(str: string): string {
-  if (!str) return str;
-
   const wordList = words(str);
-
-  if (wordList.length === 0) return "";
-
-  // First word is lowercase, rest are capitalized
   return wordList
-    .map((word, index) => {
-      const lower = word.toLowerCase();
-      if (index === 0) return lower;
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
-    })
+    .map((word, index) =>
+      index === 0
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
     .join("");
 }

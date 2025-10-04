@@ -2,23 +2,26 @@ import "./styles/main.css";
 import "./styles/migration.css";
 import "./styles/migration-panels.css";
 import "./styles/bundle-size.css";
+import "./styles/performance.css";
 import { initPlayground } from "./playground";
 import { initSearch } from "./search";
 import { initMigrationGuide } from "./migration";
 import { initBundleSizeViewer } from "./bundle-size";
+import { initPerformanceViewer } from "./performance";
 
 document.addEventListener("DOMContentLoaded", () => {
   initPlayground();
   initSearch();
   initMigrationGuide();
   initBundleSizeViewer();
+  initPerformanceViewer();
   initNavigation();
 });
 
 function initNavigation() {
   const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
   const sections = document.querySelectorAll(
-    ".playground-section, .migration-section, .bundle-size-section"
+    ".playground-section, .migration-section, .bundle-size-section, .performance-section"
   );
 
   navLinks.forEach((link) => {

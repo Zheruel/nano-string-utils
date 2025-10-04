@@ -39,7 +39,7 @@ describe("snakeCase", () => {
   });
 
   it("handles numbers", () => {
-    expect(snakeCase("hello123World")).toBe("hello123_world");
+    expect(snakeCase("hello123World")).toBe("hello_123_world");
   });
 
   it("removes special characters", () => {

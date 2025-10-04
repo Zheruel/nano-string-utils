@@ -34,11 +34,6 @@ import type { KebabCase } from "./types/string-literals.js";
 export function kebabCase<T extends string>(str: T): KebabCase<T>;
 export function kebabCase(str: string): string;
 export function kebabCase(str: string): string {
-  if (!str) return str;
-
   const wordList = words(str);
-
-  if (wordList.length === 0) return "";
-
   return wordList.map((word) => word.toLowerCase()).join("-");
 }

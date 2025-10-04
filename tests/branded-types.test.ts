@@ -1,10 +1,28 @@
 import { describe, test, expectTypeOf } from "vitest";
-import { branded } from "../src/index.js";
-import type { Email, URL, Slug } from "../src/types/index.js";
+import {
+  toEmail,
+  toUrl,
+  toSlug,
+  isValidEmail,
+  isValidUrl,
+  isSlug,
+  assertEmail,
+  unsafeEmail,
+  unsafeUrl,
+  unsafeSlug,
+  ensureSlug,
+} from "../src/index.js";
+import type {
+  Email,
+  URL,
+  Slug,
+  Brand,
+  ValidationResult,
+} from "../src/types/index.js";
 
 describe("Branded Types - Type Level Tests", () => {
   test("Email type is distinct from string", () => {
-    const email = branded.toEmail("user@example.com");
+    const email = toEmail("user@example.com");
 
     if (email) {
       expectTypeOf(email).toEqualTypeOf<Email>();
@@ -20,7 +38,7 @@ describe("Branded Types - Type Level Tests", () => {
   });
 
   test("URL type is distinct from string", () => {
-    const url = branded.toUrl("https://example.com");
+    const url = toUrl("https://example.com");
 
     if (url) {
       expectTypeOf(url).toEqualTypeOf<URL>();
@@ -32,7 +50,7 @@ describe("Branded Types - Type Level Tests", () => {
   });
 
   test("Slug type is distinct from string", () => {
-    const slug = branded.toSlug("Hello World");
+    const slug = toSlug("Hello World");
 
     expectTypeOf(slug).toEqualTypeOf<Slug>();
     expectTypeOf(slug).toMatchTypeOf<string>();
@@ -44,17 +62,17 @@ describe("Branded Types - Type Level Tests", () => {
   test("Type guards narrow types correctly", () => {
     const input: string = "test@example.com";
 
-    if (branded.isValidEmail(input)) {
+    if (isValidEmail(input)) {
       expectTypeOf(input).toEqualTypeOf<Email>();
     } else {
       expectTypeOf(input).toEqualTypeOf<string>();
     }
 
-    if (branded.isValidUrl(input)) {
+    if (isValidUrl(input)) {
       expectTypeOf(input).toEqualTypeOf<URL>();
     }
 
-    if (branded.isSlug(input)) {
+    if (isSlug(input)) {
       expectTypeOf(input).toEqualTypeOf<Slug>();
     }
   });
@@ -67,7 +85,7 @@ describe("Branded Types - Type Level Tests", () => {
 
     // This would throw at runtime if invalid, but type system assumes success
     try {
-      branded.assertEmail(input);
+      assertEmail(input);
       // After assertion, TypeScript knows input is Email
       expectTypeOf(input).toEqualTypeOf<Email>();
     } catch {
@@ -77,39 +95,39 @@ describe("Branded Types - Type Level Tests", () => {
   });
 
   test("Builder functions return correct types", () => {
-    const email = branded.toEmail("user@example.com");
+    const email = toEmail("user@example.com");
     expectTypeOf(email).toEqualTypeOf<Email | null>();
 
-    const url = branded.toUrl("https://example.com");
+    const url = toUrl("https://example.com");
     expectTypeOf(url).toEqualTypeOf<URL | null>();
 
-    const slug = branded.toSlug("Hello World");
+    const slug = toSlug("Hello World");
     expectTypeOf(slug).toEqualTypeOf<Slug>(); // Always returns Slug, never null
   });
 
   test("Unsafe functions return branded types directly", () => {
-    const email = branded.unsafeEmail("anything");
+    const email = unsafeEmail("anything");
     expectTypeOf(email).toEqualTypeOf<Email>();
 
-    const url = branded.unsafeUrl("anything");
+    const url = unsafeUrl("anything");
     expectTypeOf(url).toEqualTypeOf<URL>();
 
-    const slug = branded.unsafeSlug("anything");
+    const slug = unsafeSlug("anything");
     expectTypeOf(slug).toEqualTypeOf<Slug>();
   });
 
   test("ensureSlug always returns Slug", () => {
-    const slug1 = branded.ensureSlug("already-a-slug");
+    const slug1 = ensureSlug("already-a-slug");
     expectTypeOf(slug1).toEqualTypeOf<Slug>();
 
-    const slug2 = branded.ensureSlug("Not A Slug");
+    const slug2 = ensureSlug("Not A Slug");
     expectTypeOf(slug2).toEqualTypeOf<Slug>();
   });
 
   test("Branded types cannot be assigned to each other", () => {
-    const email = branded.unsafeEmail("test@example.com");
-    const url = branded.unsafeUrl("https://example.com");
-    const slug = branded.unsafeSlug("test-slug");
+    const email = unsafeEmail("test@example.com");
+    const url = unsafeUrl("https://example.com");
+    const slug = unsafeSlug("test-slug");
 
     // @ts-expect-error - Email cannot be assigned to URL
     const _urlFromEmail: URL = email;
@@ -125,7 +143,7 @@ describe("Branded Types - Type Level Tests", () => {
   });
 
   test("Brand type utility works correctly", () => {
-    type TestBrand = branded.Brand<string, "Test">;
+    type TestBrand = Brand<string, "Test">;
     const testValue = "test" as TestBrand;
 
     expectTypeOf(testValue).toMatchTypeOf<string>();
@@ -136,10 +154,10 @@ describe("Branded Types - Type Level Tests", () => {
   });
 
   test("ValidationResult type works correctly", () => {
-    type TestResult = branded.ValidationResult<Email>;
+    type TestResult = ValidationResult<Email>;
 
     const result1: TestResult = null;
-    const result2: TestResult = branded.unsafeEmail("test@example.com");
+    const result2: TestResult = unsafeEmail("test@example.com");
 
     expectTypeOf(result1).toEqualTypeOf<null>();
     expectTypeOf(result2).toEqualTypeOf<Email>();
