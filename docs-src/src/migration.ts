@@ -11,22 +11,29 @@ export function initMigrationGuide() {
   if (!migrationContainer) return;
 
   migrationContainer.innerHTML = `
-    <div class="migration-nav">
-      <button class="migration-nav-btn active" data-section="overview">Overview</button>
-      <button class="migration-nav-btn" data-section="mapping">Function Mapping</button>
-      <button class="migration-nav-btn" data-section="steps">Migration Steps</button>
-    </div>
+    <div class="bundle-size-container">
+      <h2>Migration Guide</h2>
+      <p class="intro">
+        Migrate from lodash or underscore to nano-string-utils and reduce your bundle size by up to 88% while maintaining functionality.
+      </p>
 
-    <div class="migration-content">
-      <section id="overview" class="migration-panel active">
-        ${renderOverview()}
-      </section>
-      <section id="mapping" class="migration-panel">
-        ${renderMappingTable()}
-      </section>
-      <section id="steps" class="migration-panel">
-        ${renderMigrationSteps()}
-      </section>
+      <div class="migration-nav">
+        <button class="migration-nav-btn active" data-section="overview">Overview</button>
+        <button class="migration-nav-btn" data-section="mapping">Function Mapping</button>
+        <button class="migration-nav-btn" data-section="steps">Migration Steps</button>
+      </div>
+
+      <div class="migration-content">
+        <section id="overview" class="migration-panel active">
+          ${renderOverview()}
+        </section>
+        <section id="mapping" class="migration-panel">
+          ${renderMappingTable()}
+        </section>
+        <section id="steps" class="migration-panel">
+          ${renderMigrationSteps()}
+        </section>
+      </div>
     </div>
   `;
 
@@ -89,13 +96,34 @@ export function initMigrationGuide() {
 
 function renderOverview() {
   return `
+    <div class="bundle-summary">
+      <div class="summary-stats">
+        <div class="stat-card">
+          <div class="stat-value">58</div>
+          <div class="stat-label">Functions Available</div>
+        </div>
+        <div class="stat-card nano-win">
+          <div class="stat-value">88%</div>
+          <div class="stat-label">Smaller Bundle</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Dependencies</div>
+        </div>
+        <div class="stat-card nano-win">
+          <div class="stat-value">~9KB</div>
+          <div class="stat-label">Total Size (brotli)</div>
+        </div>
+      </div>
+    </div>
+
     <div class="comparison-section">
       <h2>Why Migrate?</h2>
       <div class="size-comparison">
         <div class="size-bars">
           <div class="size-bar">
             <span class="size-label">lodash (full)</span>
-            <div class="size-bar-fill" style="width: 100%; background: #e74c3c;">
+            <div class="size-bar-fill" style="width: 100%; background: linear-gradient(90deg, #ef4444, #dc2626);">
               <span class="size-value">${
                 bundleSizeComparison.lodash.full
               }</span>
@@ -103,7 +131,7 @@ function renderOverview() {
           </div>
           <div class="size-bar">
             <span class="size-label">lodash (string only)</span>
-            <div class="size-bar-fill" style="width: 34%; background: #f39c12;">
+            <div class="size-bar-fill" style="width: 34%; background: linear-gradient(90deg, #f59e0b, #f97316);">
               <span class="size-value">${
                 bundleSizeComparison.lodash.string
               }</span>
@@ -111,7 +139,7 @@ function renderOverview() {
           </div>
           <div class="size-bar">
             <span class="size-label">nano-string-utils</span>
-            <div class="size-bar-fill" style="width: max(9%, 60px); background: #27ae60;">
+            <div class="size-bar-fill" style="width: max(12%, 80px); background: linear-gradient(90deg, #34d399, #10b981);">
               <span class="size-value">${
                 bundleSizeComparison.nanoStringUtils.full
               }</span>
@@ -120,8 +148,8 @@ function renderOverview() {
         </div>
 
         <div class="size-summary">
-          <span class="size-reduction">96% smaller</span>
-          <span class="size-details">than lodash • Zero dependencies</span>
+          <span class="size-reduction">88% smaller</span>
+          <span class="size-details">than lodash • Zero dependencies • Tree-shakeable</span>
         </div>
       </div>
 
@@ -158,11 +186,11 @@ function renderMappingTable() {
   const mappings = [...migrationMappings];
 
   return `
-    <h2>Function Mapping Reference</h2>
-    <p>Find the nano-string-utils equivalent for your lodash/underscore functions:</p>
+    <h3 style="margin-bottom: 1rem; color: var(--color-text);">Function Mapping Reference</h3>
+    <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">Find the nano-string-utils equivalent for your lodash/underscore functions:</p>
 
-    <div class="mapping-filter">
-      <input type="text" id="mapping-search" placeholder="Search functions..." />
+    <div class="bundle-controls" style="margin-bottom: 1.5rem;">
+      <input type="text" id="mapping-search" placeholder="Search functions..." class="search-input" />
       <div class="filter-tags">
         <button class="filter-tag active" data-filter="all">All</button>
         <button class="filter-tag" data-filter="direct">Direct Replacement</button>
@@ -171,13 +199,13 @@ function renderMappingTable() {
       </div>
     </div>
 
-    <div class="mapping-table-container">
-      <table class="mapping-table">
+    <div class="table-container">
+      <table class="bundle-table">
         <thead>
           <tr>
-            <th>lodash/underscore</th>
-            <th>nano-string-utils</th>
-            <th>Notes</th>
+            <th><span class="th-text">lodash/underscore</span></th>
+            <th><span class="th-text">nano-string-utils</span></th>
+            <th><span class="th-text">Notes</span></th>
           </tr>
         </thead>
         <tbody>
@@ -185,15 +213,15 @@ function renderMappingTable() {
             .map(
               (m) => `
             <tr data-type="${getFilterType(m)}">
-              <td><code>${m.lodash}</code></td>
-              <td>
+              <td class="function-name"><code>${m.lodash}</code></td>
+              <td class="size-cell">
                 ${
                   m.nano
-                    ? `<code class="highlight-green">${m.nano}</code>`
-                    : '<span class="text-muted">—</span>'
+                    ? `<code style="color: var(--color-success); font-weight: 600;">${m.nano}</code>`
+                    : '<span class="no-data">—</span>'
                 }
               </td>
-              <td>${m.notes || "Direct replacement"}</td>
+              <td style="color: var(--color-text-secondary); font-size: 0.875rem;">${m.notes || "Direct replacement"}</td>
             </tr>
           `
             )
@@ -208,8 +236,8 @@ function renderMigrationSteps() {
   const steps = getMigrationSteps();
 
   return `
-    <h2>Step-by-Step Migration</h2>
-    <p>Follow these steps to migrate your project:</p>
+    <h3 style="margin-bottom: 1rem; color: var(--color-text);">Step-by-Step Migration</h3>
+    <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">Follow these steps to migrate your project:</p>
 
     <div class="migration-steps">
       ${steps
@@ -229,20 +257,21 @@ function renderMigrationSteps() {
         .join("")}
     </div>
 
-    <div class="migration-tips">
+    <div class="footer-note">
       <h3>💡 Pro Tips</h3>
       <ul>
         <li>Start with a single file or module to test the migration</li>
         <li>Use your test suite to verify functionality after each change</li>
         <li>Consider using the automated script below for large codebases</li>
         <li>Check the bundle size improvement with your build tools</li>
+        <li>Use tree-shaking to ensure only used functions are bundled</li>
       </ul>
     </div>
 
-    <div class="codemod-section">
+    <div class="footer-note" style="margin-top: 2rem;">
       <h3>Automated Migration Script</h3>
       <p>For large codebases, use this simple Node.js script to automate common replacements:</p>
-      <pre><code class="language-javascript">${generateCodemodScript()}</code></pre>
+      <pre style="background: #0f172a; border: 1px solid rgba(148, 163, 184, 0.1); border-radius: var(--radius); padding: 1.5rem; margin: 1rem 0; overflow-x: auto;"><code class="language-javascript">${generateCodemodScript()}</code></pre>
       <button class="btn-secondary" id="copy-codemod">📋 Copy Script</button>
     </div>
   `;
@@ -256,7 +285,7 @@ function filterMappingTable() {
   const searchTerm = searchInput?.value.toLowerCase() || "";
   const filterType = (activeFilter as HTMLElement)?.dataset.filter || "all";
 
-  const rows = document.querySelectorAll(".mapping-table tbody tr");
+  const rows = document.querySelectorAll(".bundle-table tbody tr");
 
   rows.forEach((row) => {
     const text = (row as HTMLElement).textContent?.toLowerCase() || "";

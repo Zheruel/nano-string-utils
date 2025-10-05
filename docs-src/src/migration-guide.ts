@@ -100,7 +100,8 @@ export const migrationMappings: MigrationMapping[] = [
   },
   {
     lodash: "_.words",
-    nano: "words",
+    nano: null,
+    notes: "Use native: str.split(/\\s+/) or str.match(/\\w+/g)",
   },
 
   // Native replacements
@@ -236,13 +237,18 @@ export const underscoreMappings: MigrationMapping[] = [
 
 export const additionalFeatures = [
   {
+    name: "pascalCase / dotCase / pathCase",
+    description: "Additional case conversions beyond lodash",
+    example: "pascalCase('hello-world') // 'HelloWorld'",
+  },
+  {
     name: "slugify",
-    description: "URL-safe string generation",
+    description: "URL-safe string generation with extensive options",
     example: "slugify('Hello World!') // 'hello-world'",
   },
   {
     name: "hashString",
-    description: "Fast string hashing",
+    description: "Fast 32-bit hash for strings",
     example: "hashString('hello') // 99162322",
   },
   {
@@ -252,38 +258,53 @@ export const additionalFeatures = [
   },
   {
     name: "levenshtein",
-    description: "Calculate edit distance between strings",
+    description: "Edit distance calculation",
     example: "levenshtein('kitten', 'sitting') // 3",
   },
   {
     name: "stripHtml",
-    description: "Remove HTML tags from string",
+    description: "Remove HTML tags safely",
     example: "stripHtml('<p>Hello</p>') // 'Hello'",
   },
   {
-    name: "isEmail",
-    description: "Validate email addresses",
+    name: "sanitize",
+    description: "Sanitize HTML content",
+    example: "sanitize('<script>alert(1)</script>') // ''",
+  },
+  {
+    name: "redact",
+    description: "Mask sensitive data (SSN, credit cards)",
+    example: "redact('SSN: 123-45-6789') // 'SSN: ***-**-****'",
+  },
+  {
+    name: "isEmail / isUrl",
+    description: "Email and URL validation",
     example: "isEmail('test@example.com') // true",
   },
   {
-    name: "isUrl",
-    description: "Validate URLs",
-    example: "isUrl('https://example.com') // true",
-  },
-  {
     name: "excerpt",
-    description: "Create excerpts with ellipsis",
+    description: "Smart text excerpts",
     example: "excerpt('Long text here', 10) // 'Long text...'",
   },
   {
     name: "randomString",
-    description: "Generate random strings",
+    description: "Generate random alphanumeric strings",
     example: "randomString(8) // 'a7b3x9k2'",
   },
   {
     name: "pluralize/singularize",
-    description: "Handle pluralization",
+    description: "English pluralization rules",
     example: "pluralize('person') // 'people'",
+  },
+  {
+    name: "extractEntities",
+    description: "Extract emails, URLs, hashtags, mentions",
+    example: "extractEntities('Email: test@example.com')",
+  },
+  {
+    name: "detectScript",
+    description: "Detect Unicode script types",
+    example: "detectScript('こんにちは') // 'Hiragana'",
   },
 ];
 
@@ -298,7 +319,7 @@ export const bundleSizeComparison = {
     string: "N/A (no modular imports)",
   },
   nanoStringUtils: {
-    full: "6.5 KB",
+    full: "~9 KB",
     perFunction: "<1 KB",
     treeShakeable: true,
   },
@@ -322,7 +343,7 @@ import { camelCase, kebabCase } from 'nano-string-utils';
 const formatted = camelCase('hello-world');
 const slugged = kebabCase('HelloWorld');
 
-// Bundle size reduction: ~24KB → <1KB (96% smaller!)`;
+// Bundle size reduction: ~73KB → ~9KB (88% smaller!)`;
 }
 
 export function getMigrationSteps() {

@@ -294,6 +294,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .filter-tag:hover {
@@ -304,9 +305,9 @@
 }
 
 .filter-tag.active {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: white;
-  border-color: transparent;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)) !important;
+  color: white !important;
+  border-color: transparent !important;
   box-shadow: var(--shadow-md);
 }
 
