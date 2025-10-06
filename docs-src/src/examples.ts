@@ -1,5 +1,5 @@
 declare const Prism: any;
-import { recipes, categories, type Recipe } from "./examples-guide.js";
+import { recipes, categories } from "./examples-guide.js";
 
 export function initExamples() {
   const examplesContainer = document.getElementById("examples-viewer");
