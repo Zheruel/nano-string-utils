@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.1] - 2025-10-07
+
+### Changed
+
+- **Package Metadata** - Enhanced NPM discoverability
+  - Expanded description to highlight key features: "49 tree-shakeable string utilities with zero dependencies. TypeScript-first, <1KB per function. Case conversion, validation, sanitization, fuzzy matching & more."
+  - Increased keywords from 9 to 20 for better search visibility
+  - Added targeted keywords: `string-manipulation`, `text-processing`, `case-conversion`, `kebabCase`, `pascalCase`, `email-validation`, `url-validation`, `fuzzy-match`, `levenshtein`, `sanitize`, `tree-shakeable`, `micro`
+  - Improved package findability for common use cases and search queries
+
 ## [0.19.0] - 2025-10-04
 
 ### Performance
@@ -500,6 +510,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.19.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.1
+[0.19.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.0
 [0.18.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.18.0
 [0.16.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.16.0
 [0.13.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.13.0
