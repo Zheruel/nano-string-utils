@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import * as nano from "../src/index.js";
 
 // Import competitor libraries
-import * as lodash from "lodash";
+import lodash from "lodash";
 import * as esToolkit from "es-toolkit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -52,9 +52,21 @@ async function runBenchmark(
 ): Promise<FunctionBenchmark> {
   const bench = new Bench({ time: 500 });
 
-  if (nanoFn) bench.add("nano", nanoFn);
-  if (lodashFn) bench.add("lodash", lodashFn);
-  if (esToolkitFn) bench.add("es-toolkit", esToolkitFn);
+  if (nanoFn) {
+    bench.add("nano", nanoFn);
+  }
+  if (lodashFn) {
+    bench.add("lodash", () => {
+      try {
+        lodashFn();
+      } catch (error) {
+        console.error(`Error in lodash ${name}:`, error);
+      }
+    });
+  }
+  if (esToolkitFn) {
+    bench.add("es-toolkit", esToolkitFn);
+  }
 
   await bench.run();
 
@@ -120,7 +132,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
 
   const benchmarks: FunctionBenchmark[] = [];
 
-  // camelCase
   console.log("Benchmarking camelCase...");
   benchmarks.push(
     await runBenchmark(
@@ -131,7 +142,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // kebabCase
   console.log("Benchmarking kebabCase...");
   benchmarks.push(
     await runBenchmark(
@@ -142,7 +152,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // snakeCase
   console.log("Benchmarking snakeCase...");
   benchmarks.push(
     await runBenchmark(
@@ -153,7 +162,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // pascalCase
   console.log("Benchmarking pascalCase...");
   benchmarks.push(
     await runBenchmark(
@@ -164,7 +172,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // capitalize
   console.log("Benchmarking capitalize...");
   benchmarks.push(
     await runBenchmark(
@@ -175,7 +182,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // truncate (short)
   console.log("Benchmarking truncate (short)...");
   benchmarks.push(
     await runBenchmark(
@@ -186,7 +192,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // truncate (long)
   console.log("Benchmarking truncate (long)...");
   const longString =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ".repeat(10);
@@ -195,11 +200,10 @@ async function generatePerformanceBenchmarks(): Promise<void> {
       "truncate (long)",
       () => nano.truncate(longString, 100),
       () => lodash.truncate(longString, { length: 100 }),
-      undefined
+      undefined // es-toolkit doesn't have truncate
     )
   );
 
-  // deburr
   console.log("Benchmarking deburr...");
   benchmarks.push(
     await runBenchmark(
@@ -210,7 +214,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // pad
   console.log("Benchmarking pad...");
   benchmarks.push(
     await runBenchmark(
@@ -221,7 +224,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // padStart
   console.log("Benchmarking padStart...");
   benchmarks.push(
     await runBenchmark(
@@ -232,7 +234,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // padEnd
   console.log("Benchmarking padEnd...");
   benchmarks.push(
     await runBenchmark(
@@ -243,7 +244,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // template
   console.log("Benchmarking template...");
   benchmarks.push(
     await runBenchmark(
@@ -263,18 +263,6 @@ async function generatePerformanceBenchmarks(): Promise<void> {
     )
   );
 
-  // words
-  console.log("Benchmarking words...");
-  benchmarks.push(
-    await runBenchmark(
-      "words",
-      () => nano.words("hello-world_test stringCamelCase"),
-      () => lodash.words("hello-world_test stringCamelCase"),
-      () => esToolkit.words("hello-world_test stringCamelCase")
-    )
-  );
-
-  // escape/escapeHtml
   console.log("Benchmarking escapeHtml...");
   benchmarks.push(
     await runBenchmark(
@@ -282,6 +270,36 @@ async function generatePerformanceBenchmarks(): Promise<void> {
       () => nano.escapeHtml('<div class="test">Hello & "world"</div>'),
       () => lodash.escape('<div class="test">Hello & "world"</div>'),
       () => esToolkit.escape('<div class="test">Hello & "world"</div>')
+    )
+  );
+
+  console.log("Benchmarking slugify...");
+  benchmarks.push(
+    await runBenchmark(
+      "slugify",
+      () => nano.slugify("Hello World! This is a Test String."),
+      () => lodash.kebabCase("hello world! this is a test string."),
+      () => esToolkit.kebabCase("hello world! this is a test string.")
+    )
+  );
+
+  console.log("Benchmarking isEmail...");
+  benchmarks.push(
+    await runBenchmark(
+      "isEmail",
+      () => nano.isEmail("test@example.com"),
+      undefined,
+      undefined
+    )
+  );
+
+  console.log("Benchmarking isUrl...");
+  benchmarks.push(
+    await runBenchmark(
+      "isUrl",
+      () => nano.isUrl("https://example.com/path"),
+      undefined,
+      undefined
     )
   );
 

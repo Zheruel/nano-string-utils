@@ -1,17 +1,17 @@
 {
-  "generated": "2025-10-04T11:18:23.280Z",
+  "generated": "2025-10-09T15:19:10.043Z",
   "totalFunctions": 48,
   "functions": [
     {
       "name": "camelCase",
       "nano": {
         "bundled": {
-          "raw": 298,
-          "gzip": 232
+          "raw": 301,
+          "gzip": 235
         },
         "treeShaken": {
-          "raw": 298,
-          "gzip": 232
+          "raw": 301,
+          "gzip": 235
         }
       },
       "lodash": {
@@ -23,7 +23,7 @@
         "gzip": 273
       },
       "winner": "nano",
-      "percentSavings": 15
+      "percentSavings": 14
     },
     {
       "name": "capitalize",
@@ -347,12 +347,12 @@
       "name": "kebabCase",
       "nano": {
         "bundled": {
-          "raw": 238,
-          "gzip": 197
+          "raw": 241,
+          "gzip": 201
         },
         "treeShaken": {
-          "raw": 238,
-          "gzip": 197
+          "raw": 241,
+          "gzip": 201
         }
       },
       "lodash": {
@@ -363,8 +363,8 @@
         "raw": 238,
         "gzip": 197
       },
-      "winner": "nano",
-      "percentSavings": 0
+      "winner": "es-toolkit",
+      "percentSavings": -2
     },
     {
       "name": "levenshtein",
@@ -434,12 +434,12 @@
       "name": "pad",
       "nano": {
         "bundled": {
-          "raw": 287,
-          "gzip": 209
+          "raw": 307,
+          "gzip": 215
         },
         "treeShaken": {
-          "raw": 287,
-          "gzip": 209
+          "raw": 307,
+          "gzip": 215
         }
       },
       "lodash": {
@@ -451,7 +451,7 @@
         "gzip": 118
       },
       "winner": "es-toolkit",
-      "percentSavings": -77
+      "percentSavings": -82
     },
     {
       "name": "padEnd",
@@ -497,12 +497,12 @@
       "name": "pascalCase",
       "nano": {
         "bundled": {
-          "raw": 273,
-          "gzip": 219
+          "raw": 276,
+          "gzip": 222
         },
         "treeShaken": {
-          "raw": 273,
-          "gzip": 219
+          "raw": 276,
+          "gzip": 222
         }
       },
       "lodash": null,
@@ -511,7 +511,7 @@
         "gzip": 231
       },
       "winner": "nano",
-      "percentSavings": 5
+      "percentSavings": 4
     },
     {
       "name": "pathCase",
@@ -646,11 +646,11 @@
       "nano": {
         "bundled": {
           "raw": 1379,
-          "gzip": 562
+          "gzip": 563
         },
         "treeShaken": {
           "raw": 1379,
-          "gzip": 562
+          "gzip": 563
         }
       },
       "lodash": null,
@@ -693,12 +693,12 @@
       "name": "snakeCase",
       "nano": {
         "bundled": {
-          "raw": 238,
-          "gzip": 197
+          "raw": 241,
+          "gzip": 200
         },
         "treeShaken": {
-          "raw": 238,
-          "gzip": 197
+          "raw": 241,
+          "gzip": 200
         }
       },
       "lodash": {
@@ -709,8 +709,8 @@
         "raw": 238,
         "gzip": 197
       },
-      "winner": "nano",
-      "percentSavings": 0
+      "winner": "es-toolkit",
+      "percentSavings": -2
     },
     {
       "name": "stripHtml",
@@ -834,8 +834,8 @@
     }
   ],
   "summary": {
-    "totalNanoWins": 47,
-    "totalEsToolkitWins": 1,
+    "totalNanoWins": 45,
+    "totalEsToolkitWins": 3,
     "totalLodashWins": 0,
     "averageSavings": 7,
     "smallestFunction": "reverse",

@@ -227,22 +227,6 @@ describe("camelCase - performance by string size", () => {
   });
 });
 
-describe("words", () => {
-  const testString = "hello-world_test stringCamelCase";
-
-  bench("nano-string-utils", () => {
-    nano.words(testString);
-  });
-
-  bench("lodash", () => {
-    lodash.words(testString);
-  });
-
-  bench("es-toolkit", () => {
-    esToolkit.words(testString);
-  });
-});
-
 describe("escape", () => {
   const htmlString = '<div class="test">Hello & "world"</div>';
 
@@ -271,4 +255,51 @@ describe("reverse", () => {
   bench("es-toolkit (reverseString)", () => {
     esToolkit.reverseString(testString);
   });
+});
+
+describe("slugify", () => {
+  const testString = "Hello World! This is a Test String.";
+
+  bench("nano-string-utils", () => {
+    nano.slugify(testString);
+  });
+
+  bench("lodash (kebabCase)", () => {
+    lodash.kebabCase(testString.toLowerCase());
+  });
+
+  // es-toolkit doesn't have slugify, but kebabCase is similar
+  bench("es-toolkit (kebabCase)", () => {
+    esToolkit.kebabCase(testString.toLowerCase());
+  });
+});
+
+describe("isEmail", () => {
+  const validEmail = "test@example.com";
+  const invalidEmail = "not-an-email";
+
+  bench("nano-string-utils (valid)", () => {
+    nano.isEmail(validEmail);
+  });
+
+  bench("nano-string-utils (invalid)", () => {
+    nano.isEmail(invalidEmail);
+  });
+
+  // lodash and es-toolkit don't have email validation
+});
+
+describe("isUrl", () => {
+  const validUrl = "https://example.com/path";
+  const invalidUrl = "not-a-url";
+
+  bench("nano-string-utils (valid)", () => {
+    nano.isUrl(validUrl);
+  });
+
+  bench("nano-string-utils (invalid)", () => {
+    nano.isUrl(invalidUrl);
+  });
+
+  // lodash and es-toolkit don't have URL validation
 });
