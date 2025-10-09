@@ -9,10 +9,33 @@ const VOWEL_Y = /[aeiou]y$/;
  * @param count - Optional count to determine if pluralization is needed
  * @returns The pluralized word (or original if count is 1)
  * @example
+ * ```ts
+ * // Basic usage
  * pluralize('box') // 'boxes'
  * pluralize('item', 1) // 'item'
  * pluralize('item', 2) // 'items'
  * pluralize('person') // 'people'
+ *
+ * // Dynamic UI labels with counts
+ * const commentCount = 5
+ * const label = `${commentCount} ${pluralize('comment', commentCount)}`
+ * // '5 comments'
+ *
+ * // Shopping cart displays
+ * const items = cart.length
+ * const message = `You have ${items} ${pluralize('item', items)} in your cart`
+ * // 'You have 3 items in your cart'
+ *
+ * // Notification messages
+ * const unread = 1
+ * const notification = `${unread} unread ${pluralize('message', unread)}`
+ * // '1 unread message'
+ *
+ * // Dynamic list headers
+ * const results = searchResults.length
+ * const header = `${results} ${pluralize('result', results)} found`
+ * // '0 results found' or '1 result found'
+ * ```
  */
 export function pluralize(word: string, count?: number): string {
   if (count === 1) return word;

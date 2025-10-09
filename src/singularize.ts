@@ -4,10 +4,31 @@
  * @param word - The word to singularize
  * @returns The singularized word
  * @example
+ * ```ts
+ * // Basic usage
  * singularize('boxes') // 'box'
  * singularize('items') // 'item'
  * singularize('people') // 'person'
  * singularize('sheep') // 'sheep'
+ *
+ * // Database table name conventions
+ * const tableName = 'users'
+ * const modelName = singularize(tableName) // 'user'
+ *
+ * // API endpoint normalization
+ * const endpoint = '/api/products'
+ * const resourceName = singularize(endpoint.split('/').pop()) // 'product'
+ *
+ * // Form field labels from collection names
+ * const collectionName = 'categories'
+ * const fieldLabel = `Select a ${singularize(collectionName)}`
+ * // 'Select a category'
+ *
+ * // Dynamic breadcrumb text
+ * const currentPath = 'articles'
+ * const breadcrumb = `View ${singularize(currentPath)}`
+ * // 'View article'
+ * ```
  */
 export function singularize(word: string): string {
   // Handle empty string

@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.0] - 2025-10-09
+
+### Added
+
+- **New Branded Type: `SafeHTML`** - Compile-time XSS prevention with type-safe HTML sanitization
+
+  - New `toSafeHTML()` builder function creates sanitized HTML with opinionated secure defaults
+    - Strips all HTML by default for maximum security
+    - Removes script tags and dangerous content
+    - Removes non-printable characters
+    - Optional configuration to allow specific safe tags
+  - New `unsafeSafeHTML()` for trusted input bypass (use with caution)
+  - Zero runtime overhead - type safety enforced at compile time
+  - Full test coverage with 11 comprehensive tests
+  - Integrates with existing branded type system alongside `Email`, `URL`, and `Slug`
+
+- **Brand Pattern Documentation** - Comprehensive guide for extending the type system
+
+  - Added "Extending with Custom Branded Types" section to README
+  - Examples showing how to create custom branded types (PhoneNumber, PostalCode, CreditCard)
+  - Pattern demonstrates type-safe constructors and validation without bloating the library
+  - Shows composability of custom types with built-in branded types
+
+- **Enhanced JSDoc Examples** - Real-world usage examples for better developer experience
+  - Added comprehensive TypeScript examples to 20+ utility functions
+  - All examples now use proper ```ts code blocks for syntax highlighting
+  - Includes practical use cases: form validation, search normalization, file naming, etc.
+  - Functions enhanced: `capitalize`, `codePoints`, `deburr`, `detectScript`, `escapeHtml`, `graphemes`, `hashString`, `pad`, `padEnd`, `padStart`, `pluralize`, `randomString`, `reverse`, `singularize`, `smartSplit`, `stripHtml`, `toASCII`
+
+### Fixed
+
+- **Type Safety** - Resolved TypeScript strict mode violations with array access
+  - Added non-null assertions for mathematically guaranteed valid array access in `levenshtein`, `pad`, `fuzzyMatch`, `smartSplit`
+  - Fixed `randomString` to handle empty charset edge case (early return)
+  - Zero runtime cost fixes - all type assertions validated by algorithm guarantees
+  - All 1207 tests passing
+
+### Changed
+
+- **Bundle Size Limits** - Increased to accommodate SafeHTML feature
+  - ESM: 9.1 KB → 9.5 KB (+400 bytes headroom)
+  - CJS: 9.5 KB → 10 KB (+500 bytes headroom)
+  - Current actual size: 8.84 KB ESM / 9.36 KB CJS (well under new limits)
+  - SafeHTML adds ~500 bytes for compile-time XSS prevention
+
+### Security
+
+- **XSS Prevention** - SafeHTML branded type provides compile-time protection against XSS attacks
+  - Functions accepting user input can now require `SafeHTML` type
+  - Compiler enforces sanitization before rendering untrusted content
+  - Type system prevents accidentally using unvalidated strings in unsafe contexts
+
 ## [0.19.1] - 2025-10-07
 
 ### Changed
@@ -510,6 +562,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.20.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.20.0
 [0.19.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.1
 [0.19.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.0
 [0.18.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.18.0

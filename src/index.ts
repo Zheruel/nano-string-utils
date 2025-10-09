@@ -63,6 +63,7 @@ export type {
   Email,
   URL,
   Slug,
+  SafeHTML,
   ValidationResult,
 } from "./types/branded.js";
 export { BrandedTypeError } from "./types/branded.js";
@@ -72,8 +73,10 @@ export {
   toEmail,
   toUrl,
   toSlug,
+  toSafeHTML,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
+  unsafeSafeHTML,
   ensureSlug,
 } from "./types/builders.js";

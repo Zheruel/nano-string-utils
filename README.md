@@ -1310,6 +1310,62 @@ if (validated) {
 }
 ```
 
+#### Extending with Custom Branded Types
+
+The `Brand<T, K>` utility allows you to create your own custom branded types beyond the built-in ones. This is perfect for domain-specific validation without bloating the library.
+
+```typescript
+import type { Brand } from "nano-string-utils";
+import { sanitize } from "nano-string-utils";
+
+// Create custom branded types for your domain
+type PhoneNumber = Brand<string, "PhoneNumber">;
+type PostalCode = Brand<string, "PostalCode">;
+type CreditCard = Brand<string, "CreditCard">;
+
+// Build type-safe constructors
+function toPhoneNumber(str: string): PhoneNumber | null {
+  const cleaned = str.replace(/\D/g, "");
+  if (cleaned.length === 10 || cleaned.length === 11) {
+    return cleaned as PhoneNumber;
+  }
+  return null;
+}
+
+function toPostalCode(str: string): PostalCode | null {
+  // US ZIP code validation
+  if (/^\d{5}(-\d{4})?$/.test(str)) {
+    return str as PostalCode;
+  }
+  return null;
+}
+
+// Type guards for runtime checking
+function isPhoneNumber(str: string): str is PhoneNumber {
+  return toPhoneNumber(str) !== null;
+}
+
+// Use in your application
+function sendSMS(phone: PhoneNumber, message: string) {
+  // Can only be called with validated phone numbers
+  console.log(`Sending to ${phone}: ${message}`);
+}
+
+const userInput = "(555) 123-4567";
+const phone = toPhoneNumber(userInput);
+if (phone) {
+  sendSMS(phone); // ✅ Type safe!
+}
+// sendSMS(userInput); // ❌ Type error - string is not PhoneNumber
+```
+
+This pattern gives you:
+
+- **Compile-time safety** - Prevent using unvalidated data
+- **Zero bundle cost** - Only import what you use from the library
+- **Domain modeling** - Express business rules in the type system
+- **Composability** - Mix custom types with built-in branded types
+
 ### Template Literal Types (TypeScript)
 
 Case conversion functions now provide precise type inference for literal strings at compile time. This feature enhances IDE support with exact type transformations while maintaining full backward compatibility.
@@ -1534,14 +1590,11 @@ We continuously benchmark nano-string-utils against popular alternatives (lodash
 ### Running Benchmarks
 
 ```bash
-# Run all benchmarks
-npm run bench:all
+# Run vitest benchmark tests
+npm run bench
 
-# Run performance benchmarks only
-npm run bench:perf
-
-# Run bundle size analysis only
-npm run bench:size
+# Generate benchmark data for docs website
+npm run bench:data
 ```
 
 ### Latest Results
@@ -1578,7 +1631,7 @@ npm run bench:size
 
 - 🏆 **Smallest bundle sizes**: nano-string-utils wins 47 out of 48 tested functions (98% win rate)
 - ⚡ **Competitive performance**: Wins 10 out of 14 benchmarked functions against es-toolkit
-- 📊 **Detailed benchmarks**: See [benchmark-results.md](./benchmarks/benchmark-results.md) for full comparison
+- 📊 **[View full interactive benchmarks](https://zheruel.github.io/nano-string-utils/#bundle-size)** with detailed comparison
 - ⚡ **Optimized performance**:
   - **Case conversions**: 3.4M-4.3M ops/s, competitive with es-toolkit
   - **Truncate**: 23.4M ops/s for fast string truncation

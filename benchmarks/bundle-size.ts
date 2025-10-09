@@ -280,66 +280,6 @@ function formatBytes(bytes: number): string {
   return kb < 10 ? `${kb.toFixed(1)}KB` : `${Math.round(kb)}KB`;
 }
 
-function generateMarkdownTable(metrics: DetailedSizeMetrics[]): string {
-  let markdown = "# Bundle Size Comparison\n\n";
-  markdown += "## Overview\n\n";
-
-  // Summary stats
-  const totalNanoWins = metrics.filter((m) => m.winner === "nano").length;
-  const avgSavings =
-    metrics
-      .filter((m) => m.percentSavings !== undefined)
-      .reduce((sum, m) => sum + (m.percentSavings || 0), 0) / metrics.length;
-
-  markdown += `- **Total Functions**: ${metrics.length}\n`;
-  markdown += `- **Nano Wins**: ${totalNanoWins}/${metrics.length}\n`;
-  markdown += `- **Average Size Reduction**: ${Math.round(avgSavings)}%\n\n`;
-
-  markdown += "## Detailed Comparison\n\n";
-  markdown +=
-    "Sizes shown are minified (gzipped). For nano-string-utils, tree-shaken size is shown when different from bundled.\n\n";
-  markdown +=
-    "| Function | nano-string-utils | lodash | es-toolkit | Winner | Savings |\n";
-  markdown +=
-    "|----------|-------------------|--------|------------|--------|----------|\n";
-
-  for (const metric of metrics.sort((a, b) =>
-    a.function.localeCompare(b.function)
-  )) {
-    const nanoSize =
-      metric.nano.treeShaken.gzipped !== metric.nano.gzipped
-        ? `${formatBytes(metric.nano.minified)} (${formatBytes(
-            metric.nano.gzipped
-          )}) → ${formatBytes(metric.nano.treeShaken.minified)} (${formatBytes(
-            metric.nano.treeShaken.gzipped
-          )})`
-        : `${formatBytes(metric.nano.minified)} (${formatBytes(
-            metric.nano.gzipped
-          )})`;
-
-    const lodashSize = metric.lodash
-      ? `${formatBytes(metric.lodash.minified)} (${formatBytes(
-          metric.lodash.gzipped
-        )})`
-      : "-";
-
-    const esToolkitSize = metric.esToolkit
-      ? `${formatBytes(metric.esToolkit.minified)} (${formatBytes(
-          metric.esToolkit.gzipped
-        )})`
-      : "-";
-
-    const savingsStr =
-      metric.percentSavings !== undefined ? `${metric.percentSavings}%` : "-";
-
-    const winnerIcon = metric.winner === "nano" ? "🏆" : "";
-
-    markdown += `| ${metric.function} | ${nanoSize} | ${lodashSize} | ${esToolkitSize} | ${metric.winner} ${winnerIcon} | ${savingsStr} |\n`;
-  }
-
-  return markdown;
-}
-
 async function generateJSONReport(metrics: DetailedSizeMetrics[]) {
   const outputPath = path.join(__dirname, "bundle-sizes.json");
 
@@ -401,17 +341,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log("🚀 nano-string-utils Bundle Size Analysis\n");
   generateBundleSizeReport()
     .then(async ({ results, detailedMetrics }) => {
-      // Generate and save markdown report
-      const markdown = generateMarkdownTable(detailedMetrics);
-      console.log("\n" + markdown);
-
-      const mdPath = path.join(__dirname, "bundle-size-results.md");
-      await fs.writeFile(mdPath, markdown);
-      console.log(`\n✅ Markdown report saved to ${mdPath}`);
-
       // Generate and save JSON report
       const jsonPath = await generateJSONReport(detailedMetrics);
-      console.log(`✅ JSON report saved to ${jsonPath}`);
+      console.log(`\n✅ JSON report saved to ${jsonPath}`);
 
       // Copy to public directory for serving in documentation site
       const publicJsonPath = path.join(
@@ -423,9 +355,25 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       );
       await fs.mkdir(path.dirname(publicJsonPath), { recursive: true });
       await fs.copyFile(jsonPath, publicJsonPath);
-      console.log(`✅ JSON copied to public at ${publicJsonPath}`);
+      console.log(`✅ JSON copied to docs-src/public/`);
+
+      // Summary
+      const totalNanoWins = detailedMetrics.filter(
+        (m) => m.winner === "nano"
+      ).length;
+      const avgSavings = Math.round(
+        detailedMetrics
+          .filter((m) => m.percentSavings !== undefined)
+          .reduce((sum, m) => sum + (m.percentSavings || 0), 0) /
+          detailedMetrics.length
+      );
+
+      console.log(`\n📊 Summary:`);
+      console.log(`   - Total functions: ${detailedMetrics.length}`);
+      console.log(`   - Nano wins: ${totalNanoWins}/${detailedMetrics.length}`);
+      console.log(`   - Average size reduction: ${avgSavings}%`);
     })
     .catch(console.error);
 }
 
-export { measureBundleSize, generateBundleSizeReport, generateMarkdownTable };
+export { measureBundleSize, generateBundleSizeReport, formatBytes };

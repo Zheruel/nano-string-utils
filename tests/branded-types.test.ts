@@ -3,6 +3,7 @@ import {
   toEmail,
   toUrl,
   toSlug,
+  toSafeHTML,
   isValidEmail,
   isValidUrl,
   isSlug,
@@ -10,12 +11,14 @@ import {
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
+  unsafeSafeHTML,
   ensureSlug,
 } from "../src/index.js";
 import type {
   Email,
   URL,
   Slug,
+  SafeHTML,
   Brand,
   ValidationResult,
 } from "../src/types/index.js";
@@ -57,6 +60,16 @@ describe("Branded Types - Type Level Tests", () => {
 
     // Note: Branded types can be used as strings due to structural typing
     const _plainString: string = slug;
+  });
+
+  test("SafeHTML type is distinct from string", () => {
+    const safe = toSafeHTML("<script>alert('xss')</script>Hello");
+
+    expectTypeOf(safe).toEqualTypeOf<SafeHTML>();
+    expectTypeOf(safe).toMatchTypeOf<string>();
+
+    // Note: Branded types can be used as strings due to structural typing
+    const _plainString: string = safe;
   });
 
   test("Type guards narrow types correctly", () => {
@@ -103,6 +116,9 @@ describe("Branded Types - Type Level Tests", () => {
 
     const slug = toSlug("Hello World");
     expectTypeOf(slug).toEqualTypeOf<Slug>(); // Always returns Slug, never null
+
+    const safe = toSafeHTML("<div>content</div>");
+    expectTypeOf(safe).toEqualTypeOf<SafeHTML>(); // Always returns SafeHTML, never null
   });
 
   test("Unsafe functions return branded types directly", () => {
@@ -114,6 +130,9 @@ describe("Branded Types - Type Level Tests", () => {
 
     const slug = unsafeSlug("anything");
     expectTypeOf(slug).toEqualTypeOf<Slug>();
+
+    const html = unsafeSafeHTML("anything");
+    expectTypeOf(html).toEqualTypeOf<SafeHTML>();
   });
 
   test("ensureSlug always returns Slug", () => {
@@ -128,6 +147,7 @@ describe("Branded Types - Type Level Tests", () => {
     const email = unsafeEmail("test@example.com");
     const url = unsafeUrl("https://example.com");
     const slug = unsafeSlug("test-slug");
+    const safe = unsafeSafeHTML("<div>content</div>");
 
     // @ts-expect-error - Email cannot be assigned to URL
     const _urlFromEmail: URL = email;
@@ -140,6 +160,12 @@ describe("Branded Types - Type Level Tests", () => {
 
     // @ts-expect-error - Email cannot be assigned to Slug
     const _slugFromEmail: Slug = email;
+
+    // @ts-expect-error - SafeHTML cannot be assigned to Email
+    const _emailFromSafe: Email = safe;
+
+    // @ts-expect-error - Email cannot be assigned to SafeHTML
+    const _safeFromEmail: SafeHTML = email;
   });
 
   test("Brand type utility works correctly", () => {

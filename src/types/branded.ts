@@ -34,6 +34,15 @@ export type URL = Brand<string, "URL">;
 export type Slug = Brand<string, "Slug">;
 
 /**
+ * SafeHTML branded type - represents sanitized HTML safe for rendering.
+ * Guarantees XSS prevention through sanitization.
+ * Use with builder functions for type safety.
+ * @example
+ * const safe: SafeHTML = toSafeHTML('<script>alert("xss")</script>Hello'); // 'Hello'
+ */
+export type SafeHTML = Brand<string, "SafeHTML">;
+
+/**
  * Type guard result type for better type inference
  */
 export type ValidationResult<T> = T | null;

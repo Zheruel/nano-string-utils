@@ -3,9 +3,11 @@ import {
   toEmail,
   toUrl,
   toSlug,
+  toSafeHTML,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
+  unsafeSafeHTML,
   ensureSlug,
 } from "../src/index.js";
 
@@ -74,6 +76,58 @@ describe("Branded Type Builders", () => {
     });
   });
 
+  describe("toSafeHTML", () => {
+    test("sanitizes dangerous HTML by default", () => {
+      const safe = toSafeHTML('<script>alert("xss")</script>Hello');
+      expect(safe).toBe("Hello");
+    });
+
+    test("removes script tags and content", () => {
+      const safe = toSafeHTML(
+        "<p>Safe</p><script>bad()</script><p>Content</p>"
+      );
+      expect(safe).toBe("SafeContent");
+    });
+
+    test("strips all HTML by default", () => {
+      const safe = toSafeHTML("<div><b>Bold</b> and <i>italic</i></div>");
+      expect(safe).toBe("Bold and italic");
+    });
+
+    test("allows specific tags when configured", () => {
+      const safe = toSafeHTML("<b>Bold</b> and <script>bad</script>", {
+        allowedTags: ["b", "i", "em", "strong"],
+      });
+      expect(safe).toBe("<b>Bold</b> and ");
+    });
+
+    test("removes dangerous attributes from allowed tags", () => {
+      const safe = toSafeHTML(
+        '<div onclick="alert(1)">Click</div><b>Safe</b>',
+        {
+          allowedTags: ["div", "b"],
+        }
+      );
+      expect(safe).toContain("<div>Click</div>");
+      expect(safe).toContain("<b>Safe</b>");
+      expect(safe).not.toContain("onclick");
+    });
+
+    test("removes non-printable characters", () => {
+      const safe = toSafeHTML("Hello\x00World\x01");
+      expect(safe).toBe("HelloWorld");
+    });
+
+    test("handles empty strings", () => {
+      expect(toSafeHTML("")).toBe("");
+    });
+
+    test("preserves plain text", () => {
+      const safe = toSafeHTML("Just plain text");
+      expect(safe).toBe("Just plain text");
+    });
+  });
+
   describe("unsafeEmail", () => {
     test("casts string to Email without validation", () => {
       const email = unsafeEmail("not-validated@example");
@@ -111,6 +165,25 @@ describe("Branded Type Builders", () => {
       const slug = unsafeSlug("UPPERCASE");
       expect(slug).toBe("UPPERCASE");
       expect(slug).not.toBe("uppercase");
+    });
+  });
+
+  describe("unsafeSafeHTML", () => {
+    test("casts string to SafeHTML without sanitization", () => {
+      const html = unsafeSafeHTML('<script>alert("xss")</script>');
+      expect(html).toBe('<script>alert("xss")</script>');
+      // Type is SafeHTML but no runtime sanitization - DANGEROUS!
+    });
+
+    test("does not sanitize dangerous content", () => {
+      const html = unsafeSafeHTML('<div onclick="bad()">Click</div>');
+      expect(html).toBe('<div onclick="bad()">Click</div>');
+      expect(html).toContain("onclick");
+    });
+
+    test("preserves all content as-is", () => {
+      const html = unsafeSafeHTML("Any string at all");
+      expect(html).toBe("Any string at all");
     });
   });
 

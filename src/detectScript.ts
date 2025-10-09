@@ -5,19 +5,43 @@
  * @returns The detected script type: 'latin', 'cjk', 'arabic', 'cyrillic', 'hebrew', 'devanagari', 'greek', 'thai', or 'unknown'
  *
  * @example
- * detectScript('Hello World') // returns 'latin'
+ * ```ts
+ * // Basic usage
+ * detectScript('Hello World') // 'latin'
+ * detectScript('你好世界') // 'cjk'
+ * detectScript('Привет мир') // 'cyrillic'
+ * detectScript('مرحبا بالعالم') // 'arabic'
  *
- * @example
- * detectScript('你好世界') // returns 'cjk'
+ * // i18n routing - serve appropriate content
+ * const userInput = getUserInput()
+ * const script = detectScript(userInput)
+ * if (script === 'cjk') {
+ *   router.push('/zh')
+ * } else if (script === 'arabic') {
+ *   router.push('/ar')
+ * }
  *
- * @example
- * detectScript('Привет мир') // returns 'cyrillic'
+ * // Font selection based on script
+ * const text = getContent()
+ * const script = detectScript(text)
+ * const font = script === 'cjk' ? 'Noto Sans CJK' :
+ *              script === 'arabic' ? 'Noto Naskh Arabic' :
+ *              'Roboto'
  *
- * @example
- * detectScript('مرحبا بالعالم') // returns 'arabic'
+ * // Text direction detection
+ * const script = detectScript(userComment)
+ * const dir = ['arabic', 'hebrew'].includes(script) ? 'rtl' : 'ltr'
+ * element.setAttribute('dir', dir)
  *
- * @example
- * detectScript('') // returns 'unknown'
+ * // Mixed-script validation
+ * const password = 'Pass世界123'
+ * const script = detectScript(password)
+ * // Returns 'cjk' (dominant), may require additional validation
+ *
+ * // Language detection hint
+ * const script = detectScript(article)
+ * // Use as first step before full language detection
+ * ```
  */
 export function detectScript(
   text: string
