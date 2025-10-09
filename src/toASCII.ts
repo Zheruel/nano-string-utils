@@ -219,11 +219,37 @@ const CONTROL_CHARS_REGEX = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g;
  * @param options - Options for conversion
  * @returns ASCII-safe string
  * @example
+ * ```ts
+ * // Basic usage
  * toASCII('café') // 'cafe'
  * toASCII('Hello "world"') // 'Hello "world"'
  * toASCII('em—dash') // 'em-dash'
  * toASCII('α β γ') // 'a b g'
- * toASCII('привет', { placeholder: '?' }) // '??????'
+ *
+ * // Filename sanitization
+ * const filename = 'Résumé_2024.pdf'
+ * const safe = toASCII(filename) // 'Resume_2024.pdf'
+ *
+ * // URL slug generation
+ * const title = 'Ñoño's Café © 2024'
+ * const slug = toASCII(title).toLowerCase().replace(/[^\w]+/g, '-')
+ * // 'nono-s-cafe-c-2024'
+ *
+ * // Email address normalization
+ * const email = 'user@exämple.com'
+ * const normalized = toASCII(email) // 'user@example.com'
+ *
+ * // Legacy system compatibility
+ * const data = 'Price: €50'
+ * const ascii = toASCII(data) // 'Price: EUR50'
+ *
+ * // CSV export safety
+ * const row = ['Müller', '€1,000', '→']
+ * const safeRow = row.map(toASCII) // ['Muller', 'EUR1,000', '->']
+ *
+ * // With placeholder for untranslatable characters
+ * toASCII('Hello 世界', { placeholder: '?' }) // 'Hello ??'
+ * ```
  */
 export function toASCII(str: string): string;
 export function toASCII(str: string, options: ToASCIIOptions): string;

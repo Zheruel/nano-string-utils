@@ -22,7 +22,14 @@
  */
 
 // Re-export types
-export type { Brand, Email, URL, Slug, ValidationResult } from "./branded.js";
+export type {
+  Brand,
+  Email,
+  URL,
+  Slug,
+  SafeHTML,
+  ValidationResult,
+} from "./branded.js";
 export { BrandedTypeError } from "./branded.js";
 
 // Re-export type guards
@@ -36,8 +43,10 @@ export {
   toEmail,
   toUrl,
   toSlug,
+  toSafeHTML,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
+  unsafeSafeHTML,
   ensureSlug,
 } from "./builders.js";

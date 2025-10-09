@@ -1,5 +1,12 @@
 import { slugify } from "../slugify.js";
-import type { Email, URL, Slug, ValidationResult } from "./branded.js";
+import { sanitize, type SanitizeOptions } from "../sanitize.js";
+import type {
+  Email,
+  URL,
+  Slug,
+  SafeHTML,
+  ValidationResult,
+} from "./branded.js";
 import { isValidEmail, isValidUrl, isSlug } from "./guards.js";
 
 /**
@@ -96,4 +103,52 @@ export function unsafeSlug(str: string): Slug {
  */
 export function ensureSlug(str: string): Slug {
   return isSlug(str) ? (str as Slug) : toSlug(str);
+}
+
+/**
+ * Sanitizes a string and creates a SafeHTML branded type.
+ * Uses opinionated defaults for XSS prevention: strips all HTML,
+ * removes scripts, and removes non-printable characters.
+ * @param str - The string to sanitize
+ * @param options - Optional sanitization options to override defaults
+ * @returns SafeHTML branded type
+ * @example
+ * // Basic usage with safe defaults
+ * const safe = toSafeHTML('<script>alert("xss")</script>Hello');
+ * // Returns 'Hello' as SafeHTML
+ *
+ * // Allow specific HTML tags
+ * const formatted = toSafeHTML('<b>Bold</b> and <script>bad</script>', {
+ *   allowedTags: ['b', 'i', 'em', 'strong']
+ * });
+ * // Returns '<b>Bold</b> and ' as SafeHTML
+ *
+ * // Custom sanitization
+ * const custom = toSafeHTML(userInput, {
+ *   stripHtml: false,
+ *   escapeHtml: true
+ * });
+ */
+export function toSafeHTML(str: string, options?: SanitizeOptions): SafeHTML {
+  const sanitized = sanitize(str, {
+    stripHtml: true,
+    removeScripts: true,
+    removeNonPrintable: true,
+    ...options,
+  });
+  return sanitized as SafeHTML;
+}
+
+/**
+ * Creates a SafeHTML branded type without sanitization.
+ * Use only when you're certain the input is already safe.
+ * WARNING: Bypassing sanitization can lead to XSS vulnerabilities!
+ * @param str - The string to cast as SafeHTML
+ * @returns SafeHTML branded type without sanitization
+ * @example
+ * // Only use when you're absolutely certain the input is safe
+ * const trustedHtml = unsafeSafeHTML('<p>Server-generated content</p>');
+ */
+export function unsafeSafeHTML(str: string): SafeHTML {
+  return str as SafeHTML;
 }

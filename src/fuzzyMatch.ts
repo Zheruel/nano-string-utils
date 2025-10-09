@@ -126,13 +126,9 @@ export function fuzzyMatch(
 
       // Bonus for consecutive matches
       if (matchPositions.length > 1) {
-        const lastPos = matchPositions[matchPositions.length - 1];
-        const prevPos = matchPositions[matchPositions.length - 2];
-        if (
-          lastPos !== undefined &&
-          prevPos !== undefined &&
-          lastPos - prevPos === 1
-        ) {
+        const lastPos = matchPositions[matchPositions.length - 1]!;
+        const prevPos = matchPositions[matchPositions.length - 2]!;
+        if (lastPos - prevPos === 1) {
           consecutiveMatches++;
         }
       }
@@ -200,8 +196,7 @@ export function fuzzyMatch(
   let boundaryMatches = 0;
 
   for (let i = 0; i < matchPositions.length; i++) {
-    const pos = matchPositions[i];
-    if (pos === undefined) continue;
+    const pos = matchPositions[i]!;
 
     // Check if match is at start or after a boundary
     if (pos === 0) {

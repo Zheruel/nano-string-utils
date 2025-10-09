@@ -134,5 +134,5 @@ export function levenshtein(
     }
   }
 
-  return prevRow[shorterLen];
+  return prevRow[shorterLen]!;
 }

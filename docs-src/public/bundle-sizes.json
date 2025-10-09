@@ -1,5 +1,5 @@
 {
-  "generated": "2025-10-09T15:19:10.043Z",
+  "generated": "2025-10-09T17:44:44.595Z",
   "totalFunctions": 48,
   "functions": [
     {
@@ -219,12 +219,12 @@
       "name": "fuzzyMatch",
       "nano": {
         "bundled": {
-          "raw": 1182,
-          "gzip": 613
+          "raw": 1142,
+          "gzip": 595
         },
         "treeShaken": {
-          "raw": 1182,
-          "gzip": 613
+          "raw": 1142,
+          "gzip": 595
         }
       },
       "lodash": null,
@@ -549,12 +549,12 @@
       "name": "randomString",
       "nano": {
         "bundled": {
-          "raw": 235,
-          "gzip": 219
+          "raw": 249,
+          "gzip": 227
         },
         "treeShaken": {
-          "raw": 235,
-          "gzip": 219
+          "raw": 249,
+          "gzip": 227
         }
       },
       "lodash": null,
@@ -677,12 +677,12 @@
       "name": "smartSplit",
       "nano": {
         "bundled": {
-          "raw": 1046,
-          "gzip": 566
+          "raw": 1059,
+          "gzip": 586
         },
         "treeShaken": {
-          "raw": 1046,
-          "gzip": 566
+          "raw": 1059,
+          "gzip": 586
         }
       },
       "lodash": null,

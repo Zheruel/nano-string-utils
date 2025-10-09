@@ -1,258 +1,258 @@
 {
-  "generated": "2025-10-09T15:21:22.389Z",
+  "generated": "2025-10-09T17:46:32.160Z",
   "totalFunctions": 16,
   "functions": [
     {
       "name": "camelCase",
       "nano": {
-        "opsPerSecond": 3369637.6645549405,
-        "margin": 0.6953266607637053
+        "opsPerSecond": 3322306.6486140466,
+        "margin": 0.706289111166154
       },
       "lodash": {
-        "opsPerSecond": 2262715.7757605026,
-        "margin": 0.49765439385561894
+        "opsPerSecond": 2246716.018343455,
+        "margin": 3.0173272967543254
       },
       "esToolkit": {
-        "opsPerSecond": 3357032.567741269,
-        "margin": 0.44854102654128614
+        "opsPerSecond": 3288158.8690153877,
+        "margin": 0.44187170579688667
       },
       "winner": "nano",
-      "speedup": 1.4892005883604182,
-      "nanoVsLodash": 1.4892005883604182,
-      "nanoVsEsToolkit": 1.0037548330435628
+      "speedup": 1.4787390224171029,
+      "nanoVsLodash": 1.4787390224171029,
+      "nanoVsEsToolkit": 1.0103850759525144
     },
     {
       "name": "kebabCase",
       "nano": {
-        "opsPerSecond": 4373232.750978604,
-        "margin": 0.7193044522130041
+        "opsPerSecond": 4230713.034978112,
+        "margin": 0.8567177599122637
       },
       "lodash": {
-        "opsPerSecond": 3125511.952099234,
-        "margin": 0.4077325148523366
+        "opsPerSecond": 3089146.7198601537,
+        "margin": 1.2721456263277593
       },
       "esToolkit": {
-        "opsPerSecond": 4375261.751735616,
-        "margin": 0.5585243834967626
+        "opsPerSecond": 4230594.563335859,
+        "margin": 0.6492669716607343
       },
-      "winner": "es-toolkit",
-      "speedup": 1.39985442986292,
-      "nanoVsLodash": 1.3992052559713761,
-      "nanoVsEsToolkit": 0.9995362561437138
+      "winner": "nano",
+      "speedup": 1.3695409828801002,
+      "nanoVsLodash": 1.3695409828801002,
+      "nanoVsEsToolkit": 1.000028003544296
     },
     {
       "name": "snakeCase",
       "nano": {
-        "opsPerSecond": 4343849.857778455,
-        "margin": 0.6152024992991368
+        "opsPerSecond": 4218112.934258176,
+        "margin": 0.5835739561012201
       },
       "lodash": {
-        "opsPerSecond": 3123559.017372274,
-        "margin": 4.772376505895271
+        "opsPerSecond": 3024502.616957818,
+        "margin": 5.25210577464132
       },
       "esToolkit": {
-        "opsPerSecond": 4278745.147169153,
-        "margin": 0.9487742891877238
+        "opsPerSecond": 4206229.23114351,
+        "margin": 1.413509888664123
       },
       "winner": "nano",
-      "speedup": 1.390673213990611,
-      "nanoVsLodash": 1.390673213990611,
-      "nanoVsEsToolkit": 1.015215842114919
+      "speedup": 1.3946468125396914,
+      "nanoVsLodash": 1.3946468125396914,
+      "nanoVsEsToolkit": 1.0028252628331993
     },
     {
       "name": "pascalCase",
       "nano": {
-        "opsPerSecond": 3985202.09066626,
-        "margin": 0.6005685004150819
+        "opsPerSecond": 3871831.3150970056,
+        "margin": 0.6552102326434992
       },
       "lodash": {
-        "opsPerSecond": 2682040.75804884,
-        "margin": 5.931788518620466
+        "opsPerSecond": 2631325.737203206,
+        "margin": 3.95075625152674
       },
       "esToolkit": {
-        "opsPerSecond": 3956124.944302895,
-        "margin": 1.144805492304658
+        "opsPerSecond": 3848014.1267430517,
+        "margin": 0.3032956410092205
       },
       "winner": "nano",
-      "speedup": 1.485884238972363,
-      "nanoVsLodash": 1.485884238972363,
-      "nanoVsEsToolkit": 1.0073499059743394
+      "speedup": 1.4714374812493998,
+      "nanoVsLodash": 1.4714374812493998,
+      "nanoVsEsToolkit": 1.0061894752902356
     },
     {
       "name": "capitalize",
       "nano": {
-        "opsPerSecond": 21186396.570950586,
-        "margin": 0.8112481308588283
+        "opsPerSecond": 21246225.229487754,
+        "margin": 0.5563062522788913
       },
       "lodash": {
-        "opsPerSecond": 15878311.288253142,
-        "margin": 0.7891447580972806
+        "opsPerSecond": 16077457.55855605,
+        "margin": 0.7022159283673566
       },
       "esToolkit": {
-        "opsPerSecond": 21230395.29571815,
-        "margin": 1.0099924604931925
+        "opsPerSecond": 21256715.293423135,
+        "margin": 1.8192511448599802
       },
       "winner": "es-toolkit",
-      "speedup": 1.3370688425427524,
-      "nanoVsLodash": 1.3342978473173275,
-      "nanoVsEsToolkit": 0.9979275597955335
+      "speedup": 1.3221440775697029,
+      "nanoVsLodash": 1.321491607246135,
+      "nanoVsEsToolkit": 0.9995065058834077
     },
     {
       "name": "truncate (short)",
       "nano": {
-        "opsPerSecond": 23554986.47520733,
-        "margin": 2.178413650832772
+        "opsPerSecond": 24305926.58391668,
+        "margin": 1.2441915047882346
       },
       "lodash": {
-        "opsPerSecond": 18141175.258087177,
-        "margin": 0.2844160977904348
+        "opsPerSecond": 18147651.730231613,
+        "margin": 0.27677384669523486
       },
       "esToolkit": null,
       "winner": "nano",
-      "speedup": 1.2984267083085879,
-      "nanoVsLodash": 1.2984267083085879
+      "speedup": 1.3393427946066534,
+      "nanoVsLodash": 1.3393427946066534
     },
     {
       "name": "truncate (long)",
       "nano": {
-        "opsPerSecond": 24424418.59724437,
-        "margin": 0.3857050282952825
+        "opsPerSecond": 24474902.11535235,
+        "margin": 0.3019081548382173
       },
       "lodash": {
-        "opsPerSecond": 19332708.700583704,
-        "margin": 0.14428229222181205
+        "opsPerSecond": 19319886.4597574,
+        "margin": 1.3403117325112128
       },
       "esToolkit": null,
       "winner": "nano",
-      "speedup": 1.263372814204092,
-      "nanoVsLodash": 1.263372814204092
+      "speedup": 1.2668243245804087,
+      "nanoVsLodash": 1.2668243245804087
     },
     {
       "name": "deburr",
       "nano": {
-        "opsPerSecond": 2287284.840745135,
-        "margin": 0.10000354104913849
+        "opsPerSecond": 2286399.7151033785,
+        "margin": 0.55726270655016
       },
       "lodash": {
-        "opsPerSecond": 3015007.0169625473,
-        "margin": 0.6711447368345651
+        "opsPerSecond": 2992358.2729713665,
+        "margin": 1.7367068796435217
       },
       "esToolkit": {
-        "opsPerSecond": 2374824.9183366364,
-        "margin": 0.26664381608321397
+        "opsPerSecond": 2067873.1377696572,
+        "margin": 0.6612514834706845
       },
       "winner": "lodash",
-      "speedup": 1.3181598387983633,
-      "nanoVsLodash": 0.7586333391188748,
-      "nanoVsEsToolkit": 0.9631383025689255
+      "speedup": 1.4470705278365528,
+      "nanoVsLodash": 0.7640795341104052,
+      "nanoVsEsToolkit": 1.1056769747342514
     },
     {
       "name": "pad",
       "nano": {
-        "opsPerSecond": 11840897.309888143,
-        "margin": 1.3410344969549115
+        "opsPerSecond": 11754710.001562782,
+        "margin": 0.39130687139551024
       },
       "lodash": {
-        "opsPerSecond": 13577591.408082718,
-        "margin": 0.9754132235116946
+        "opsPerSecond": 13681826.294749761,
+        "margin": 0.6945038959003648
       },
       "esToolkit": {
-        "opsPerSecond": 18608769.939123303,
-        "margin": 1.0705130700344334
+        "opsPerSecond": 18663726.963581037,
+        "margin": 0.9688518670832816
       },
       "winner": "es-toolkit",
-      "speedup": 1.5715675469614467,
-      "nanoVsLodash": 0.8720911503375537,
-      "nanoVsEsToolkit": 0.6363073619924602
+      "speedup": 1.5877658369368284,
+      "nanoVsLodash": 0.8591477298665539,
+      "nanoVsEsToolkit": 0.629815793196076
     },
     {
       "name": "padStart",
       "nano": {
-        "opsPerSecond": 7944021.689958638,
-        "margin": 0.1260644032736237
+        "opsPerSecond": 7973681.156536542,
+        "margin": 0.23716508032224504
       },
       "lodash": {
-        "opsPerSecond": 18735869.848436225,
-        "margin": 2.495203941848057
+        "opsPerSecond": 18910032.70110365,
+        "margin": 0.12633657370251417
       },
       "esToolkit": null,
       "winner": "lodash",
-      "speedup": 2.3584867438263224,
-      "nanoVsLodash": 0.42400068714299266
+      "speedup": 2.3715561645704724,
+      "nanoVsLodash": 0.42166405963280923
     },
     {
       "name": "padEnd",
       "nano": {
-        "opsPerSecond": 7919260.274269554,
-        "margin": 0.14866617079810035
+        "opsPerSecond": 7984259.454864906,
+        "margin": 0.2846654854896466
       },
       "lodash": {
-        "opsPerSecond": 19219712.754317634,
-        "margin": 0.09557531217928585
+        "opsPerSecond": 18779836.22765661,
+        "margin": 0.5759558073775679
       },
       "esToolkit": null,
       "winner": "lodash",
-      "speedup": 2.4269580855631614,
-      "nanoVsLodash": 0.41203843030851345
+      "speedup": 2.352107460161985,
+      "nanoVsLodash": 0.4251506433856266
     },
     {
       "name": "template",
       "nano": {
-        "opsPerSecond": 999373.9900219259,
-        "margin": 0.7137673774292924
+        "opsPerSecond": 998341.8082734329,
+        "margin": 0.7695779985061184
       },
       "lodash": {
-        "opsPerSecond": 53242.61362077096,
-        "margin": 2.587362110203054
+        "opsPerSecond": 53727.21568051685,
+        "margin": 2.3216172828404873
       },
       "esToolkit": null,
       "winner": "nano",
-      "speedup": 18.770190305459593,
-      "nanoVsLodash": 18.770190305459593
+      "speedup": 18.581677751736958,
+      "nanoVsLodash": 18.581677751736958
     },
     {
       "name": "escapeHtml",
       "nano": {
-        "opsPerSecond": 2296292.105642772,
-        "margin": 0.4255461771346867
+        "opsPerSecond": 2283155.0045625404,
+        "margin": 0.44627179913024523
       },
       "lodash": {
-        "opsPerSecond": 2244083.009436495,
-        "margin": 1.5774978962722845
+        "opsPerSecond": 2242330.2442373214,
+        "margin": 3.109661498984391
       },
       "esToolkit": {
-        "opsPerSecond": 2271223.8350670626,
-        "margin": 3.6200320591293877
+        "opsPerSecond": 2277369.208614037,
+        "margin": 2.1651301803500704
       },
       "winner": "nano",
-      "speedup": 1.0232652250325565,
-      "nanoVsLodash": 1.0232652250325565,
-      "nanoVsEsToolkit": 1.0110373403927266
+      "speedup": 1.018206399539112,
+      "nanoVsLodash": 1.018206399539112,
+      "nanoVsEsToolkit": 1.0025405612434817
     },
     {
       "name": "slugify",
       "nano": {
-        "opsPerSecond": 1877887.8519998104,
-        "margin": 0.2973060863456963
+        "opsPerSecond": 1865832.8979576796,
+        "margin": 0.4443774349277756
       },
       "lodash": {
-        "opsPerSecond": 2265354.568346599,
-        "margin": 0.26375549470493825
+        "opsPerSecond": 2259938.556339832,
+        "margin": 0.36961691325847723
       },
       "esToolkit": {
-        "opsPerSecond": 2827759.814871567,
-        "margin": 1.5109914038498524
+        "opsPerSecond": 2813537.5041021137,
+        "margin": 2.4016080313513535
       },
       "winner": "es-toolkit",
-      "speedup": 1.5058193234810129,
-      "nanoVsLodash": 0.8289597920957748,
-      "nanoVsEsToolkit": 0.6640902958319682
+      "speedup": 1.507925767190503,
+      "nanoVsLodash": 0.8256122241569076,
+      "nanoVsEsToolkit": 0.6631626183185086
     },
     {
       "name": "isEmail",
       "nano": {
-        "opsPerSecond": 11891532.984337714,
-        "margin": 0.27542889785497865
+        "opsPerSecond": 11749548.515495786,
+        "margin": 0.46284373912123916
       },
       "lodash": null,
       "esToolkit": null,
@@ -262,8 +262,8 @@
     {
       "name": "isUrl",
       "nano": {
-        "opsPerSecond": 3984968.4488913734,
-        "margin": 0.9805745182365969
+        "opsPerSecond": 4047778.900951924,
+        "margin": 0.11380303518442368
       },
       "lodash": null,
       "esToolkit": null,
@@ -272,9 +272,9 @@
     }
   ],
   "summary": {
-    "nanoWins": 9,
+    "nanoWins": 10,
     "lodashWins": 3,
-    "esToolkitWins": 4,
-    "averageSpeedup": 2.539932994085263
+    "esToolkitWins": 3,
+    "averageSpeedup": 2.5318115877384666
   }
 }

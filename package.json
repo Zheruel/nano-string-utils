@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.19.1",
+  "version": "0.20.0",
   "description": "49 tree-shakeable string utilities with zero dependencies. TypeScript-first, <1KB per function. Case conversion, validation, sanitization, fuzzy matching & more.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -38,10 +38,7 @@
     "test": "vitest",
     "test:coverage": "npm run build && vitest run --coverage",
     "bench": "vitest bench",
-    "bench:perf": "vitest bench benchmarks/performance.bench.ts",
-    "bench:generate": "npm run build && npx tsx benchmarks/performance-benchmarks.ts",
-    "bench:size": "tsx benchmarks/bundle-size.ts",
-    "bench:all": "tsx benchmarks/run-benchmarks.ts",
+    "bench:data": "npm run build && npx tsx benchmarks/bundle-size.ts && npx tsx benchmarks/performance-benchmarks.ts",
     "typecheck": "tsc --noEmit",
     "docs:dev": "cd docs-src && npm run dev",
     "docs:build": "cd docs-src && npm run build",
@@ -103,11 +100,11 @@
   "size-limit": [
     {
       "path": "dist/index.js",
-      "limit": "9.1 KB"
+      "limit": "9.5 KB"
     },
     {
       "path": "dist/index.cjs",
-      "limit": "9.5 KB"
+      "limit": "10 KB"
     }
   ]
 }

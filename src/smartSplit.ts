@@ -83,26 +83,25 @@ export const smartSplit = (text: string): string[] => {
   let currentSentence = "";
 
   for (let i = 0; i < processed.length; i++) {
-    currentSentence += processed[i];
+    const char = processed[i]!;
+    currentSentence += char;
 
     // Check if we're at a potential sentence boundary
     if (
-      processed[i] === "." ||
-      processed[i] === "!" ||
-      processed[i] === "?" ||
-      processed[i] === ELLIPSIS_BREAK
+      char === "." ||
+      char === "!" ||
+      char === "?" ||
+      char === ELLIPSIS_BREAK
     ) {
       // Look ahead for optional quotes/brackets and space
       let j = i + 1;
       let extras = "";
 
       // Collect any trailing punctuation (quotes, brackets, etc)
-      while (
-        j < processed.length &&
-        /["\'\)\]]*/.test(processed[j]!) &&
-        processed[j] !== " "
-      ) {
-        extras += processed[j]!;
+      while (j < processed.length) {
+        const char = processed[j];
+        if (!char || char === " " || !/["\'\)\]]*/.test(char)) break;
+        extras += char;
         j++;
       }
 
@@ -115,7 +114,8 @@ export const smartSplit = (text: string): string[] => {
         }
 
         // If followed by capital letter, it's a sentence boundary
-        if (k < processed.length && /[A-Z]/.test(processed[k]!)) {
+        const nextChar = processed[k];
+        if (nextChar && /[A-Z]/.test(nextChar)) {
           currentSentence += extras;
           sentences.push(currentSentence.trim());
           currentSentence = "";
