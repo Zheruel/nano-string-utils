@@ -1524,7 +1524,7 @@ Each utility is optimized to be as small as possible:
 | detectScript          | 540 bytes      |
 | classifyText          | 898 bytes      |
 
-Total package size: **< 8.5KB** minified + gzipped
+Total package size: **< 12KB** minified + gzipped
 
 ## Requirements
 
@@ -1642,7 +1642,7 @@ npm run bench:data
 
 | Library           | Bundle Size | Dependencies | Tree-shakeable        | TypeScript |
 | ----------------- | ----------- | ------------ | --------------------- | ---------- |
-| nano-string-utils | < 8.5KB     | 0            | ✅                    | ✅         |
+| nano-string-utils | < 12KB      | 0            | ✅                    | ✅         |
 | lodash            | ~70KB       | 0            | ⚠️ Requires lodash-es | ✅         |
 | underscore.string | ~20KB       | 0            | ❌                    | ❌         |
 | voca              | ~30KB       | 0            | ❌                    | ✅         |

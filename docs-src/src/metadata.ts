@@ -279,6 +279,20 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  isHexColor: {
+    description: "Validates if a string is a valid hexadecimal color code",
+    size: "180B",
+    params: [{ name: "str", type: "string", default: "#ff5733" }],
+    examples: [
+      { code: 'isHexColor("#fff")', result: "true" },
+      { code: 'isHexColor("#ffffff")', result: "true" },
+      { code: 'isHexColor("#fff8")', result: "true" },
+      { code: 'isHexColor("#ffffff80")', result: "true" },
+      { code: 'isHexColor("fff")', result: "false" },
+      { code: 'isHexColor("#gggggg")', result: "false" },
+    ],
+  },
+
   detectScript: {
     description: "Detects the dominant writing system (script) in text",
     size: "1.1KB",

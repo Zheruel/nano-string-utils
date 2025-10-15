@@ -1,5 +1,10 @@
 import { describe, test, expect } from "vitest";
-import { isValidEmail, isValidUrl, isSlug } from "../src/index.js";
+import {
+  isValidEmail,
+  isValidUrl,
+  isSlug,
+  isValidHexColor,
+} from "../src/index.js";
 
 describe("Branded Type Guards", () => {
   describe("isValidEmail", () => {
@@ -82,6 +87,33 @@ describe("Branded Type Guards", () => {
       if (isSlug(input)) {
         // TypeScript should recognize input as Slug here
         expect(input).toBe("hello-world");
+      }
+    });
+  });
+
+  describe("isValidHexColor", () => {
+    test("returns true for valid hex colors", () => {
+      expect(isValidHexColor("#fff")).toBe(true);
+      expect(isValidHexColor("#ffffff")).toBe(true);
+      expect(isValidHexColor("#fff8")).toBe(true);
+      expect(isValidHexColor("#ffffff80")).toBe(true);
+      expect(isValidHexColor("#FFF")).toBe(true);
+      expect(isValidHexColor("#FF5733")).toBe(true);
+    });
+
+    test("returns false for invalid hex colors", () => {
+      expect(isValidHexColor("fff")).toBe(false);
+      expect(isValidHexColor("#gggggg")).toBe(false);
+      expect(isValidHexColor("#ff")).toBe(false);
+      expect(isValidHexColor("# fff")).toBe(false);
+      expect(isValidHexColor("")).toBe(false);
+    });
+
+    test("type narrows to HexColor", () => {
+      const input: string = "#ff5733";
+      if (isValidHexColor(input)) {
+        // TypeScript should recognize input as HexColor here
+        expect(input).toBe("#ff5733");
       }
     });
   });

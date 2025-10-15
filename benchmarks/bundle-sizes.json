@@ -1,6 +1,6 @@
 {
-  "generated": "2025-10-09T17:44:44.595Z",
-  "totalFunctions": 48,
+  "generated": "2025-10-12T13:24:12.628Z",
+  "totalFunctions": 49,
   "functions": [
     {
       "name": "camelCase",
@@ -220,11 +220,11 @@
       "nano": {
         "bundled": {
           "raw": 1142,
-          "gzip": 595
+          "gzip": 594
         },
         "treeShaken": {
           "raw": 1142,
-          "gzip": 595
+          "gzip": 594
         }
       },
       "lodash": null,
@@ -321,6 +321,22 @@
         "treeShaken": {
           "raw": 187,
           "gzip": 148
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "isHexColor",
+      "nano": {
+        "bundled": {
+          "raw": 118,
+          "gzip": 103
+        },
+        "treeShaken": {
+          "raw": 118,
+          "gzip": 103
         }
       },
       "lodash": null,
@@ -614,11 +630,11 @@
       "nano": {
         "bundled": {
           "raw": 1785,
-          "gzip": 812
+          "gzip": 811
         },
         "treeShaken": {
           "raw": 1785,
-          "gzip": 812
+          "gzip": 811
         }
       },
       "lodash": null,
@@ -834,7 +850,7 @@
     }
   ],
   "summary": {
-    "totalNanoWins": 45,
+    "totalNanoWins": 46,
     "totalEsToolkitWins": 3,
     "totalLodashWins": 0,
     "averageSavings": 7,

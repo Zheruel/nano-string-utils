@@ -5,9 +5,10 @@ import type {
   URL,
   Slug,
   SafeHTML,
+  HexColor,
   ValidationResult,
 } from "./branded.js";
-import { isValidEmail, isValidUrl, isSlug } from "./guards.js";
+import { isValidEmail, isValidUrl, isSlug, isValidHexColor } from "./guards.js";
 
 /**
  * Validates and creates an Email branded type.
@@ -151,4 +152,39 @@ export function toSafeHTML(str: string, options?: SanitizeOptions): SafeHTML {
  */
 export function unsafeSafeHTML(str: string): SafeHTML {
   return str as SafeHTML;
+}
+
+/**
+ * Validates and creates a HexColor branded type.
+ * Returns null if the string is not a valid hex color.
+ * @param str - The string to validate and convert
+ * @returns HexColor branded type or null if invalid
+ * @example
+ * const color = toHexColor('#ff5733');
+ * if (color) {
+ *   setThemeColor(color); // color is typed as HexColor
+ * }
+ *
+ * // Design system usage
+ * const theme = {
+ *   primary: toHexColor('#2563eb'),
+ *   secondary: toHexColor('#7c3aed'),
+ *   accent: toHexColor('#f59e0b')
+ * };
+ */
+export function toHexColor(str: string): ValidationResult<HexColor> {
+  return isValidHexColor(str) ? (str as HexColor) : null;
+}
+
+/**
+ * Creates a HexColor branded type without validation.
+ * Use only when you're certain the input is a valid hex color.
+ * @param str - The string to cast as HexColor
+ * @returns HexColor branded type without validation
+ * @example
+ * // Only use when you're certain the input is valid
+ * const trustedColor = unsafeHexColor('#ffffff');
+ */
+export function unsafeHexColor(str: string): HexColor {
+  return str as HexColor;
 }

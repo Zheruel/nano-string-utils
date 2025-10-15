@@ -4,10 +4,12 @@ import {
   toUrl,
   toSlug,
   toSafeHTML,
+  toHexColor,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
   unsafeSafeHTML,
+  unsafeHexColor,
   ensureSlug,
 } from "../src/index.js";
 
@@ -204,6 +206,42 @@ describe("Branded Type Builders", () => {
       expect(ensureSlug("")).toBe("");
       expect(ensureSlug("   spaces   ")).toBe("spaces");
       expect(ensureSlug("123")).toBe("123");
+    });
+  });
+
+  describe("toHexColor", () => {
+    test("returns HexColor for valid hex colors", () => {
+      const color = toHexColor("#ff5733");
+      expect(color).toBe("#ff5733");
+      expect(color).not.toBeNull();
+    });
+
+    test("returns null for invalid hex colors", () => {
+      expect(toHexColor("fff")).toBeNull();
+      expect(toHexColor("#gggggg")).toBeNull();
+      expect(toHexColor("#ff")).toBeNull();
+      expect(toHexColor("")).toBeNull();
+    });
+
+    test("validates various hex color formats", () => {
+      expect(toHexColor("#fff")).not.toBeNull();
+      expect(toHexColor("#ffffff")).not.toBeNull();
+      expect(toHexColor("#fff8")).not.toBeNull();
+      expect(toHexColor("#ffffff80")).not.toBeNull();
+      expect(toHexColor("#FFF")).not.toBeNull();
+    });
+  });
+
+  describe("unsafeHexColor", () => {
+    test("casts string to HexColor without validation", () => {
+      const color = unsafeHexColor("not-validated");
+      expect(color).toBe("not-validated");
+      // Type is HexColor but no runtime validation
+    });
+
+    test("allows invalid hex colors when using unsafe", () => {
+      const color = unsafeHexColor("just a string");
+      expect(color).toBe("just a string");
     });
   });
 

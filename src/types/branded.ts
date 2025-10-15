@@ -43,6 +43,14 @@ export type Slug = Brand<string, "Slug">;
 export type SafeHTML = Brand<string, "SafeHTML">;
 
 /**
+ * HexColor branded type - represents a validated hexadecimal color code.
+ * Use with type guards and builder functions for type safety.
+ * @example
+ * const color: HexColor = toHexColor('#ff5733')!;
+ */
+export type HexColor = Brand<string, "HexColor">;
+
+/**
  * Type guard result type for better type inference
  */
 export type ValidationResult<T> = T | null;

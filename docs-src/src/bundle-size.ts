@@ -333,8 +333,8 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
   };
 
   const updateTableAndChart = (): void => {
-    const tableContainer = document.getElementById("table-container");
-    const chartContainer = document.getElementById("chart-container");
+    const tableContainer = document.getElementById("bundle-table-container");
+    const chartContainer = document.getElementById("bundle-chart-container");
     const sortOrderButton = document.getElementById(
       "bundle-sort-order"
     ) as HTMLButtonElement;
@@ -365,8 +365,8 @@ function initViewer(container: HTMLElement, bundleData: BundleData): void {
           All sizes are shown in gzipped format.
         </p>
         ${controlsHtml}
-        <div id="table-container">${createTable()}</div>
-        <div id="chart-container">${createSizeDistribution()}</div>
+        <div id="bundle-table-container">${createTable()}</div>
+        <div id="bundle-chart-container">${createSizeDistribution()}</div>
         <div class="footer-note">
           <p>
             <strong>Note:</strong> Tree-shaken sizes represent the cost of importing a single function.
