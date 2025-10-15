@@ -177,6 +177,30 @@ function executeFunction() {
           validationError = `Parameter '${param.name}' must be a valid object (e.g., { maxSize: 100 })`;
           break;
         }
+      } else if (param.type.includes("[]")) {
+        // Handle array types (e.g., 'unknown[]', 'string[]', etc.)
+        try {
+          if (value) {
+            // Try to evaluate as JavaScript array notation
+            try {
+              value = new Function("return " + value)();
+              if (!Array.isArray(value)) {
+                throw new Error("Not an array");
+              }
+            } catch {
+              // Fall back to strict JSON parsing
+              value = JSON.parse(value);
+              if (!Array.isArray(value)) {
+                throw new Error("Not an array");
+              }
+            }
+          } else {
+            value = [];
+          }
+        } catch (e) {
+          validationError = `Parameter '${param.name}' must be a valid array (e.g., ["apple", "banana"])`;
+          break;
+        }
       } else if (param.type === "function") {
         // Special handling for memoize function parameter
         try {
@@ -316,21 +340,34 @@ function loadExamples(_functionName: string, meta: FunctionMeta) {
       const match = example.code.match(/\(([^)]*)\)/);
       if (match) {
         const argsStr = match[1];
-        // Simple parser for example args
-        const args = argsStr
-          .split(",")
-          .map((s) => s.trim().replace(/^["']|["']$/g, ""));
 
-        meta.params.forEach((param, i) => {
-          const input = document.getElementById(
-            `param-${param.name}`
-          ) as HTMLInputElement;
-          if (input && args[i] !== undefined) {
-            input.value = args[i];
-          }
-        });
+        // Use proper JavaScript evaluation to parse arguments
+        // This handles arrays, objects, strings, numbers, etc. correctly
+        try {
+          const args = new Function(`return [${argsStr}]`)();
 
-        executeFunction();
+          meta.params.forEach((param, i) => {
+            const input = document.getElementById(
+              `param-${param.name}`
+            ) as HTMLInputElement;
+            if (input && args[i] !== undefined) {
+              const value = args[i];
+
+              // Convert value to appropriate string representation for the input
+              if (typeof value === "string") {
+                input.value = value;
+              } else if (typeof value === "object" && value !== null) {
+                input.value = JSON.stringify(value);
+              } else {
+                input.value = String(value);
+              }
+            }
+          });
+
+          executeFunction();
+        } catch (e) {
+          console.error("Failed to parse example arguments:", e);
+        }
       }
     });
 
