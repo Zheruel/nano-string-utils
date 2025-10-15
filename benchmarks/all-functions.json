@@ -18,6 +18,7 @@
   "humanizeList",
   "isASCII",
   "isEmail",
+  "isHexColor",
   "isUrl",
   "kebabCase",
   "levenshtein",

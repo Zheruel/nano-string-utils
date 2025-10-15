@@ -3,8 +3,9 @@ import {
   type Email,
   type URL,
   type Slug,
+  type HexColor,
 } from "./branded.js";
-import { isValidEmail, isValidUrl, isSlug } from "./guards.js";
+import { isValidEmail, isValidUrl, isSlug, isValidHexColor } from "./guards.js";
 
 /**
  * Asserts that a string is a valid Email, throwing if validation fails.
@@ -60,5 +61,26 @@ export function assertUrl(str: string, message?: string): asserts str is URL {
 export function assertSlug(str: string, message?: string): asserts str is Slug {
   if (!isSlug(str)) {
     throw new BrandedTypeError(message || "Slug", str);
+  }
+}
+
+/**
+ * Asserts that a string is a valid HexColor, throwing if validation fails.
+ * After this assertion, TypeScript knows the value is a HexColor.
+ * @param str - The string to validate
+ * @param message - Optional custom error message
+ * @throws {BrandedTypeError} If the string is not a valid hex color
+ * @example
+ * const input: string = getUserInput();
+ * assertHexColor(input);
+ * // input is now typed as HexColor
+ * setThemeColor(input);
+ */
+export function assertHexColor(
+  str: string,
+  message?: string
+): asserts str is HexColor {
+  if (!isValidHexColor(str)) {
+    throw new BrandedTypeError(message || "HexColor", str);
   }
 }

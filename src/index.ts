@@ -14,6 +14,7 @@ export { reverse } from "./reverse.js";
 export { sentenceCase } from "./sentenceCase.js";
 export { isEmail } from "./isEmail.js";
 export { isUrl } from "./isUrl.js";
+export { isHexColor } from "./isHexColor.js";
 export { wordCount } from "./wordCount.js";
 export { template, type TemplateOptions } from "./template.js";
 export { templateSafe } from "./templateSafe.js";
@@ -64,19 +65,22 @@ export type {
   URL,
   Slug,
   SafeHTML,
+  HexColor,
   ValidationResult,
 } from "./types/branded.js";
 export { BrandedTypeError } from "./types/branded.js";
-export { isValidEmail, isValidUrl, isSlug } from "./types/guards.js";
-export { assertEmail, assertUrl, assertSlug } from "./types/assertions.js";
+export { isValidEmail, isValidUrl, isSlug, isValidHexColor } from "./types/guards.js";
+export { assertEmail, assertUrl, assertSlug, assertHexColor } from "./types/assertions.js";
 export {
   toEmail,
   toUrl,
   toSlug,
   toSafeHTML,
+  toHexColor,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
   unsafeSafeHTML,
+  unsafeHexColor,
   ensureSlug,
 } from "./types/builders.js";

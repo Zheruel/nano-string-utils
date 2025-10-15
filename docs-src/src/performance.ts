@@ -143,119 +143,29 @@ function initViewer(container: HTMLElement, perfData: PerformanceData): void {
     `;
   };
 
-  const createTable = (functions: FunctionBenchmark[]): string => {
-    return `
-      <div class="table-container">
-        <table class="bundle-table">
-          <thead>
-            <tr>
-              <th>
-                <span class="th-text">Function</span>
-              </th>
-              <th>
-                <span class="th-text">Nano</span>
-              </th>
-              <th>
-                <span class="th-text">Lodash</span>
-              </th>
-              <th>
-                <span class="th-text">ES-Toolkit</span>
-              </th>
-              <th>
-                <span class="th-text">Winner</span>
-              </th>
-              <th>
-                <span class="th-text">Comparison</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            ${functions
-              .map((func) => {
-                const nanoOps = func.nano?.opsPerSecond || 0;
-                const lodashOps = func.lodash?.opsPerSecond || 0;
-                const esToolkitOps = func.esToolkit?.opsPerSecond || 0;
-
-                return `
-                  <tr>
-                    <td class="function-name">
-                      <code>${func.name}</code>
-                    </td>
-                    <td class="size-cell ${
-                      func.winner === "nano" ? "winner" : ""
-                    }">
-                      ${
-                        func.nano
-                          ? formatOps(nanoOps)
-                          : '<span class="no-data">—</span>'
-                      }
-                    </td>
-                    <td class="size-cell ${
-                      func.winner === "lodash" ? "winner" : ""
-                    }">
-                      ${
-                        func.lodash
-                          ? formatOps(lodashOps)
-                          : '<span class="no-data">—</span>'
-                      }
-                    </td>
-                    <td class="size-cell ${
-                      func.winner === "es-toolkit" ? "winner" : ""
-                    }">
-                      ${
-                        func.esToolkit
-                          ? formatOps(esToolkitOps)
-                          : '<span class="no-data">—</span>'
-                      }
-                    </td>
-                    <td class="winner-cell">
-                      ${
-                        func.winner === "nano"
-                          ? '<span class="winner-nano">🏆 nano</span>'
-                          : func.winner === "lodash"
-                          ? '<span class="winner-other">lodash</span>'
-                          : '<span class="winner-other">es-toolkit</span>'
-                      }
-                    </td>
-                    <td class="comparison-cell">
-                      ${
-                        func.nanoVsLodash
-                          ? `<span class="comparison-text">vs lodash: ${formatMultiplier(
-                              func.nanoVsLodash
-                            )}</span><br>`
-                          : ""
-                      }
-                      ${
-                        func.nanoVsEsToolkit
-                          ? `<span class="comparison-text">vs es-toolkit: ${formatMultiplier(
-                              func.nanoVsEsToolkit
-                            )}</span>`
-                          : ""
-                      }
-                    </td>
-                  </tr>
-                `;
-              })
-              .join("")}
-          </tbody>
-        </table>
-      </div>
-    `;
-  };
-
-  const render = () => {
-    let filteredFunctions = perfData.functions;
+  const createTable = (): string => {
+    let functions = [...perfData.functions];
 
     // Apply filter
     if (filterText) {
-      const query = filterText.toLowerCase();
-      filteredFunctions = filteredFunctions.filter((func) =>
-        func.name.toLowerCase().includes(query)
+      functions = functions.filter((func) =>
+        func.name.toLowerCase().includes(filterText.toLowerCase())
       );
     }
 
-    // Apply sort
-    filteredFunctions = [...filteredFunctions].sort((a, b) => {
+    // Show no results message if filtered list is empty
+    if (functions.length === 0) {
+      return `
+        <div class="no-results">
+          <div class="no-results-icon">🔍</div>
+          <h3>No functions found</h3>
+          <p>Try adjusting your search term "<strong>${filterText}</strong>"</p>
+        </div>
+      `;
+    }
+
+    // Sort functions
+    functions.sort((a, b) => {
       let aValue: string | number;
       let bValue: string | number;
 
@@ -291,7 +201,120 @@ function initViewer(container: HTMLElement, perfData: PerformanceData): void {
       return sortOrder === "asc" ? comparison : -comparison;
     });
 
-    container.innerHTML = `
+    let tableHtml = `
+      <div class="table-container">
+        <table class="bundle-table">
+          <thead>
+            <tr>
+              <th>
+                <span class="th-text">Function</span>
+              </th>
+              <th>
+                <span class="th-text">Nano</span>
+              </th>
+              <th>
+                <span class="th-text">Lodash</span>
+              </th>
+              <th>
+                <span class="th-text">ES-Toolkit</span>
+              </th>
+              <th>
+                <span class="th-text">Winner</span>
+              </th>
+              <th>
+                <span class="th-text">Comparison</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    for (const func of functions) {
+      const nanoOps = func.nano?.opsPerSecond || 0;
+      const lodashOps = func.lodash?.opsPerSecond || 0;
+      const esToolkitOps = func.esToolkit?.opsPerSecond || 0;
+
+      tableHtml += `
+        <tr>
+          <td class="function-name">
+            <code>${func.name}</code>
+          </td>
+          <td class="size-cell ${func.winner === "nano" ? "winner" : ""}">
+            ${func.nano ? formatOps(nanoOps) : '<span class="no-data">—</span>'}
+          </td>
+          <td class="size-cell ${func.winner === "lodash" ? "winner" : ""}">
+            ${
+              func.lodash
+                ? formatOps(lodashOps)
+                : '<span class="no-data">—</span>'
+            }
+          </td>
+          <td class="size-cell ${func.winner === "es-toolkit" ? "winner" : ""}">
+            ${
+              func.esToolkit
+                ? formatOps(esToolkitOps)
+                : '<span class="no-data">—</span>'
+            }
+          </td>
+          <td class="winner-cell">
+            ${
+              func.winner === "nano"
+                ? '<span class="winner-nano">🏆 nano</span>'
+                : func.winner === "lodash"
+                ? '<span class="winner-other">lodash</span>'
+                : '<span class="winner-other">es-toolkit</span>'
+            }
+          </td>
+          <td class="comparison-cell">
+            ${
+              func.nanoVsLodash
+                ? `<span class="comparison-text">vs lodash: ${formatMultiplier(
+                    func.nanoVsLodash
+                  )}</span><br>`
+                : ""
+            }
+            ${
+              func.nanoVsEsToolkit
+                ? `<span class="comparison-text">vs es-toolkit: ${formatMultiplier(
+                    func.nanoVsEsToolkit
+                  )}</span>`
+                : ""
+            }
+          </td>
+        </tr>
+      `;
+    }
+
+    tableHtml += `
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    return tableHtml;
+  };
+
+  const updateTable = (): void => {
+    const tableContainer = document.getElementById("perf-table-container");
+    const sortOrderButton = document.getElementById(
+      "perf-sort-order"
+    ) as HTMLButtonElement;
+
+    if (tableContainer) {
+      tableContainer.innerHTML = createTable();
+    }
+
+    // Update sort button arrow
+    if (sortOrderButton) {
+      sortOrderButton.textContent = sortOrder === "asc" ? "↑" : "↓";
+      sortOrderButton.setAttribute("data-order", sortOrder);
+    }
+  };
+
+  const render = (): void => {
+    const controlsHtml = createControls();
+
+    const fullHtml = `
       <div class="bundle-size-container">
         <h2>Performance Benchmarks</h2>
         <p class="intro">
@@ -299,8 +322,8 @@ function initViewer(container: HTMLElement, perfData: PerformanceData): void {
           Higher operations per second (ops/s) is better.
         </p>
 
-        ${createControls()}
-        ${createTable(filteredFunctions)}
+        ${controlsHtml}
+        <div id="perf-table-container">${createTable()}</div>
 
         <div class="footer-note">
           <h3>Methodology</h3>
@@ -318,10 +341,9 @@ function initViewer(container: HTMLElement, perfData: PerformanceData): void {
       </div>
     `;
 
-    attachEventHandlers();
-  };
+    container.innerHTML = fullHtml;
 
-  const attachEventHandlers = () => {
+    // Add event listeners
     const searchInput = document.getElementById(
       "perf-search"
     ) as HTMLInputElement;
@@ -332,21 +354,37 @@ function initViewer(container: HTMLElement, perfData: PerformanceData): void {
       "perf-sort-order"
     ) as HTMLButtonElement;
 
-    searchInput?.addEventListener("input", (e) => {
-      filterText = (e.target as HTMLInputElement).value;
-      render();
-    });
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        filterText = (e.target as HTMLInputElement).value;
+        updateTable();
+      });
+    }
 
-    sortFieldSelect?.addEventListener("change", (e) => {
-      sortField = (e.target as HTMLSelectElement).value as SortField;
-      render();
-    });
+    if (sortFieldSelect) {
+      sortFieldSelect.addEventListener("change", (e) => {
+        sortField = (e.target as HTMLSelectElement).value as SortField;
+        updateTable();
+      });
+    }
 
-    sortOrderButton?.addEventListener("click", () => {
-      sortOrder = sortOrder === "asc" ? "desc" : "asc";
-      render();
-    });
+    if (sortOrderButton) {
+      sortOrderButton.addEventListener("click", () => {
+        sortOrder = sortOrder === "asc" ? "desc" : "asc";
+        updateTable();
+      });
+    }
   };
 
-  render();
+  try {
+    render();
+  } catch (renderError) {
+    container.innerHTML = `
+      <div class="error">
+        <h2>Error Rendering Performance Data</h2>
+        <p>An error occurred while rendering the performance data.</p>
+        <p class="error-detail">${renderError}</p>
+      </div>
+    `;
+  }
 }

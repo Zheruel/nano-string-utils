@@ -4,6 +4,7 @@ import {
   assertEmail,
   assertUrl,
   assertSlug,
+  assertHexColor,
 } from "../src/index.js";
 
 describe("Branded Type Assertions", () => {
@@ -87,6 +88,33 @@ describe("Branded Type Assertions", () => {
       assertSlug(input);
       // After assertion, TypeScript knows input is Slug
       expect(input).toBe("hello-world");
+    });
+  });
+
+  describe("assertHexColor", () => {
+    test("passes for valid hex colors", () => {
+      expect(() => assertHexColor("#fff")).not.toThrow();
+      expect(() => assertHexColor("#ffffff")).not.toThrow();
+      expect(() => assertHexColor("#ff5733")).not.toThrow();
+    });
+
+    test("throws BrandedTypeError for invalid hex colors", () => {
+      expect(() => assertHexColor("fff")).toThrow(BrandedTypeError);
+      expect(() => assertHexColor("fff")).toThrow('Invalid HexColor: "fff"');
+      expect(() => assertHexColor("#gggggg")).toThrow(BrandedTypeError);
+    });
+
+    test("throws with custom message", () => {
+      expect(() => assertHexColor("invalid", "Custom color error")).toThrow(
+        'Invalid Custom color error: "invalid"'
+      );
+    });
+
+    test("type assertion works", () => {
+      const input: string = "#ff5733";
+      assertHexColor(input);
+      // After assertion, TypeScript knows input is HexColor
+      expect(input).toBe("#ff5733");
     });
   });
 
