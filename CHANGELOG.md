@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.21.0] - 2025-10-15
+
+### Added
+
+- **New Function: `isHexColor()`** - Validates hexadecimal color codes with comprehensive format support
+
+  - Supports 3-digit (`#fff`), 6-digit (`#ffffff`), 4-digit with alpha (`#fff8`), and 8-digit with alpha (`#ffffff80`) formats
+  - Case-insensitive validation for all formats
+  - Pre-compiled regex for optimal performance
+  - Bundle size: 118 bytes raw, 103 bytes gzipped
+  - 100% test coverage with 32 test cases
+  - Use cases: design systems, theme validation, color picker validation, form validation
+
+- **Branded Type Integration for HexColor** - Full type-safe color handling
+  - New `HexColor` branded type for compile-time safety
+  - Type guard: `isValidHexColor()` for type narrowing
+  - Builder function: `toHexColor()` returns `HexColor | null` with validation
+  - Assertion function: `assertHexColor()` throws `BrandedTypeError` on invalid input
+  - Unsafe cast: `unsafeHexColor()` for trusted input (no validation)
+  - Integrates seamlessly with existing branded type system
+
+### Improved
+
+- **Benchmark Infrastructure** - Enhanced function extraction for more accurate metrics
+  - Added exclusion list for 26 branded type system helpers
+  - Separates core utilities (49 functions) from type system infrastructure
+  - Prevents metric inflation in bundle size and performance benchmarks
+  - More accurate representation of library capabilities
+  - Better comparison with other libraries (lodash, es-toolkit)
+
+### Documentation
+
+- Updated total function count from 48 to 49 core utilities
+- Added `isHexColor` to documentation site with interactive playground examples
+- Updated bundle size references to accurately reflect package size (< 12KB)
+- Regenerated benchmark data with new function
+
 ## [0.20.0] - 2025-10-09
 
 ### Added
@@ -562,6 +599,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 100% test coverage for utility functions
 - Modern build tooling with tsup and Vitest
 
+[0.21.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.21.0
 [0.20.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.20.0
 [0.19.1]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.1
 [0.19.0]: https://github.com/Zheruel/nano-string-utils/releases/tag/v0.19.0
