@@ -1,3 +1,5 @@
+import { graphemes } from "./graphemes";
+
 /**
  * Reverses a string while properly handling Unicode characters including emojis
  * @param str - The input string to reverse
@@ -18,11 +20,20 @@
  * // Reverse display for RTL testing
  * reverse('→ Next') // 'txeN ←'
  *
- * // Unicode and emoji support
+ * // Unicode and emoji support (handles complex graphemes)
  * reverse('Hello 👋') // '👋 olleH'
+ * reverse('👨‍👩‍👧‍👦 Family') // 'ylimaF 👨‍👩‍👧‍👦' (family emoji stays intact)
+ * reverse('café') // 'éfac' (diacritics preserved)
  * ```
  */
 export const reverse = (str: string): string => {
   if (!str) return str;
-  return Array.from(str).reverse().join("");
+
+  // Fast path for ASCII-only strings (most common case)
+  if (!/[^\x00-\x7F]/.test(str)) {
+    return str.split("").reverse().join("");
+  }
+
+  // Proper grapheme handling for Unicode strings
+  return graphemes(str).reverse().join("");
 };

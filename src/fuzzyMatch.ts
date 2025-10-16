@@ -39,7 +39,7 @@ export interface FuzzyMatchResult {
  * // Basic usage with interface return type
  * const result = fuzzyMatch('gto', 'goToLine')
  * // result type: FuzzyMatchResult | null
- * // { matched: true, score: 0.875 }
+ * // { matched: true, score: 0.546 }
  *
  * // Using options interface
  * const options: FuzzyMatchOptions = {

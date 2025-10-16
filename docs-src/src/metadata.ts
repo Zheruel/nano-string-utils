@@ -138,7 +138,7 @@ export const functionMetadata: Record<string, FunctionMeta> = {
 
   truncate: {
     description: "Truncates a string to a specified length with ellipsis",
-    size: "350B",
+    size: "477B",
     params: [
       {
         name: "str",
@@ -151,6 +151,7 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     examples: [
       { code: 'truncate("Long text here", 10)', result: '"Long te..."' },
       { code: 'truncate("Short", 10)', result: '"Short"' },
+      { code: 'truncate("Hello 👨‍👩‍👧‍👦 World", 10)', result: '"Hello 👨‍👩‍👧‍👦..."' },
       { code: 'truncate("Custom ending", 10, "…")', result: '"Custom en…"' },
     ],
   },
@@ -168,12 +169,13 @@ export const functionMetadata: Record<string, FunctionMeta> = {
 
   reverse: {
     description: "Reverses a string",
-    size: "150B",
+    size: "307B",
     params: [{ name: "str", type: "string", default: "hello" }],
     examples: [
       { code: 'reverse("hello")', result: '"olleh"' },
       { code: 'reverse("12345")', result: '"54321"' },
-      { code: 'reverse("A B C")', result: '"C B A"' },
+      { code: 'reverse("café")', result: '"éfac"' },
+      { code: 'reverse("Hello 👨‍👩‍👧‍👦")', result: '"👨‍👩‍👧‍👦 olleH"' },
     ],
   },
 

@@ -1,5 +1,5 @@
 {
-  "generated": "2025-10-12T13:24:12.628Z",
+  "generated": "2025-10-16T17:47:57.556Z",
   "totalFunctions": 49,
   "functions": [
     {
@@ -53,11 +53,11 @@
       "nano": {
         "bundled": {
           "raw": 1812,
-          "gzip": 898
+          "gzip": 897
         },
         "treeShaken": {
           "raw": 1812,
-          "gzip": 898
+          "gzip": 897
         }
       },
       "lodash": null,
@@ -220,11 +220,11 @@
       "nano": {
         "bundled": {
           "raw": 1142,
-          "gzip": 594
+          "gzip": 595
         },
         "treeShaken": {
           "raw": 1142,
-          "gzip": 594
+          "gzip": 595
         }
       },
       "lodash": null,
@@ -451,11 +451,11 @@
       "nano": {
         "bundled": {
           "raw": 307,
-          "gzip": 215
+          "gzip": 214
         },
         "treeShaken": {
           "raw": 307,
-          "gzip": 215
+          "gzip": 214
         }
       },
       "lodash": {
@@ -467,7 +467,7 @@
         "gzip": 118
       },
       "winner": "es-toolkit",
-      "percentSavings": -82
+      "percentSavings": -81
     },
     {
       "name": "padEnd",
@@ -613,12 +613,12 @@
       "name": "reverse",
       "nano": {
         "bundled": {
-          "raw": 67,
-          "gzip": 82
+          "raw": 307,
+          "gzip": 229
         },
         "treeShaken": {
-          "raw": 67,
-          "gzip": 82
+          "raw": 307,
+          "gzip": 229
         }
       },
       "lodash": null,
@@ -662,11 +662,11 @@
       "nano": {
         "bundled": {
           "raw": 1379,
-          "gzip": 563
+          "gzip": 562
         },
         "treeShaken": {
           "raw": 1379,
-          "gzip": 563
+          "gzip": 562
         }
       },
       "lodash": null,
@@ -816,12 +816,12 @@
       "name": "truncate",
       "nano": {
         "bundled": {
-          "raw": 226,
-          "gzip": 180
+          "raw": 477,
+          "gzip": 276
         },
         "treeShaken": {
-          "raw": 226,
-          "gzip": 180
+          "raw": 477,
+          "gzip": 276
         }
       },
       "lodash": {
@@ -830,7 +830,7 @@
       },
       "esToolkit": null,
       "winner": "nano",
-      "percentSavings": 94
+      "percentSavings": 91
     },
     {
       "name": "wordCount",
@@ -854,7 +854,7 @@
     "totalEsToolkitWins": 3,
     "totalLodashWins": 0,
     "averageSavings": 7,
-    "smallestFunction": "reverse",
+    "smallestFunction": "stripHtml",
     "largestFunction": "toASCII"
   }
 }
