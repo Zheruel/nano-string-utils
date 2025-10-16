@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0] - 2025-10-16
+
+### Improved
+
+- **Enhanced Unicode Support for `reverse()` and `truncate()`** - Production-grade grapheme cluster handling
+  - Both functions now properly handle complex Unicode characters using `Intl.Segmenter`
+  - ZWJ (Zero-Width Joiner) emoji sequences preserved: family emojis (👨‍👩‍👧‍👦), flags (🏴‍☠️, 🇺🇸), professions (👨‍⚕️, 👩‍🚀)
+  - Emoji with skin tone modifiers correctly handled (👍🏽, 👋🏾)
+  - Diacritics and combining marks preserved (café, Malmö, naïve, decomposed Unicode)
+  - ASCII fast-path optimization maintains performance for simple strings (no performance regression)
+  - `reverse()`: Now uses grapheme-aware reversal via `graphemes()` helper
+  - `truncate()`: Counts grapheme clusters instead of code units for accurate character-based truncation
+
+### Performance
+
+- **Bundle Size Impact** - Minimal increase for significant correctness improvement
+  - `reverse()`: 67B → 307B (+240B for full Unicode support)
+  - `truncate()`: 226B → 477B (+251B for full Unicode support)
+  - Total bundle: 8.99 KB → 8.92 KB (slight decrease due to optimizations)
+  - ASCII strings maintain original performance through fast-path checks
+  - Unicode strings now correctly handle all grapheme cluster types
+
+### Added
+
+- **Comprehensive Unicode Test Coverage** - 26 new test cases
+  - 11 tests for `reverse()` covering ZWJ sequences, skin tones, diacritics, and mixed content
+  - 15 tests for `truncate()` covering grapheme boundaries, emoji preservation, and edge cases
+  - All tests validate both correctness and boundary conditions
+  - 100% code coverage maintained across all functions
+
+### Documentation
+
+- Updated JSDoc examples to demonstrate Unicode handling capabilities
+- Enhanced `docs-src/src/metadata.ts` with Unicode examples for both functions
+- Regenerated benchmark data reflecting new bundle sizes
+
 ## [0.21.0] - 2025-10-15
 
 ### Added
