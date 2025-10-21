@@ -295,6 +295,65 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  isNumeric: {
+    description: "Validates if a string represents a numeric value",
+    size: "120B",
+    params: [{ name: "str", type: "string", default: "42" }],
+    examples: [
+      { code: 'isNumeric("42")', result: "true" },
+      { code: 'isNumeric("-17")', result: "true" },
+      { code: 'isNumeric("3.14")', result: "true" },
+      { code: 'isNumeric("  42  ")', result: "true" },
+      { code: 'isNumeric("abc")', result: "false" },
+      { code: 'isNumeric("Infinity")', result: "false" },
+    ],
+  },
+
+  isAlphanumeric: {
+    description:
+      "Validates if a string contains only alphanumeric characters (a-z, A-Z, 0-9)",
+    size: "100B",
+    params: [{ name: "str", type: "string", default: "user123" }],
+    examples: [
+      { code: 'isAlphanumeric("user123")', result: "true" },
+      { code: 'isAlphanumeric("HelloWorld")', result: "true" },
+      { code: 'isAlphanumeric("ABC123XYZ")', result: "true" },
+      { code: 'isAlphanumeric("hello_world")', result: "false" },
+      { code: 'isAlphanumeric("hello world")', result: "false" },
+      { code: 'isAlphanumeric("test-123")', result: "false" },
+    ],
+  },
+
+  isUUID: {
+    description:
+      "Validates if a string is a valid UUID (Universally Unique Identifier)",
+    size: "180B",
+    params: [
+      {
+        name: "str",
+        type: "string",
+        default: "550e8400-e29b-41d4-a716-446655440000",
+      },
+    ],
+    examples: [
+      {
+        code: 'isUUID("550e8400-e29b-41d4-a716-446655440000")',
+        result: "true",
+      },
+      {
+        code: 'isUUID("00000000-0000-0000-0000-000000000000")',
+        result: "true",
+      },
+      {
+        code: 'isUUID("550E8400-E29B-41D4-A716-446655440000")',
+        result: "true",
+      },
+      { code: 'isUUID("550e8400e29b41d4a716446655440000")', result: "false" },
+      { code: 'isUUID("not-a-uuid")', result: "false" },
+      { code: 'isUUID("550e8400-e29b-41d4-a716")', result: "false" },
+    ],
+  },
+
   detectScript: {
     description: "Detects the dominant writing system (script) in text",
     size: "1.1KB",

@@ -28,15 +28,35 @@ export type {
   URL,
   Slug,
   SafeHTML,
+  HexColor,
+  NumericString,
+  AlphanumericString,
+  UUID,
   ValidationResult,
 } from "./branded.js";
 export { BrandedTypeError } from "./branded.js";
 
 // Re-export type guards
-export { isValidEmail, isValidUrl, isSlug } from "./guards.js";
+export {
+  isValidEmail,
+  isValidUrl,
+  isSlug,
+  isValidHexColor,
+  isValidNumeric,
+  isValidAlphanumeric,
+  isValidUUID,
+} from "./guards.js";
 
 // Re-export assertions
-export { assertEmail, assertUrl, assertSlug } from "./assertions.js";
+export {
+  assertEmail,
+  assertUrl,
+  assertSlug,
+  assertHexColor,
+  assertNumericString,
+  assertAlphanumericString,
+  assertUUID,
+} from "./assertions.js";
 
 // Re-export builders
 export {
@@ -44,9 +64,17 @@ export {
   toUrl,
   toSlug,
   toSafeHTML,
+  toHexColor,
+  toNumericString,
+  toAlphanumericString,
+  toUUID,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
   unsafeSafeHTML,
+  unsafeHexColor,
+  unsafeNumericString,
+  unsafeAlphanumericString,
+  unsafeUUID,
   ensureSlug,
 } from "./builders.js";

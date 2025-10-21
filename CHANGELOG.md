@@ -7,6 +7,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.0] - 2025-10-21
+
+### Added
+
+- **New Function: `isNumeric()`** - Validates if a string represents a numeric value (integer or decimal)
+
+  - Handles positive and negative integers (`42`, `-17`)
+  - Supports decimal numbers (`3.14`, `-0.5`)
+  - Automatic whitespace trimming
+  - Rejects empty strings, `Infinity`, and scientific notation
+  - Bundle size: 122 bytes gzipped
+  - 100% test coverage
+  - Use cases: form validation, CSV parsing, API input validation
+
+- **New Function: `isAlphanumeric()`** - Validates if a string contains only alphanumeric characters (a-z, A-Z, 0-9)
+
+  - Strict ASCII validation (no Unicode, special characters, or whitespace)
+  - Perfect for username validation, identifiers, and tokens
+  - Bundle size: 88 bytes gzipped
+  - 100% test coverage
+  - Use cases: username validation, identifier validation, input sanitization
+
+- **New Function: `isUUID()`** - Validates if a string is a valid UUID in standard 8-4-4-4-12 format
+
+  - Supports all UUID versions (v1-v5)
+  - Accepts NIL UUID (`00000000-0000-0000-0000-000000000000`)
+  - Case-insensitive validation
+  - Bundle size: 89 bytes gzipped
+  - 100% test coverage
+  - Use cases: API identifier validation, session token validation, database ID validation
+
+- **Branded Type Integration** - Full type-safe handling for all three validation functions
+
+  - New branded types: `NumericString`, `AlphanumericString`, `UUID`
+  - Type guards: `isValidNumeric()`, `isValidAlphanumeric()`, `isValidUUID()`
+  - Builder functions: `toNumericString()`, `toAlphanumericString()`, `toUUID()`
+  - Assertion functions: `assertNumericString()`, `assertAlphanumericString()`, `assertUUID()`
+  - Unsafe casts: `unsafeNumericString()`, `unsafeAlphanumericString()`, `unsafeUUID()`
+  - Zero runtime overhead - type safety enforced at compile time
+
+- **CLI Support** - All three functions available via `nano-string` command
+  - `nano-string isNumeric "42"` - returns true/false with proper exit codes
+  - `nano-string isAlphanumeric "user123"` - validates alphanumeric strings
+  - `nano-string isUUID "550e8400-e29b-41d4-a716-446655440000"` - validates UUIDs
+  - Pipe support for Unix-style command chaining
+
+### Documentation
+
+- Updated function count from 48 to 51 utilities
+- Added comprehensive JSDoc documentation with real-world usage examples
+- Updated README with function descriptions, examples, and bundle sizes
+- Added metadata and playground examples to documentation site
+- Regenerated bundle size and performance benchmark data
+- Updated CLI help with new validation functions
+
 ## [0.22.0] - 2025-10-16
 
 ### Improved

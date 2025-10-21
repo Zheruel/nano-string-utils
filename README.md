@@ -264,9 +264,13 @@ nano-string humanizeList "apple,banana,orange" --conjunction "or"  # apple, bana
 #### Validation functions
 
 ```bash
-nano-string isEmail "test@example.com"       # true
-nano-string isUrl "https://example.com"      # true
-nano-string isASCII "hello"                  # true
+nano-string isEmail "test@example.com"              # true
+nano-string isUrl "https://example.com"             # true
+nano-string isASCII "hello"                         # true
+nano-string isHexColor "#ff5733"                    # true
+nano-string isNumeric "42"                          # true
+nano-string isAlphanumeric "user123"                # true
+nano-string isUUID "550e8400-e29b-41d4-a716-446655440000"  # true
 ```
 
 #### Analysis functions
@@ -293,7 +297,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 48 string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 51 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -806,7 +810,7 @@ humanizeList([]);
 </details>
 
 <details>
-<summary><b>✅ Validation Functions (4 functions)</b></summary>
+<summary><b>✅ Validation Functions (8 functions)</b></summary>
 
 ### String Validation
 
@@ -843,6 +847,68 @@ isASCII("café"); // false
 isASCII("👍"); // false
 isASCII("abc123!@#"); // true
 isASCII(""); // true
+```
+
+#### `isHexColor(str: string): boolean`
+
+Validates if a string is a valid hexadecimal color code.
+
+```javascript
+isHexColor("#fff"); // true (3-digit)
+isHexColor("#ffffff"); // true (6-digit)
+isHexColor("#fff8"); // true (4-digit with alpha)
+isHexColor("#ffffff80"); // true (8-digit with alpha)
+isHexColor("#FFF"); // true (case-insensitive)
+isHexColor("fff"); // false (missing #)
+isHexColor("#gggggg"); // false (invalid characters)
+```
+
+#### `isNumeric(str: string): boolean`
+
+Validates if a string represents a numeric value (integer or decimal).
+
+```javascript
+isNumeric("42"); // true
+isNumeric("-17"); // true
+isNumeric("3.14"); // true
+isNumeric("-0.5"); // true
+isNumeric("  42  "); // true (whitespace trimmed)
+isNumeric("abc"); // false
+isNumeric(""); // false
+isNumeric("Infinity"); // false
+isNumeric("1e5"); // false (scientific notation not supported)
+```
+
+#### `isAlphanumeric(str: string): boolean`
+
+Validates if a string contains only alphanumeric characters (a-z, A-Z, 0-9). Useful for validating usernames, identifiers, and other inputs that should not contain special characters or whitespace.
+
+```javascript
+isAlphanumeric("user123"); // true
+isAlphanumeric("HelloWorld"); // true
+isAlphanumeric("ABC123XYZ"); // true
+isAlphanumeric("test"); // true
+isAlphanumeric("123"); // true
+isAlphanumeric("hello_world"); // false (underscore not allowed)
+isAlphanumeric("hello world"); // false (whitespace not allowed)
+isAlphanumeric("test-123"); // false (hyphen not allowed)
+isAlphanumeric("café"); // false (Unicode not allowed)
+isAlphanumeric(""); // false (empty string)
+```
+
+#### `isUUID(str: string): boolean`
+
+Validates if a string is a valid UUID (Universally Unique Identifier) in the standard 8-4-4-4-12 format. Accepts all UUID versions (v1-v5), the NIL UUID, and is case-insensitive. Perfect for validating API identifiers, session tokens, and database IDs.
+
+```javascript
+isUUID("550e8400-e29b-41d4-a716-446655440000"); // true (v4)
+isUUID("6ba7b810-9dad-11d1-80b4-00c04fd430c8"); // true (v1)
+isUUID("00000000-0000-0000-0000-000000000000"); // true (NIL UUID)
+isUUID("550E8400-E29B-41D4-A716-446655440000"); // true (uppercase)
+isUUID("550e8400e29b41d4a716446655440000"); // false (no hyphens)
+isUUID("550e8400-e29b-41d4-a716"); // false (too short)
+isUUID("not-a-uuid"); // false (invalid format)
+isUUID(""); // false (empty string)
 ```
 
 #### `detectScript(str: string): 'latin' | 'cjk' | 'arabic' | 'cyrillic' | 'hebrew' | 'devanagari' | 'greek' | 'thai' | 'unknown'`
@@ -1499,6 +1565,10 @@ Each utility is optimized to be as small as possible:
 | isEmail               | 148 bytes      |
 | isUrl                 | 155 bytes      |
 | isASCII               | 128 bytes      |
+| isHexColor            | 103 bytes      |
+| isNumeric             | 122 bytes      |
+| isAlphanumeric        | 88 bytes       |
+| isUUID                | 89 bytes       |
 | toASCII               | 1.3 KB         |
 | wordCount             | 123 bytes      |
 | normalizeWhitespace   | 268 bytes      |

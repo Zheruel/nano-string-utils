@@ -6,9 +6,20 @@ import type {
   Slug,
   SafeHTML,
   HexColor,
+  NumericString,
+  AlphanumericString,
+  UUID,
   ValidationResult,
 } from "./branded.js";
-import { isValidEmail, isValidUrl, isSlug, isValidHexColor } from "./guards.js";
+import {
+  isValidEmail,
+  isValidUrl,
+  isSlug,
+  isValidHexColor,
+  isValidNumeric,
+  isValidAlphanumeric,
+  isValidUUID,
+} from "./guards.js";
 
 /**
  * Validates and creates an Email branded type.
@@ -187,4 +198,109 @@ export function toHexColor(str: string): ValidationResult<HexColor> {
  */
 export function unsafeHexColor(str: string): HexColor {
   return str as HexColor;
+}
+
+/**
+ * Validates and creates a NumericString branded type.
+ * Returns null if the string is not a valid numeric value.
+ * @param str - The string to validate and convert
+ * @returns NumericString branded type or null if invalid
+ * @example
+ * const num = toNumericString('42');
+ * if (num) {
+ *   processNumber(num); // num is typed as NumericString
+ * }
+ *
+ * // Form validation usage
+ * const quantity = toNumericString(formData.quantity);
+ * const price = toNumericString(formData.price);
+ * if (quantity && price) {
+ *   calculateTotal(quantity, price);
+ * }
+ */
+export function toNumericString(str: string): ValidationResult<NumericString> {
+  return isValidNumeric(str) ? (str as NumericString) : null;
+}
+
+/**
+ * Creates a NumericString branded type without validation.
+ * Use only when you're certain the input is a valid numeric string.
+ * @param str - The string to cast as NumericString
+ * @returns NumericString branded type without validation
+ * @example
+ * // Only use when you're certain the input is valid
+ * const trustedNumber = unsafeNumericString('123.45');
+ */
+export function unsafeNumericString(str: string): NumericString {
+  return str as NumericString;
+}
+
+/**
+ * Validates and creates an AlphanumericString branded type.
+ * Returns null if the string is not a valid alphanumeric value.
+ * @param str - The string to validate and convert
+ * @returns AlphanumericString branded type or null if invalid
+ * @example
+ * const username = toAlphanumericString('user123');
+ * if (username) {
+ *   createAccount(username); // username is typed as AlphanumericString
+ * }
+ *
+ * // Form validation usage
+ * const identifier = toAlphanumericString(formData.id);
+ * if (identifier) {
+ *   lookupRecord(identifier);
+ * }
+ */
+export function toAlphanumericString(
+  str: string
+): ValidationResult<AlphanumericString> {
+  return isValidAlphanumeric(str) ? (str as AlphanumericString) : null;
+}
+
+/**
+ * Creates an AlphanumericString branded type without validation.
+ * Use only when you're certain the input is a valid alphanumeric string.
+ * @param str - The string to cast as AlphanumericString
+ * @returns AlphanumericString branded type without validation
+ * @example
+ * // Only use when you're certain the input is valid
+ * const trustedId = unsafeAlphanumericString('ABC123');
+ */
+export function unsafeAlphanumericString(str: string): AlphanumericString {
+  return str as AlphanumericString;
+}
+
+/**
+ * Validates and creates a UUID branded type.
+ * Returns null if the string is not a valid UUID.
+ * @param str - The string to validate and convert
+ * @returns UUID branded type or null if invalid
+ * @example
+ * const id = toUUID('550e8400-e29b-41d4-a716-446655440000');
+ * if (id) {
+ *   fetchRecord(id); // id is typed as UUID
+ * }
+ *
+ * // API usage
+ * const sessionId = toUUID(request.headers['session-id']);
+ * if (sessionId) {
+ *   validateSession(sessionId);
+ * }
+ */
+export function toUUID(str: string): ValidationResult<UUID> {
+  return isValidUUID(str) ? (str as UUID) : null;
+}
+
+/**
+ * Creates a UUID branded type without validation.
+ * Use only when you're certain the input is a valid UUID.
+ * @param str - The string to cast as UUID
+ * @returns UUID branded type without validation
+ * @example
+ * // Only use when you're certain the input is valid
+ * const trustedId = unsafeUUID('550e8400-e29b-41d4-a716-446655440000');
+ */
+export function unsafeUUID(str: string): UUID {
+  return str as UUID;
 }
