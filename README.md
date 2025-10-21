@@ -1723,4 +1723,3 @@ npm run bench:data
 - 💡 [Request features](https://github.com/Zheruel/nano-string-utils/issues)
 - 📖 [Read the docs](https://github.com/Zheruel/nano-string-utils#api-reference)
 - ⭐ [Star on GitHub](https://github.com/Zheruel/nano-string-utils)
-  s
