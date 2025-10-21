@@ -51,6 +51,30 @@ export type SafeHTML = Brand<string, "SafeHTML">;
 export type HexColor = Brand<string, "HexColor">;
 
 /**
+ * NumericString branded type - represents a validated numeric string.
+ * Use with type guards and builder functions for type safety.
+ * @example
+ * const num: NumericString = toNumericString('42')!;
+ */
+export type NumericString = Brand<string, "NumericString">;
+
+/**
+ * AlphanumericString branded type - represents a validated alphanumeric string.
+ * Use with type guards and builder functions for type safety.
+ * @example
+ * const username: AlphanumericString = toAlphanumericString('user123')!;
+ */
+export type AlphanumericString = Brand<string, "AlphanumericString">;
+
+/**
+ * UUID branded type - represents a validated UUID string.
+ * Use with type guards and builder functions for type safety.
+ * @example
+ * const id: UUID = toUUID('550e8400-e29b-41d4-a716-446655440000')!;
+ */
+export type UUID = Brand<string, "UUID">;
+
+/**
  * Type guard result type for better type inference
  */
 export type ValidationResult<T> = T | null;

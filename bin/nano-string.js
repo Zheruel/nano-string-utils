@@ -46,6 +46,10 @@ const FUNCTIONS = {
   isEmail: { desc: 'Check if valid email', example: 'isEmail "test@example.com"' },
   isUrl: { desc: 'Check if valid URL', example: 'isUrl "https://example.com"' },
   isASCII: { desc: 'Check if ASCII only', example: 'isASCII "hello"' },
+  isHexColor: { desc: 'Check if valid hex color', example: 'isHexColor "#ff5733"' },
+  isNumeric: { desc: 'Check if numeric string', example: 'isNumeric "42"' },
+  isAlphanumeric: { desc: 'Check if alphanumeric', example: 'isAlphanumeric "user123"' },
+  isUUID: { desc: 'Check if valid UUID', example: 'isUUID "550e8400-e29b-41d4-a716-446655440000"' },
 
   // Analysis
   wordCount: { desc: 'Count words', example: 'wordCount "hello world"' },
@@ -129,7 +133,7 @@ function showHelp(functionName = null) {
       'Case Conversions': ['slugify', 'camelCase', 'snakeCase', 'kebabCase', 'pascalCase', 'constantCase', 'dotCase', 'pathCase', 'sentenceCase', 'titleCase'],
       'String Manipulation': ['capitalize', 'reverse', 'truncate', 'excerpt', 'pad', 'padStart', 'padEnd'],
       'Text Processing': ['stripHtml', 'escapeHtml', 'deburr', 'normalizeWhitespace', 'removeNonPrintable', 'toASCII'],
-      'Validation': ['isEmail', 'isUrl', 'isASCII'],
+      'Validation': ['isEmail', 'isUrl', 'isASCII', 'isHexColor', 'isNumeric', 'isAlphanumeric', 'isUUID'],
       'Analysis': ['wordCount', 'levenshtein', 'levenshteinNormalized', 'diff'],
       'Generation': ['randomString', 'hashString'],
       'Unicode': ['graphemes', 'codePoints'],

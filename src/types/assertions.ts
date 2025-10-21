@@ -4,8 +4,19 @@ import {
   type URL,
   type Slug,
   type HexColor,
+  type NumericString,
+  type AlphanumericString,
+  type UUID,
 } from "./branded.js";
-import { isValidEmail, isValidUrl, isSlug, isValidHexColor } from "./guards.js";
+import {
+  isValidEmail,
+  isValidUrl,
+  isSlug,
+  isValidHexColor,
+  isValidNumeric,
+  isValidAlphanumeric,
+  isValidUUID,
+} from "./guards.js";
 
 /**
  * Asserts that a string is a valid Email, throwing if validation fails.
@@ -82,5 +93,65 @@ export function assertHexColor(
 ): asserts str is HexColor {
   if (!isValidHexColor(str)) {
     throw new BrandedTypeError(message || "HexColor", str);
+  }
+}
+
+/**
+ * Asserts that a string is a valid NumericString, throwing if validation fails.
+ * After this assertion, TypeScript knows the value is a NumericString.
+ * @param str - The string to validate
+ * @param message - Optional custom error message
+ * @throws {BrandedTypeError} If the string is not a valid numeric string
+ * @example
+ * const input: string = getUserInput();
+ * assertNumericString(input);
+ * // input is now typed as NumericString
+ * processNumber(input);
+ */
+export function assertNumericString(
+  str: string,
+  message?: string
+): asserts str is NumericString {
+  if (!isValidNumeric(str)) {
+    throw new BrandedTypeError(message || "NumericString", str);
+  }
+}
+
+/**
+ * Asserts that a string is a valid AlphanumericString, throwing if validation fails.
+ * After this assertion, TypeScript knows the value is an AlphanumericString.
+ * @param str - The string to validate
+ * @param message - Optional custom error message
+ * @throws {BrandedTypeError} If the string is not a valid alphanumeric string
+ * @example
+ * const input: string = getUserInput();
+ * assertAlphanumericString(input);
+ * // input is now typed as AlphanumericString
+ * createUsername(input);
+ */
+export function assertAlphanumericString(
+  str: string,
+  message?: string
+): asserts str is AlphanumericString {
+  if (!isValidAlphanumeric(str)) {
+    throw new BrandedTypeError(message || "AlphanumericString", str);
+  }
+}
+
+/**
+ * Asserts that a string is a valid UUID, throwing if validation fails.
+ * After this assertion, TypeScript knows the value is a UUID.
+ * @param str - The string to validate
+ * @param message - Optional custom error message
+ * @throws {BrandedTypeError} If the string is not a valid UUID
+ * @example
+ * const input: string = getUserInput();
+ * assertUUID(input);
+ * // input is now typed as UUID
+ * fetchRecord(input);
+ */
+export function assertUUID(str: string, message?: string): asserts str is UUID {
+  if (!isValidUUID(str)) {
+    throw new BrandedTypeError(message || "UUID", str);
   }
 }
