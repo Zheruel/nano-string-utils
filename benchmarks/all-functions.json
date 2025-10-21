@@ -1,7 +1,4 @@
 [
-  "assertAlphanumericString",
-  "assertNumericString",
-  "assertUUID",
   "camelCase",
   "capitalize",
   "classifyText",
@@ -26,9 +23,6 @@
   "isNumeric",
   "isUUID",
   "isUrl",
-  "isValidAlphanumeric",
-  "isValidNumeric",
-  "isValidUUID",
   "kebabCase",
   "levenshtein",
   "levenshteinNormalized",
@@ -55,12 +49,6 @@
   "templateSafe",
   "titleCase",
   "toASCII",
-  "toAlphanumericString",
-  "toNumericString",
-  "toUUID",
   "truncate",
-  "unsafeAlphanumericString",
-  "unsafeNumericString",
-  "unsafeUUID",
   "wordCount"
 ]

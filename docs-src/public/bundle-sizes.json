@@ -1,55 +1,7 @@
 {
-  "generated": "2025-10-21T21:28:34.252Z",
-  "totalFunctions": 64,
+  "generated": "2025-10-21T22:00:10.658Z",
+  "totalFunctions": 52,
   "functions": [
-    {
-      "name": "assertAlphanumericString",
-      "nano": {
-        "bundled": {
-          "raw": 272,
-          "gzip": 226
-        },
-        "treeShaken": {
-          "raw": 272,
-          "gzip": 226
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "assertNumericString",
-      "nano": {
-        "bundled": {
-          "raw": 306,
-          "gzip": 246
-        },
-        "treeShaken": {
-          "raw": 306,
-          "gzip": 246
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "assertUUID",
-      "nano": {
-        "bundled": {
-          "raw": 293,
-          "gzip": 226
-        },
-        "treeShaken": {
-          "raw": 293,
-          "gzip": 226
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
     {
       "name": "camelCase",
       "nano": {
@@ -449,54 +401,6 @@
         "treeShaken": {
           "raw": 175,
           "gzip": 155
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "isValidAlphanumeric",
-      "nano": {
-        "bundled": {
-          "raw": 99,
-          "gzip": 117
-        },
-        "treeShaken": {
-          "raw": 99,
-          "gzip": 117
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "isValidNumeric",
-      "nano": {
-        "bundled": {
-          "raw": 138,
-          "gzip": 140
-        },
-        "treeShaken": {
-          "raw": 138,
-          "gzip": 140
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "isValidUUID",
-      "nano": {
-        "bundled": {
-          "raw": 140,
-          "gzip": 117
-        },
-        "treeShaken": {
-          "raw": 140,
-          "gzip": 117
         }
       },
       "lodash": null,
@@ -957,54 +861,6 @@
       "winner": "nano"
     },
     {
-      "name": "toAlphanumericString",
-      "nano": {
-        "bundled": {
-          "raw": 133,
-          "gzip": 132
-        },
-        "treeShaken": {
-          "raw": 133,
-          "gzip": 132
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "toNumericString",
-      "nano": {
-        "bundled": {
-          "raw": 172,
-          "gzip": 154
-        },
-        "treeShaken": {
-          "raw": 172,
-          "gzip": 154
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "toUUID",
-      "nano": {
-        "bundled": {
-          "raw": 168,
-          "gzip": 127
-        },
-        "treeShaken": {
-          "raw": 168,
-          "gzip": 127
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
       "name": "truncate",
       "nano": {
         "bundled": {
@@ -1025,54 +881,6 @@
       "percentSavings": 91
     },
     {
-      "name": "unsafeAlphanumericString",
-      "nano": {
-        "bundled": {
-          "raw": 62,
-          "gzip": 82
-        },
-        "treeShaken": {
-          "raw": 62,
-          "gzip": 82
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "unsafeNumericString",
-      "nano": {
-        "bundled": {
-          "raw": 57,
-          "gzip": 77
-        },
-        "treeShaken": {
-          "raw": 57,
-          "gzip": 77
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
-      "name": "unsafeUUID",
-      "nano": {
-        "bundled": {
-          "raw": 48,
-          "gzip": 68
-        },
-        "treeShaken": {
-          "raw": 48,
-          "gzip": 68
-        }
-      },
-      "lodash": null,
-      "esToolkit": null,
-      "winner": "nano"
-    },
-    {
       "name": "wordCount",
       "nano": {
         "bundled": {
@@ -1090,11 +898,11 @@
     }
   ],
   "summary": {
-    "totalNanoWins": 61,
+    "totalNanoWins": 49,
     "totalEsToolkitWins": 3,
     "totalLodashWins": 0,
-    "averageSavings": 5,
-    "smallestFunction": "unsafeUUID",
+    "averageSavings": 6,
+    "smallestFunction": "stripHtml",
     "largestFunction": "toASCII"
   }
 }

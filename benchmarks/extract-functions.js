@@ -40,12 +40,18 @@ const EXCLUDED_FUNCTIONS = new Set([
   'assertHexColor',
   'assertSlug',
   'assertUrl',
+  'assertNumericString',
+  'assertAlphanumericString',
+  'assertUUID',
 
   // Branded type guards (duplicates of core validators with type narrowing)
   'isValidEmail',    // wraps isEmail
   'isValidHexColor', // wraps isHexColor
   'isValidUrl',      // wraps isUrl
   'isSlug',          // internal helper, not a general utility
+  'isValidNumeric',
+  'isValidAlphanumeric',
+  'isValidUUID',
 
   // Branded type builders (validation + type casting)
   'toEmail',
@@ -53,6 +59,9 @@ const EXCLUDED_FUNCTIONS = new Set([
   'toSafeHTML',
   'toSlug',
   'toUrl',
+  'toNumericString',
+  'toAlphanumericString',
+  'toUUID',
 
   // Unsafe casts (no validation, just type casting)
   'unsafeEmail',
@@ -60,6 +69,9 @@ const EXCLUDED_FUNCTIONS = new Set([
   'unsafeSafeHTML',
   'unsafeSlug',
   'unsafeUrl',
+  'unsafeNumericString',
+  'unsafeAlphanumericString',
+  'unsafeUUID',
 
   // Utility helpers
   'ensureSlug',
