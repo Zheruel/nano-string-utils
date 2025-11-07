@@ -1,5 +1,5 @@
 {
-  "generated": "2025-10-21T22:00:10.658Z",
+  "generated": "2025-10-23T20:56:17.411Z",
   "totalFunctions": 52,
   "functions": [
     {
@@ -204,11 +204,11 @@
       "nano": {
         "bundled": {
           "raw": 1030,
-          "gzip": 573
+          "gzip": 572
         },
         "treeShaken": {
           "raw": 1030,
-          "gzip": 573
+          "gzip": 572
         }
       },
       "lodash": null,
@@ -451,11 +451,11 @@
       "nano": {
         "bundled": {
           "raw": 919,
-          "gzip": 473
+          "gzip": 472
         },
         "treeShaken": {
           "raw": 919,
-          "gzip": 473
+          "gzip": 472
         }
       },
       "lodash": null,
@@ -467,11 +467,11 @@
       "nano": {
         "bundled": {
           "raw": 555,
-          "gzip": 335
+          "gzip": 334
         },
         "treeShaken": {
           "raw": 555,
-          "gzip": 335
+          "gzip": 334
         }
       },
       "lodash": null,
@@ -817,11 +817,11 @@
       "nano": {
         "bundled": {
           "raw": 818,
-          "gzip": 502
+          "gzip": 501
         },
         "treeShaken": {
           "raw": 818,
-          "gzip": 502
+          "gzip": 501
         }
       },
       "lodash": null,

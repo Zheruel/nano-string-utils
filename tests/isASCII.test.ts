@@ -98,4 +98,11 @@ describe("isASCII", () => {
     expect(isASCII("hello\0world")).toBe(true);
     expect(isASCII("\0\0\0")).toBe(true);
   });
+
+  it("should trim leading and trailing whitespace", () => {
+    expect(isASCII(" hello")).toBe(true);
+    expect(isASCII("hello ")).toBe(true);
+    expect(isASCII("  test  ")).toBe(true);
+    expect(isASCII("  ")).toBe(true); // Whitespace-only becomes empty after trim
+  });
 });

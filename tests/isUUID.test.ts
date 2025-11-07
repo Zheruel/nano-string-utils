@@ -84,10 +84,14 @@ describe("isUUID", () => {
       expect(isUUID("550e8400-e29b-41d4-a716-44665544000!")).toBe(false); // special char
     });
 
-    it("should return false for strings with spaces", () => {
+    it("should return false for strings with internal spaces", () => {
       expect(isUUID("550e8400 e29b 41d4 a716 446655440000")).toBe(false);
-      expect(isUUID(" 550e8400-e29b-41d4-a716-446655440000")).toBe(false);
-      expect(isUUID("550e8400-e29b-41d4-a716-446655440000 ")).toBe(false);
+    });
+
+    it("should trim leading and trailing whitespace", () => {
+      expect(isUUID(" 550e8400-e29b-41d4-a716-446655440000")).toBe(true);
+      expect(isUUID("550e8400-e29b-41d4-a716-446655440000 ")).toBe(true);
+      expect(isUUID("  550e8400-e29b-41d4-a716-446655440000  ")).toBe(true);
     });
 
     it("should return false for non-UUID strings", () => {

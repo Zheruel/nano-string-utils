@@ -9,6 +9,7 @@ import type {
   NumericString,
   AlphanumericString,
   UUID,
+  IntegerString,
   ValidationResult,
 } from "./branded.js";
 import {
@@ -19,6 +20,7 @@ import {
   isValidNumeric,
   isValidAlphanumeric,
   isValidUUID,
+  isValidInteger,
 } from "./guards.js";
 
 /**
@@ -303,4 +305,45 @@ export function toUUID(str: string): ValidationResult<UUID> {
  */
 export function unsafeUUID(str: string): UUID {
   return str as UUID;
+}
+
+/**
+ * Validates and creates an IntegerString branded type.
+ * Returns null if the string is not a valid integer.
+ * @param str - The string to validate and convert
+ * @returns IntegerString branded type or null if invalid
+ * @example
+ * const age = toIntegerString('42');
+ * if (age) {
+ *   processAge(age); // age is typed as IntegerString
+ * }
+ *
+ * // Quantity validation usage
+ * const quantity = toIntegerString(formData.quantity);
+ * if (quantity) {
+ *   addToCart(quantity);
+ * }
+ *
+ * // Pagination usage
+ * const page = toIntegerString(queryParams.page);
+ * const limit = toIntegerString(queryParams.limit);
+ * if (page && limit) {
+ *   fetchPaginatedData(page, limit);
+ * }
+ */
+export function toIntegerString(str: string): ValidationResult<IntegerString> {
+  return isValidInteger(str) ? (str as IntegerString) : null;
+}
+
+/**
+ * Creates an IntegerString branded type without validation.
+ * Use only when you're certain the input is a valid integer string.
+ * @param str - The string to cast as IntegerString
+ * @returns IntegerString branded type without validation
+ * @example
+ * // Only use when you're certain the input is valid
+ * const trustedAge = unsafeIntegerString('42');
+ */
+export function unsafeIntegerString(str: string): IntegerString {
+  return str as IntegerString;
 }

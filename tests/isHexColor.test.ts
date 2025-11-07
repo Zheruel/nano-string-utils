@@ -106,4 +106,10 @@ describe("isHexColor", () => {
   it("rejects hex color with leading characters", () => {
     expect(isHexColor("extra#fff")).toBe(false);
   });
+
+  it("trims leading and trailing whitespace", () => {
+    expect(isHexColor(" #fff")).toBe(true);
+    expect(isHexColor("#ffffff ")).toBe(true);
+    expect(isHexColor("  #ff5733  ")).toBe(true);
+  });
 });

@@ -1,6 +1,6 @@
 /**
  * Validates if a string is a valid URL format
- * @param str - The input string to validate
+ * @param str - The input string to validate (leading/trailing whitespace is automatically trimmed)
  * @returns True if the string is a valid URL format, false otherwise
  * @example
  * ```ts
@@ -41,6 +41,8 @@
  * ```
  */
 export const isUrl = (str: string): boolean => {
+  if (!str) return false;
+  str = str.trim();
   if (!str) return false;
 
   try {

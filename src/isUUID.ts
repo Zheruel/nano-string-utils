@@ -5,7 +5,7 @@
  * It accepts all UUID versions (v1-v5) and the NIL UUID, and is case-insensitive.
  * Perfect for validating API identifiers, session tokens, and database IDs.
  *
- * @param str - The string to validate
+ * @param str - The string to validate (leading/trailing whitespace is automatically trimmed)
  * @returns `true` if the string is a valid UUID, `false` otherwise
  *
  * @example
@@ -41,6 +41,8 @@
  * ```
  */
 export const isUUID = (str: string): boolean => {
+  if (!str) return false;
+  str = str.trim();
   if (!str) return false;
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
     str

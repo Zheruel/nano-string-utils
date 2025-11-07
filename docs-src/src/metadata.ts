@@ -309,6 +309,21 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  isInteger: {
+    description:
+      "Validates if a string represents an integer value (whole number without decimals)",
+    size: "100B",
+    params: [{ name: "str", type: "string", default: "42" }],
+    examples: [
+      { code: 'isInteger("42")', result: "true" },
+      { code: 'isInteger("-17")', result: "true" },
+      { code: 'isInteger("0")', result: "true" },
+      { code: 'isInteger("  42  ")', result: "true" },
+      { code: 'isInteger("3.14")', result: "false" },
+      { code: 'isInteger("42.0")', result: "false" },
+    ],
+  },
+
   isAlphanumeric: {
     description:
       "Validates if a string contains only alphanumeric characters (a-z, A-Z, 0-9)",

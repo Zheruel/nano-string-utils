@@ -4,6 +4,7 @@ import { isHexColor } from "../isHexColor.js";
 import { isNumeric } from "../isNumeric.js";
 import { isAlphanumeric } from "../isAlphanumeric.js";
 import { isUUID } from "../isUUID.js";
+import { isInteger } from "../isInteger.js";
 import type {
   Email,
   URL,
@@ -12,6 +13,7 @@ import type {
   NumericString,
   AlphanumericString,
   UUID,
+  IntegerString,
 } from "./branded.js";
 
 // Pre-compiled regex for slug validation
@@ -127,4 +129,20 @@ export function isValidAlphanumeric(str: string): str is AlphanumericString {
  */
 export function isValidUUID(str: string): str is UUID {
   return isUUID(str);
+}
+
+/**
+ * Type guard that checks if a string is a valid integer.
+ * Uses the existing isInteger validator internally.
+ * @param str - The string to validate
+ * @returns True if the string is a valid IntegerString, allowing type narrowing
+ * @example
+ * const input: string = getUserInput();
+ * if (isValidInteger(input)) {
+ *   // input is now typed as IntegerString
+ *   processIntegerValue(input);
+ * }
+ */
+export function isValidInteger(str: string): str is IntegerString {
+  return isInteger(str);
 }

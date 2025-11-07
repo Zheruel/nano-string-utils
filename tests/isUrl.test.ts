@@ -79,4 +79,10 @@ describe("isUrl", () => {
   it("rejects malformed URL", () => {
     expect(isUrl("https://example..com")).toBe(false);
   });
+
+  it("trims leading and trailing whitespace", () => {
+    expect(isUrl(" https://example.com")).toBe(true);
+    expect(isUrl("https://example.com ")).toBe(true);
+    expect(isUrl("  http://localhost:3000  ")).toBe(true);
+  });
 });
