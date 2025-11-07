@@ -65,7 +65,7 @@ jobs:
 
       - name: Upload coverage reports
         if: matrix.node-version == 20
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coverage-report
           path: coverage/
@@ -115,7 +115,7 @@ jobs:
           echo "✅ All build outputs verified successfully"
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-artifacts
           path: dist/
