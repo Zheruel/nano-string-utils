@@ -11,12 +11,12 @@
  */
 export function isASCII(str: string): boolean {
   if (str == null) return false;
-  str = str.trim();
+  const trimmed = str.trim();
   // Empty string is vacuously all-ASCII
-  if (str === "") return true;
+  if (trimmed === "") return true;
 
-  for (let i = 0; i < str.length; i++) {
-    if (str.charCodeAt(i) > 127) {
+  for (let i = 0; i < trimmed.length; i++) {
+    if (trimmed.charCodeAt(i) > 127) {
       return false;
     }
   }

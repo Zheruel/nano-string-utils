@@ -73,7 +73,7 @@ const HEX_COLOR_REGEX =
  */
 export const isHexColor = (str: string): boolean => {
   if (!str) return false;
-  str = str.trim();
-  if (!str) return false;
-  return HEX_COLOR_REGEX.test(str);
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+  return HEX_COLOR_REGEX.test(trimmed);
 };

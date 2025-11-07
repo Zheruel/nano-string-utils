@@ -37,7 +37,7 @@
  */
 export const isAlphanumeric = (str: string): boolean => {
   if (!str) return false;
-  str = str.trim();
-  if (!str) return false;
-  return /^[a-zA-Z0-9]+$/.test(str);
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+  return /^[a-zA-Z0-9]+$/.test(trimmed);
 };

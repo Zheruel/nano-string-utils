@@ -42,9 +42,9 @@
  */
 export const isUUID = (str: string): boolean => {
   if (!str) return false;
-  str = str.trim();
-  if (!str) return false;
+  const trimmed = str.trim();
+  if (!trimmed) return false;
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-    str
+    trimmed
   );
 };

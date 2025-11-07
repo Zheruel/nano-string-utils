@@ -42,11 +42,11 @@
  */
 export const isUrl = (str: string): boolean => {
   if (!str) return false;
-  str = str.trim();
-  if (!str) return false;
+  const trimmed = str.trim();
+  if (!trimmed) return false;
 
   try {
-    const url = new URL(str);
+    const url = new URL(trimmed);
 
     // Check for valid protocols
     const validProtocols = ["http:", "https:", "ftp:", "ftps:"];
