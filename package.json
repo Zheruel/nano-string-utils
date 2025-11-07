@@ -93,7 +93,7 @@
     "@types/bun": "^1.2.22",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.5.0",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.0.8",
     "es-toolkit": "^1.39.10",
     "esbuild": "^0.25.9",
     "lodash": "^4.17.21",
