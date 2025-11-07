@@ -9,6 +9,7 @@ import {
   type UUID,
   type IntegerString,
 } from "./branded.js";
+import type { EmailValidationOptions } from "../isEmail.js";
 import {
   isValidEmail,
   isValidUrl,
@@ -24,20 +25,48 @@ import {
  * Asserts that a string is a valid Email, throwing if validation fails.
  * After this assertion, TypeScript knows the value is an Email.
  * @param str - The string to validate
- * @param message - Optional custom error message
+ * @param optionsOrMessage - Optional validation options or custom error message
+ * @param message - Optional custom error message (when first param is options)
  * @throws {BrandedTypeError} If the string is not a valid email
  * @example
  * const input: string = getUserInput();
  * assertEmail(input);
  * // input is now typed as Email
  * sendEmail(input);
+ *
+ * // With international support
+ * assertEmail(input, { allowInternational: true });
+ * sendEmail(input);
+ *
+ * // With custom error message
+ * assertEmail(input, "Invalid email address");
+ *
+ * // With options and custom message
+ * assertEmail(input, { allowInternational: true }, "Invalid email");
  */
+export function assertEmail(str: string): asserts str is Email;
+export function assertEmail(str: string, message: string): asserts str is Email;
 export function assertEmail(
   str: string,
+  options: EmailValidationOptions
+): asserts str is Email;
+export function assertEmail(
+  str: string,
+  options: EmailValidationOptions,
+  message: string
+): asserts str is Email;
+export function assertEmail(
+  str: string,
+  optionsOrMessage?: EmailValidationOptions | string,
   message?: string
 ): asserts str is Email {
-  if (!isValidEmail(str)) {
-    throw new BrandedTypeError(message || "Email", str);
+  const options =
+    typeof optionsOrMessage === "object" ? optionsOrMessage : undefined;
+  const errorMessage =
+    typeof optionsOrMessage === "string" ? optionsOrMessage : message;
+
+  if (!isValidEmail(str, options)) {
+    throw new BrandedTypeError(errorMessage || "Email", str);
   }
 }
 

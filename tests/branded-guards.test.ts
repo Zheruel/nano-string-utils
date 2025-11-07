@@ -25,6 +25,28 @@ describe("Branded Type Guards", () => {
       expect(isValidEmail("")).toBe(false);
     });
 
+    test("validates emails with apostrophes by default", () => {
+      expect(isValidEmail("o'connor@example.com")).toBe(true);
+      expect(isValidEmail("d'angelo@test.co")).toBe(true);
+    });
+
+    test("rejects international characters by default", () => {
+      expect(isValidEmail("josé@example.com")).toBe(false);
+      expect(isValidEmail("müller@domain.de")).toBe(false);
+    });
+
+    test("validates international characters with allowInternational option", () => {
+      expect(
+        isValidEmail("josé@example.com", { allowInternational: true })
+      ).toBe(true);
+      expect(
+        isValidEmail("müller@domain.de", { allowInternational: true })
+      ).toBe(true);
+      expect(isValidEmail("user@café.com", { allowInternational: true })).toBe(
+        true
+      );
+    });
+
     test("type narrows to Email", () => {
       const input: string = "user@example.com";
       if (isValidEmail(input)) {

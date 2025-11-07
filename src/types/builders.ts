@@ -1,5 +1,6 @@
 import { slugify } from "../slugify.js";
 import { sanitize, type SanitizeOptions } from "../sanitize.js";
+import type { EmailValidationOptions } from "../isEmail.js";
 import type {
   Email,
   URL,
@@ -27,15 +28,25 @@ import {
  * Validates and creates an Email branded type.
  * Returns null if the string is not a valid email.
  * @param str - The string to validate and convert
+ * @param options - Optional configuration for validation
  * @returns Email branded type or null if invalid
  * @example
  * const email = toEmail('user@example.com');
  * if (email) {
  *   sendEmail(email); // email is typed as Email
  * }
+ *
+ * // With international support
+ * const intlEmail = toEmail('josé@example.com', { allowInternational: true });
+ * if (intlEmail) {
+ *   sendEmail(intlEmail);
+ * }
  */
-export function toEmail(str: string): ValidationResult<Email> {
-  return isValidEmail(str) ? (str as Email) : null;
+export function toEmail(
+  str: string,
+  options?: EmailValidationOptions
+): ValidationResult<Email> {
+  return isValidEmail(str, options) ? (str as Email) : null;
 }
 
 /**

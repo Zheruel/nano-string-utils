@@ -249,13 +249,26 @@ export const functionMetadata: Record<string, FunctionMeta> = {
 
   // Validation Functions
   isEmail: {
-    description: "Validates if a string is a valid email address",
+    description:
+      "Validates if a string is a valid email address. Supports apostrophes by default. International characters require opt-in.",
     size: "400B",
-    params: [{ name: "str", type: "string", default: "user@example.com" }],
+    params: [
+      { name: "str", type: "string", default: "user@example.com" },
+      {
+        name: "options",
+        type: "{ allowInternational?: boolean }",
+        optional: true,
+      },
+    ],
     examples: [
       { code: 'isEmail("user@example.com")', result: "true" },
       { code: 'isEmail("invalid.email")', result: "false" },
-      { code: 'isEmail("test@domain.co.uk")', result: "true" },
+      { code: 'isEmail("o\'connor@example.com")', result: "true" },
+      { code: 'isEmail("josé@example.com")', result: "false" },
+      {
+        code: 'isEmail("josé@example.com", { allowInternational: true })',
+        result: "true",
+      },
     ],
   },
 
