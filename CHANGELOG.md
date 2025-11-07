@@ -7,6 +7,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.24.0] - 2025-11-07
+
+### Added
+
+- **New Function: `isInteger()`** - Validates if a string represents an integer value (whole number without decimals)
+  - Handles positive and negative integers (`42`, `-17`)
+  - Rejects decimal numbers (`3.14`, `42.0`) - key difference from `isNumeric`
+  - Automatic whitespace trimming
+  - Rejects empty strings, `Infinity`, and scientific notation
+  - Bundle size: 120 bytes gzipped
+  - 100% test coverage with 80+ test scenarios
+  - Use cases: age validation, pagination parameters, database ID validation, e-commerce quantities
+
+- **Branded Type Integration for IntegerString** - Full type-safe integer string handling
+  - New `IntegerString` branded type for compile-time safety
+  - Type guard: `isValidInteger()` for type narrowing
+  - Builder function: `toIntegerString()` returns `IntegerString | null` with validation
+  - Assertion function: `assertIntegerString()` throws `BrandedTypeError` on invalid input
+  - Unsafe cast: `unsafeIntegerString()` for trusted input (no validation)
+  - Zero runtime overhead - type safety enforced at compile time
+
+- **CLI Support** - `isInteger` available via `nano-string` command
+  - `nano-string isInteger "42"` - returns true/false with proper exit codes
+  - Pipe support for Unix-style command chaining
+
+### Enhanced
+
+- **Whitespace Handling** - Consistent trimming across validation functions
+  - Updated 6 existing validation functions to trim leading/trailing whitespace before validation
+  - Functions enhanced: `isASCII`, `isAlphanumeric`, `isEmail`, `isHexColor`, `isUUID`, `isUrl`
+  - Quality-of-life improvement that handles common user input patterns (e.g., `"  user@email.com  "`)
+  - All functions now document whitespace trimming behavior in JSDoc
+  - Additional test coverage for whitespace handling in each function
+
+### Improved
+
+- **Code Consistency** - Standardized variable naming patterns
+  - All validation functions now use consistent `const trimmed = str.trim()` pattern instead of reassignment
+  - More explicit code that avoids parameter mutation
+  - Better maintainability across the codebase
+  - Follows best practices established in `isInteger` and `isNumeric`
+
+### Documentation
+
+- Updated function count from 51 to 52 utilities
+- Added comprehensive JSDoc documentation for `isInteger` with real-world usage examples
+- Updated README with function descriptions, comparison table vs `isNumeric`, examples, and bundle sizes
+- Added metadata and playground examples to documentation site
+- Regenerated bundle size and performance benchmark data
+
 ## [0.23.0] - 2025-10-21
 
 ### Added
