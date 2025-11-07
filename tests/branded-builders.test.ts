@@ -33,6 +33,36 @@ describe("Branded Type Builders", () => {
       expect(toEmail("user.name@example.co.uk")).not.toBeNull();
       expect(toEmail("user..double@example.com")).toBeNull();
     });
+
+    test("validates emails with apostrophes by default", () => {
+      const email1 = toEmail("o'connor@example.com");
+      const email2 = toEmail("d'angelo@test.co");
+      expect(email1).not.toBeNull();
+      expect(email2).not.toBeNull();
+      expect(email1).toBe("o'connor@example.com");
+    });
+
+    test("rejects international characters by default", () => {
+      expect(toEmail("josé@example.com")).toBeNull();
+      expect(toEmail("müller@domain.de")).toBeNull();
+      expect(toEmail("user@café.com")).toBeNull();
+    });
+
+    test("validates international characters with allowInternational option", () => {
+      const email1 = toEmail("josé@example.com", { allowInternational: true });
+      const email2 = toEmail("müller@domain.de", { allowInternational: true });
+      const email3 = toEmail("user@café.com", { allowInternational: true });
+
+      expect(email1).not.toBeNull();
+      expect(email2).not.toBeNull();
+      expect(email3).not.toBeNull();
+      expect(email1).toBe("josé@example.com");
+    });
+
+    test("returns null for invalid international emails even with option", () => {
+      expect(toEmail("invalid", { allowInternational: true })).toBeNull();
+      expect(toEmail("@example.com", { allowInternational: true })).toBeNull();
+    });
   });
 
   describe("toUrl", () => {

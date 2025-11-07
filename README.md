@@ -158,14 +158,19 @@ truncate("Long text here", 10); // 'Long te...'
 truncate("Long text here", 10, "→"); // 'Long tex→'
 ```
 
-#### `isEmail(str: string): boolean`
+#### `isEmail(str: string, options?: { allowInternational?: boolean }): boolean`
 
-Validate email addresses with a robust regex.
+Validate email addresses with a robust regex. Supports apostrophes by default (for names like O'Connor). International characters require opt-in.
 
 ```javascript
 isEmail("user@example.com"); // true
 isEmail("test@sub.domain.com"); // true
+isEmail("o'connor@example.com"); // true (apostrophes supported)
 isEmail("invalid.email"); // false
+
+// International support (opt-in)
+isEmail("josé@example.com"); // false
+isEmail("josé@example.com", { allowInternational: true }); // true
 ```
 
 #### `fuzzyMatch(query: string, target: string): FuzzyMatchResult | null`
@@ -817,14 +822,24 @@ humanizeList([]);
 
 Utilities for validating string formats and content.
 
-#### `isEmail(str: string): boolean`
+#### `isEmail(str: string, options?: { allowInternational?: boolean }): boolean`
 
-Validates if a string is a valid email format.
+Validates if a string is a valid email format. Supports apostrophes by default (useful for names like O'Connor, D'Angelo). International (Unicode) characters require opt-in via the `allowInternational` option.
 
 ```javascript
 isEmail("user@example.com"); // true
 isEmail("invalid.email"); // false
 isEmail("test@sub.domain.com"); // true
+
+// Apostrophes supported by default
+isEmail("o'connor@example.com"); // true
+isEmail("d'angelo@test.co"); // true
+
+// International characters require opt-in
+isEmail("josé@example.com"); // false (default behavior)
+isEmail("josé@example.com", { allowInternational: true }); // true
+isEmail("müller@domain.de", { allowInternational: true }); // true
+isEmail("user@café.com", { allowInternational: true }); // true
 ```
 
 #### `isUrl(str: string): boolean`
