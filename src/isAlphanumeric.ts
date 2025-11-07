@@ -5,7 +5,7 @@
  * validating usernames, identifiers, and other inputs that should contain only
  * letters and numbers without special characters or whitespace.
  *
- * @param str - The string to validate
+ * @param str - The string to validate (leading/trailing whitespace is automatically trimmed)
  * @returns `true` if the string contains only alphanumeric characters, `false` otherwise
  *
  * @example
@@ -37,5 +37,7 @@
  */
 export const isAlphanumeric = (str: string): boolean => {
   if (!str) return false;
-  return /^[a-zA-Z0-9]+$/.test(str);
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+  return /^[a-zA-Z0-9]+$/.test(trimmed);
 };

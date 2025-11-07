@@ -18,6 +18,7 @@ export { isHexColor } from "./isHexColor.js";
 export { isNumeric } from "./isNumeric.js";
 export { isAlphanumeric } from "./isAlphanumeric.js";
 export { isUUID } from "./isUUID.js";
+export { isInteger } from "./isInteger.js";
 export { wordCount } from "./wordCount.js";
 export { template, type TemplateOptions } from "./template.js";
 export { templateSafe } from "./templateSafe.js";
@@ -72,6 +73,7 @@ export type {
   NumericString,
   AlphanumericString,
   UUID,
+  IntegerString,
   ValidationResult,
 } from "./types/branded.js";
 export { BrandedTypeError } from "./types/branded.js";
@@ -83,6 +85,7 @@ export {
   isValidNumeric,
   isValidAlphanumeric,
   isValidUUID,
+  isValidInteger,
 } from "./types/guards.js";
 export {
   assertEmail,
@@ -92,6 +95,7 @@ export {
   assertNumericString,
   assertAlphanumericString,
   assertUUID,
+  assertIntegerString,
 } from "./types/assertions.js";
 export {
   toEmail,
@@ -102,6 +106,7 @@ export {
   toNumericString,
   toAlphanumericString,
   toUUID,
+  toIntegerString,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
@@ -110,5 +115,6 @@ export {
   unsafeNumericString,
   unsafeAlphanumericString,
   unsafeUUID,
+  unsafeIntegerString,
   ensureSlug,
 } from "./types/builders.js";

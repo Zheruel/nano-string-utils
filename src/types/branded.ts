@@ -75,6 +75,15 @@ export type AlphanumericString = Brand<string, "AlphanumericString">;
 export type UUID = Brand<string, "UUID">;
 
 /**
+ * IntegerString branded type - represents a validated integer string (whole number without decimals).
+ * Use with type guards and builder functions for type safety.
+ * @example
+ * const age: IntegerString = toIntegerString('42')!;
+ * const quantity: IntegerString = toIntegerString('10')!;
+ */
+export type IntegerString = Brand<string, "IntegerString">;
+
+/**
  * Type guard result type for better type inference
  */
 export type ValidationResult<T> = T | null;

@@ -69,16 +69,16 @@ describe("isAlphanumeric", () => {
       expect(isAlphanumeric("\n")).toBe(false);
     });
 
-    it("should return false for strings with leading whitespace", () => {
-      expect(isAlphanumeric(" abc")).toBe(false);
-      expect(isAlphanumeric("  hello123")).toBe(false);
-      expect(isAlphanumeric("\tabc")).toBe(false);
+    it("should trim leading whitespace", () => {
+      expect(isAlphanumeric(" abc")).toBe(true);
+      expect(isAlphanumeric("  hello123")).toBe(true);
+      expect(isAlphanumeric("\tabc")).toBe(true);
     });
 
-    it("should return false for strings with trailing whitespace", () => {
-      expect(isAlphanumeric("abc ")).toBe(false);
-      expect(isAlphanumeric("hello123  ")).toBe(false);
-      expect(isAlphanumeric("abc\t")).toBe(false);
+    it("should trim trailing whitespace", () => {
+      expect(isAlphanumeric("abc ")).toBe(true);
+      expect(isAlphanumeric("hello123  ")).toBe(true);
+      expect(isAlphanumeric("abc\t")).toBe(true);
     });
 
     it("should return false for strings with internal whitespace", () => {

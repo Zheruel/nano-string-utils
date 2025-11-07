@@ -4,7 +4,7 @@ const HEX_COLOR_REGEX =
 
 /**
  * Validates if a string is a valid hexadecimal color code
- * @param str - The input string to validate
+ * @param str - The input string to validate (leading/trailing whitespace is automatically trimmed)
  * @returns True if the string is a valid hex color format, false otherwise
  * @example
  * ```ts
@@ -73,5 +73,7 @@ const HEX_COLOR_REGEX =
  */
 export const isHexColor = (str: string): boolean => {
   if (!str) return false;
-  return HEX_COLOR_REGEX.test(str);
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+  return HEX_COLOR_REGEX.test(trimmed);
 };

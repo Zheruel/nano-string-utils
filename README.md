@@ -177,7 +177,7 @@ fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
 fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
 ```
 
-> 📖 **See all 45 functions in the API Reference below**
+> 📖 **See all 52 functions in the API Reference below**
 
 ## CLI
 
@@ -269,6 +269,7 @@ nano-string isUrl "https://example.com"             # true
 nano-string isASCII "hello"                         # true
 nano-string isHexColor "#ff5733"                    # true
 nano-string isNumeric "42"                          # true
+nano-string isInteger "42"                          # true
 nano-string isAlphanumeric "user123"                # true
 nano-string isUUID "550e8400-e29b-41d4-a716-446655440000"  # true
 ```
@@ -297,7 +298,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 51 string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 52 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -810,7 +811,7 @@ humanizeList([]);
 </details>
 
 <details>
-<summary><b>✅ Validation Functions (8 functions)</b></summary>
+<summary><b>✅ Validation Functions (9 functions)</b></summary>
 
 ### String Validation
 
@@ -877,6 +878,24 @@ isNumeric("abc"); // false
 isNumeric(""); // false
 isNumeric("Infinity"); // false
 isNumeric("1e5"); // false (scientific notation not supported)
+```
+
+#### `isInteger(str: string): boolean`
+
+Validates if a string represents an integer value (whole number without decimals). Useful for validating age fields, quantities, IDs, pagination parameters, and other inputs that should only accept whole numbers.
+
+```javascript
+isInteger("42"); // true
+isInteger("-17"); // true
+isInteger("0"); // true
+isInteger("  42  "); // true (whitespace trimmed)
+isInteger("007"); // true (leading zeros allowed)
+isInteger("3.14"); // false (decimal number)
+isInteger("42.0"); // false (contains decimal point)
+isInteger("abc"); // false
+isInteger(""); // false
+isInteger("Infinity"); // false
+isInteger("1e5"); // false (scientific notation not supported)
 ```
 
 #### `isAlphanumeric(str: string): boolean`
@@ -1567,6 +1586,7 @@ Each utility is optimized to be as small as possible:
 | isASCII               | 128 bytes      |
 | isHexColor            | 103 bytes      |
 | isNumeric             | 122 bytes      |
+| isInteger             | 120 bytes      |
 | isAlphanumeric        | 88 bytes       |
 | isUUID                | 89 bytes       |
 | toASCII               | 1.3 KB         |

@@ -7,6 +7,7 @@ import {
   type NumericString,
   type AlphanumericString,
   type UUID,
+  type IntegerString,
 } from "./branded.js";
 import {
   isValidEmail,
@@ -16,6 +17,7 @@ import {
   isValidNumeric,
   isValidAlphanumeric,
   isValidUUID,
+  isValidInteger,
 } from "./guards.js";
 
 /**
@@ -153,5 +155,26 @@ export function assertAlphanumericString(
 export function assertUUID(str: string, message?: string): asserts str is UUID {
   if (!isValidUUID(str)) {
     throw new BrandedTypeError(message || "UUID", str);
+  }
+}
+
+/**
+ * Asserts that a string is a valid IntegerString, throwing if validation fails.
+ * After this assertion, TypeScript knows the value is an IntegerString.
+ * @param str - The string to validate
+ * @param message - Optional custom error message
+ * @throws {BrandedTypeError} If the string is not a valid integer string
+ * @example
+ * const input: string = getUserInput();
+ * assertIntegerString(input);
+ * // input is now typed as IntegerString
+ * processInteger(input);
+ */
+export function assertIntegerString(
+  str: string,
+  message?: string
+): asserts str is IntegerString {
+  if (!isValidInteger(str)) {
+    throw new BrandedTypeError(message || "IntegerString", str);
   }
 }

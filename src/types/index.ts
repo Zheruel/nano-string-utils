@@ -32,6 +32,7 @@ export type {
   NumericString,
   AlphanumericString,
   UUID,
+  IntegerString,
   ValidationResult,
 } from "./branded.js";
 export { BrandedTypeError } from "./branded.js";
@@ -45,6 +46,7 @@ export {
   isValidNumeric,
   isValidAlphanumeric,
   isValidUUID,
+  isValidInteger,
 } from "./guards.js";
 
 // Re-export assertions
@@ -56,6 +58,7 @@ export {
   assertNumericString,
   assertAlphanumericString,
   assertUUID,
+  assertIntegerString,
 } from "./assertions.js";
 
 // Re-export builders
@@ -68,6 +71,7 @@ export {
   toNumericString,
   toAlphanumericString,
   toUUID,
+  toIntegerString,
   unsafeEmail,
   unsafeUrl,
   unsafeSlug,
@@ -76,5 +80,6 @@ export {
   unsafeNumericString,
   unsafeAlphanumericString,
   unsafeUUID,
+  unsafeIntegerString,
   ensureSlug,
 } from "./builders.js";

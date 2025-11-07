@@ -3,7 +3,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 /**
  * Validates if a string is a valid email format
- * @param str - The input string to validate
+ * @param str - The input string to validate (leading/trailing whitespace is automatically trimmed)
  * @returns True if the string is a valid email format, false otherwise
  * @example
  * ```ts
@@ -44,6 +44,8 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
  */
 export const isEmail = (str: string): boolean => {
   if (!str) return false;
+  const trimmed = str.trim();
+  if (!trimmed) return false;
 
   // More strict email validation
   // - No consecutive dots
@@ -51,10 +53,11 @@ export const isEmail = (str: string): boolean => {
   // - No trailing dots
 
   // Additional checks
-  if (!EMAIL_REGEX.test(str)) return false;
-  if (str.includes("..")) return false;
-  if (str.endsWith(".")) return false;
-  if (str.includes("#") || str.includes("$") || str.includes("%")) return false;
+  if (!EMAIL_REGEX.test(trimmed)) return false;
+  if (trimmed.includes("..")) return false;
+  if (trimmed.endsWith(".")) return false;
+  if (trimmed.includes("#") || trimmed.includes("$") || trimmed.includes("%"))
+    return false;
 
   return true;
 };

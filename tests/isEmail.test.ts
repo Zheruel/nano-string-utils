@@ -73,4 +73,10 @@ describe("isEmail", () => {
   it("rejects email with consecutive dots", () => {
     expect(isEmail("user..name@example.com")).toBe(false);
   });
+
+  it("trims leading and trailing whitespace", () => {
+    expect(isEmail(" test@example.com")).toBe(true);
+    expect(isEmail("test@example.com ")).toBe(true);
+    expect(isEmail("  user@domain.com  ")).toBe(true);
+  });
 });
