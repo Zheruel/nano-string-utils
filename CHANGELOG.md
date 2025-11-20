@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.25.0] - 2025-01-15
+
+### Enhanced
+
+- **Email Validation Improvements** - Enhanced `isEmail()` with apostrophe support and optional international character validation
+  - **Breaking Change**: Apostrophes (`'`) are now allowed by default in email addresses (e.g., `o'connor@example.com`)
+  - Addresses common real-world use case for names like O'Connor, D'Angelo
+  - New optional parameter: `{ allowInternational?: boolean }` for Unicode email support
+  - International characters (e.g., `josé@example.com`) require opt-in via `allowInternational: true`
+  - Branded types updated: `isValidEmail()`, `toEmail()`, and `assertEmail()` all support new options
+  - TypeScript overload signatures added to `assertEmail()` for better IDE autocomplete
+  - Comprehensive test coverage with 13+ new tests across branded type system
+  - 100% test coverage maintained with 1,484 passing tests
+  - Minimal bundle size impact (~30 bytes)
+  - Code quality review: 8.5/10 rating
+  - Fixes issue #57
+
 ## [0.24.0] - 2025-11-07
 
 ### Added

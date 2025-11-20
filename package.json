@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Modern string utilities with zero dependencies. Tree-shakeable (<1KB each), TypeScript-first, type-safe. Validation, XSS prevention, case conversion, fuzzy matching & more.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -95,7 +95,7 @@
     "@types/node": "^24.5.0",
     "@vitest/coverage-v8": "^4.0.8",
     "es-toolkit": "^1.39.10",
-    "esbuild": "^0.25.9",
+    "esbuild": "^0.27.0",
     "lodash": "^4.17.21",
     "size-limit": "^11.2.0",
     "tinybench": "^5.0.1",

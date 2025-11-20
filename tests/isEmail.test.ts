@@ -79,4 +79,64 @@ describe("isEmail", () => {
     expect(isEmail("test@example.com ")).toBe(true);
     expect(isEmail("  user@domain.com  ")).toBe(true);
   });
+
+  // Apostrophe support (default behavior)
+  it("validates email with apostrophe in local part", () => {
+    expect(isEmail("o'connor@example.com")).toBe(true);
+    expect(isEmail("d'angelo@test.co")).toBe(true);
+    expect(isEmail("user'name@domain.org")).toBe(true);
+  });
+
+  it("validates email with multiple apostrophes", () => {
+    expect(isEmail("o'neil'patrick@example.com")).toBe(true);
+  });
+
+  // International character support (opt-in)
+  it("rejects international characters by default", () => {
+    expect(isEmail("josé@example.com")).toBe(false);
+    expect(isEmail("müller@domain.de")).toBe(false);
+    expect(isEmail("user@éxample.com")).toBe(false);
+    expect(isEmail("françois@test.fr")).toBe(false);
+  });
+
+  it("validates international characters when allowInternational is true", () => {
+    expect(isEmail("josé@example.com", { allowInternational: true })).toBe(
+      true
+    );
+    expect(isEmail("müller@domain.de", { allowInternational: true })).toBe(
+      true
+    );
+    expect(isEmail("user@éxample.com", { allowInternational: true })).toBe(
+      true
+    );
+    expect(isEmail("françois@test.fr", { allowInternational: true })).toBe(
+      true
+    );
+  });
+
+  it("validates international characters in domain", () => {
+    expect(isEmail("user@münchen.de", { allowInternational: true })).toBe(true);
+    expect(isEmail("test@café.fr", { allowInternational: true })).toBe(true);
+  });
+
+  it("still rejects invalid formats with allowInternational", () => {
+    expect(isEmail("invalid", { allowInternational: true })).toBe(false);
+    expect(isEmail("@example.com", { allowInternational: true })).toBe(false);
+    expect(isEmail("user@", { allowInternational: true })).toBe(false);
+    expect(
+      isEmail("user..name@example.com", { allowInternational: true })
+    ).toBe(false);
+  });
+
+  it("validates international emails with apostrophes", () => {
+    expect(isEmail("o'josé@example.com", { allowInternational: true })).toBe(
+      true
+    );
+    expect(isEmail("d'müller@domain.de", { allowInternational: true })).toBe(
+      true
+    );
+    expect(isEmail("user'françois@test.fr", { allowInternational: true })).toBe(
+      true
+    );
+  });
 });

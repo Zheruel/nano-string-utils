@@ -28,6 +28,51 @@ describe("Branded Type Assertions", () => {
       );
     });
 
+    test("passes for emails with apostrophes by default", () => {
+      expect(() => assertEmail("o'connor@example.com")).not.toThrow();
+      expect(() => assertEmail("d'angelo@test.co")).not.toThrow();
+    });
+
+    test("throws for international characters by default", () => {
+      expect(() => assertEmail("josé@example.com")).toThrow(BrandedTypeError);
+      expect(() => assertEmail("müller@domain.de")).toThrow(BrandedTypeError);
+    });
+
+    test("passes for international characters with allowInternational option", () => {
+      expect(() =>
+        assertEmail("josé@example.com", { allowInternational: true })
+      ).not.toThrow();
+      expect(() =>
+        assertEmail("müller@domain.de", { allowInternational: true })
+      ).not.toThrow();
+      expect(() =>
+        assertEmail("user@café.com", { allowInternational: true })
+      ).not.toThrow();
+    });
+
+    test("throws for invalid international emails even with option", () => {
+      expect(() =>
+        assertEmail("invalid", { allowInternational: true })
+      ).toThrow(BrandedTypeError);
+      expect(() =>
+        assertEmail("@example.com", { allowInternational: true })
+      ).toThrow(BrandedTypeError);
+    });
+
+    test("works with options and custom error message", () => {
+      expect(() =>
+        assertEmail(
+          "josé@example.com",
+          { allowInternational: true },
+          "Custom error"
+        )
+      ).not.toThrow();
+
+      expect(() =>
+        assertEmail("invalid", { allowInternational: true }, "Custom error")
+      ).toThrow('Invalid Custom error: "invalid"');
+    });
+
     test("type assertion works", () => {
       const input: string = "user@example.com";
       assertEmail(input);

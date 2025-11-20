@@ -1,4 +1,4 @@
-import { isEmail } from "../isEmail.js";
+import { isEmail, type EmailValidationOptions } from "../isEmail.js";
 import { isUrl } from "../isUrl.js";
 import { isHexColor } from "../isHexColor.js";
 import { isNumeric } from "../isNumeric.js";
@@ -23,6 +23,7 @@ const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
  * Type guard that checks if a string is a valid Email.
  * Uses the existing isEmail validator internally.
  * @param str - The string to validate
+ * @param options - Optional configuration for validation
  * @returns True if the string is a valid Email, allowing type narrowing
  * @example
  * const input: string = getUserInput();
@@ -30,9 +31,17 @@ const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
  *   // input is now typed as Email
  *   sendEmail(input);
  * }
+ *
+ * // With international support
+ * if (isValidEmail(input, { allowInternational: true })) {
+ *   sendEmail(input);
+ * }
  */
-export function isValidEmail(str: string): str is Email {
-  return isEmail(str);
+export function isValidEmail(
+  str: string,
+  options?: EmailValidationOptions
+): str is Email {
+  return isEmail(str, options);
 }
 
 /**
