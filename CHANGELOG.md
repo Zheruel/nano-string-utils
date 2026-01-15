@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-01-15
+
+### Changed
+
+- **BREAKING**: Minimum Node.js version is now 20 (Node 18 reached EOL April 2025)
+- Updated all dependencies to latest versions
+- CI now tests on Node.js 20, 22, and 24
+- GitHub Actions updated to v6 (checkout, upload-artifact)
+
 ## [0.26.0] - 2026-01-15
 
 ### Added
