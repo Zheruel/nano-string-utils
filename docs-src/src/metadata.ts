@@ -382,6 +382,19 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  isBlank: {
+    description: "Checks if a string is empty or contains only whitespace",
+    size: "70B",
+    params: [{ name: "str", type: "string", default: "   " }],
+    examples: [
+      { code: 'isBlank("")', result: "true" },
+      { code: 'isBlank("   ")', result: "true" },
+      { code: 'isBlank("\\t\\n")', result: "true" },
+      { code: 'isBlank("hello")', result: "false" },
+      { code: 'isBlank(" x ")', result: "false" },
+    ],
+  },
+
   detectScript: {
     description: "Detects the dominant writing system (script) in text",
     size: "1.1KB",
@@ -548,6 +561,20 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  unescapeHtml: {
+    description: "Decodes HTML entities back to their original characters",
+    size: "160B",
+    params: [
+      { name: "str", type: "string", default: "&lt;div&gt;Hello&lt;/div&gt;" },
+    ],
+    examples: [
+      { code: 'unescapeHtml("&lt;div&gt;")', result: '"<div>"' },
+      { code: 'unescapeHtml("A &amp; B")', result: '"A & B"' },
+      { code: 'unescapeHtml("&quot;quotes&quot;")', result: '"\\"quotes\\""' },
+      { code: 'unescapeHtml("Hello &amp; World")', result: '"Hello & World"' },
+    ],
+  },
+
   hashString: {
     description: "Generates a hash code for a string",
     size: "250B",
@@ -683,6 +710,21 @@ export const functionMetadata: Record<string, FunctionMeta> = {
       { code: 'wordCount("Hello world")', result: "2" },
       { code: 'wordCount("One")', result: "1" },
       { code: 'wordCount("The quick brown fox")', result: "4" },
+    ],
+  },
+
+  countSubstrings: {
+    description: "Counts non-overlapping occurrences of a substring",
+    size: "80B",
+    params: [
+      { name: "str", type: "string", default: "hello hello hello" },
+      { name: "sub", type: "string", default: "hello" },
+    ],
+    examples: [
+      { code: 'countSubstrings("hello hello hello", "hello")', result: "3" },
+      { code: 'countSubstrings("ababa", "aba")', result: "1" },
+      { code: 'countSubstrings("banana", "a")', result: "3" },
+      { code: 'countSubstrings("hello", "xyz")', result: "0" },
     ],
   },
 

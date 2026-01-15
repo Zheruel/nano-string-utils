@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-01-15
+
+### Added
+
+- **New Function: `isBlank()`** - Check if a string is empty or contains only whitespace
+  - Simple, lightweight validation utility (~70 bytes gzipped)
+  - Use cases: form validation, content presence checks, filtering empty values
+  - Example: `isBlank('  ')` → `true`, `isBlank('hello')` → `false`
+
+- **New Function: `unescapeHtml()`** - Decode HTML entities back to their original characters
+  - Complements `escapeHtml()` for roundtrip HTML encoding/decoding
+  - Handles all 5 standard entities: `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`
+  - Use cases: processing API responses, RSS feeds, database content
+  - Example: `unescapeHtml('&lt;div&gt;')` → `'<div>'`
+  - Roundtrip guarantee: `unescapeHtml(escapeHtml(str)) === str`
+
+- **New Function: `countSubstrings()`** - Count non-overlapping occurrences of a substring
+  - Lightweight substring counting utility (~80 bytes gzipped)
+  - Non-overlapping by design (e.g., `countSubstrings('ababa', 'aba')` → `1`)
+  - Use cases: text analysis, search result counts, log parsing
+  - Example: `countSubstrings('hello hello hello', 'hello')` → `3`
+
+### Documentation
+
+- Updated function count from 52 to 55 utilities
+- Added all three functions to documentation site with interactive playground examples
+- Updated roadmap with completed v0.26.0 items
+
 ## [0.25.0] - 2025-01-15
 
 ### Enhanced
