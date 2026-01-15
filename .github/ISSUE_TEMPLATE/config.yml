@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://zheruel.github.io/nano-string-utils/
+    about: Check the interactive documentation and playground
+  - name: Stack Overflow
+    url: https://stackoverflow.com/questions/tagged/nano-string-utils
+    about: Ask questions on Stack Overflow with the nano-string-utils tag

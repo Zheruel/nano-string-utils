@@ -1,6 +1,21 @@
 {
   "name": "@zheruel/nano-string-utils",
   "version": "0.26.0",
+  "description": "Ultra-lightweight string utilities with zero dependencies. Tree-shakeable (<1KB each), TypeScript-first, type-safe. Validation, XSS prevention, case conversion, fuzzy matching & more.",
+  "keywords": [
+    "string",
+    "utilities",
+    "zero-dependencies",
+    "tree-shakeable",
+    "typescript",
+    "validation",
+    "sanitization",
+    "case-conversion",
+    "lodash-alternative",
+    "xss-prevention",
+    "fuzzy-match",
+    "lightweight"
+  ],
   "exports": "./src/index.ts",
   "publish": {
     "include": ["src/**/*.ts", "README.md", "LICENSE", "CHANGELOG.md"],
