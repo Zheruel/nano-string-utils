@@ -1,5 +1,5 @@
 {
-  "generated": "2025-10-23T20:56:17.411Z",
+  "generated": "2026-01-23T17:48:39.168Z",
   "totalFunctions": 52,
   "functions": [
     {
@@ -113,8 +113,8 @@
         "gzip": 1872
       },
       "esToolkit": {
-        "raw": 544,
-        "gzip": 332
+        "raw": 626,
+        "gzip": 331
       },
       "winner": "nano",
       "percentSavings": 18
@@ -299,12 +299,12 @@
       "name": "isASCII",
       "nano": {
         "bundled": {
-          "raw": 124,
-          "gzip": 128
+          "raw": 158,
+          "gzip": 145
         },
         "treeShaken": {
-          "raw": 124,
-          "gzip": 128
+          "raw": 158,
+          "gzip": 145
         }
       },
       "lodash": null,
@@ -315,12 +315,12 @@
       "name": "isAlphanumeric",
       "nano": {
         "bundled": {
-          "raw": 68,
-          "gzip": 88
+          "raw": 107,
+          "gzip": 123
         },
         "treeShaken": {
-          "raw": 68,
-          "gzip": 88
+          "raw": 107,
+          "gzip": 123
         }
       },
       "lodash": null,
@@ -331,12 +331,12 @@
       "name": "isEmail",
       "nano": {
         "bundled": {
-          "raw": 187,
-          "gzip": 148
+          "raw": 311,
+          "gzip": 222
         },
         "treeShaken": {
-          "raw": 187,
-          "gzip": 148
+          "raw": 311,
+          "gzip": 222
         }
       },
       "lodash": null,
@@ -347,12 +347,12 @@
       "name": "isHexColor",
       "nano": {
         "bundled": {
-          "raw": 118,
-          "gzip": 103
+          "raw": 157,
+          "gzip": 138
         },
         "treeShaken": {
-          "raw": 118,
-          "gzip": 103
+          "raw": 157,
+          "gzip": 138
         }
       },
       "lodash": null,
@@ -379,12 +379,12 @@
       "name": "isUUID",
       "nano": {
         "bundled": {
-          "raw": 109,
-          "gzip": 89
+          "raw": 148,
+          "gzip": 123
         },
         "treeShaken": {
-          "raw": 109,
-          "gzip": 89
+          "raw": 148,
+          "gzip": 123
         }
       },
       "lodash": null,
@@ -395,12 +395,12 @@
       "name": "isUrl",
       "nano": {
         "bundled": {
-          "raw": 175,
-          "gzip": 155
+          "raw": 205,
+          "gzip": 168
         },
         "treeShaken": {
-          "raw": 175,
-          "gzip": 155
+          "raw": 205,
+          "gzip": 168
         }
       },
       "lodash": null,
@@ -521,12 +521,12 @@
       "name": "padEnd",
       "nano": {
         "bundled": {
-          "raw": 227,
-          "gzip": 183
+          "raw": 223,
+          "gzip": 180
         },
         "treeShaken": {
-          "raw": 227,
-          "gzip": 183
+          "raw": 223,
+          "gzip": 180
         }
       },
       "lodash": {
@@ -541,12 +541,12 @@
       "name": "padStart",
       "nano": {
         "bundled": {
-          "raw": 221,
-          "gzip": 179
+          "raw": 217,
+          "gzip": 176
         },
         "treeShaken": {
-          "raw": 221,
-          "gzip": 179
+          "raw": 217,
+          "gzip": 176
         }
       },
       "lodash": {
@@ -598,11 +598,11 @@
       "nano": {
         "bundled": {
           "raw": 932,
-          "gzip": 460
+          "gzip": 459
         },
         "treeShaken": {
           "raw": 932,
-          "gzip": 460
+          "gzip": 459
         }
       },
       "lodash": null,
@@ -630,11 +630,11 @@
       "nano": {
         "bundled": {
           "raw": 1563,
-          "gzip": 727
+          "gzip": 728
         },
         "treeShaken": {
           "raw": 1563,
-          "gzip": 727
+          "gzip": 728
         }
       },
       "lodash": null,
@@ -678,11 +678,11 @@
       "nano": {
         "bundled": {
           "raw": 1785,
-          "gzip": 812
+          "gzip": 811
         },
         "treeShaken": {
           "raw": 1785,
-          "gzip": 812
+          "gzip": 811
         }
       },
       "lodash": null,
@@ -833,11 +833,11 @@
       "nano": {
         "bundled": {
           "raw": 991,
-          "gzip": 562
+          "gzip": 561
         },
         "treeShaken": {
           "raw": 991,
-          "gzip": 562
+          "gzip": 561
         }
       },
       "lodash": null,

@@ -182,7 +182,7 @@ fuzzyMatch("usrctrl", "userController.js"); // { matched: true, score: 0.444 }
 fuzzyMatch("of", "openFile"); // { matched: true, score: 0.75 }
 ```
 
-> 📖 **See all 52 functions in the API Reference below**
+> 📖 **See all 60 functions in the API Reference below**
 
 ## CLI
 
@@ -303,7 +303,7 @@ nano-string slugify --help
 
 ## API Reference
 
-The library provides 52 string utility functions organized by category. Click on any category to explore the available functions.
+The library provides 60 string utility functions organized by category. Click on any category to explore the available functions.
 
 <details>
 <summary><b>🔤 Case Conversion Functions (10 functions)</b></summary>
@@ -433,7 +433,7 @@ sentenceCase("what? when? where?"); // 'What? When? Where?'
 </details>
 
 <details>
-<summary><b>✂️ String Manipulation (11 functions)</b></summary>
+<summary><b>✂️ String Manipulation (16 functions)</b></summary>
 
 ### String Manipulation
 
@@ -505,6 +505,69 @@ Pads a string to a given length by adding characters to the right.
 padEnd("Hi", 5, "."); // 'Hi...'
 padEnd("Hi", 6, "=-"); // 'Hi=-=-'
 padEnd("5", 3, "0"); // '500'
+```
+
+#### `trim(str: string, chars?: string): string`
+
+Removes specified characters from both ends of a string.
+
+```javascript
+trim("  hello  "); // 'hello'
+trim("///path///", "/"); // 'path'
+trim("---title---", "-"); // 'title'
+trim('"hello"', '"'); // 'hello'
+trim("[content]", "[]"); // 'content'
+```
+
+#### `trimStart(str: string, chars?: string): string`
+
+Removes specified characters from the start of a string.
+
+```javascript
+trimStart("  hello"); // 'hello'
+trimStart("///path", "/"); // 'path'
+trimStart("00042", "0"); // '42'
+trimStart("---title", "-"); // 'title'
+```
+
+#### `trimEnd(str: string, chars?: string): string`
+
+Removes specified characters from the end of a string.
+
+```javascript
+trimEnd("hello  "); // 'hello'
+trimEnd("path///", "/"); // 'path'
+trimEnd("title---", "-"); // 'title'
+trimEnd("Hello!!!", "!"); // 'Hello'
+```
+
+#### `mask(str: string, options?: MaskOptions | number): string`
+
+Masks a string, showing only a portion of the original characters.
+
+```javascript
+mask("4532123456789010"); // '************9010'
+mask("secretpassword"); // '**********word'
+mask("user@example.com", { showStart: true }); // 'user************'
+mask("password", { show: 2 }); // '******rd'
+mask("secret", { maskChar: "•" }); // '••cret'
+mask("secret", { show: 0 }); // '******'
+```
+
+#### `wrap(str: string, options?: WrapOptions | number): string`
+
+Word-wraps text to a specified width.
+
+```javascript
+wrap("Hello world, how are you today?", 15);
+// 'Hello world,\nhow are you\ntoday?'
+
+wrap("one two three", 7); // 'one two\nthree'
+
+wrap("Supercalifragilisticexpialidocious", { width: 10, breakWords: true });
+// 'Supercalif\nragilistic\nexpialidoc\nious'
+
+wrap("text", { width: 40, separator: "<br>" }); // Uses <br> instead of \n
 ```
 
 #### `deburr(str: string): string`

@@ -1,6 +1,6 @@
 {
   "name": "@zheruel/nano-string-utils",
-  "version": "0.27.0",
+  "version": "0.28.0",
   "description": "Ultra-lightweight string utilities with zero dependencies. Tree-shakeable (<1KB each), TypeScript-first, type-safe. Validation, XSS prevention, case conversion, fuzzy matching & more.",
   "keywords": [
     "string",
