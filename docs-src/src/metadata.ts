@@ -224,6 +224,108 @@ export const functionMetadata: Record<string, FunctionMeta> = {
     ],
   },
 
+  trim: {
+    description: "Removes specified characters from both ends of a string",
+    size: "100B",
+    params: [
+      { name: "str", type: "string", default: "///path///" },
+      { name: "chars", type: "string", optional: true, default: "/" },
+    ],
+    examples: [
+      { code: 'trim("  hello  ")', result: '"hello"' },
+      { code: 'trim("///path///", "/")', result: '"path"' },
+      { code: 'trim("---title---", "-")', result: '"title"' },
+      { code: "trim('\"hello\"', '\"')", result: '"hello"' },
+    ],
+  },
+
+  trimStart: {
+    description: "Removes specified characters from the start of a string",
+    size: "90B",
+    params: [
+      { name: "str", type: "string", default: "///path" },
+      { name: "chars", type: "string", optional: true, default: "/" },
+    ],
+    examples: [
+      { code: 'trimStart("  hello")', result: '"hello"' },
+      { code: 'trimStart("///path", "/")', result: '"path"' },
+      { code: 'trimStart("---title", "-")', result: '"title"' },
+      { code: 'trimStart("00042", "0")', result: '"42"' },
+    ],
+  },
+
+  trimEnd: {
+    description: "Removes specified characters from the end of a string",
+    size: "90B",
+    params: [
+      { name: "str", type: "string", default: "path///" },
+      { name: "chars", type: "string", optional: true, default: "/" },
+    ],
+    examples: [
+      { code: 'trimEnd("hello  ")', result: '"hello"' },
+      { code: 'trimEnd("path///", "/")', result: '"path"' },
+      { code: 'trimEnd("title---", "-")', result: '"title"' },
+      { code: 'trimEnd("Hello!!!", "!")', result: '"Hello"' },
+    ],
+  },
+
+  mask: {
+    description:
+      "Masks a string, showing only a portion of the original characters",
+    size: "200B",
+    params: [
+      { name: "str", type: "string", default: "4532123456789010" },
+      {
+        name: "options",
+        type: "MaskOptions | number",
+        optional: true,
+        default: "4",
+      },
+    ],
+    examples: [
+      { code: 'mask("4532123456789010")', result: '"************9010"' },
+      { code: 'mask("secretpassword")', result: '"**********word"' },
+      {
+        code: 'mask("user@example.com", { showStart: true })',
+        result: '"user************"',
+      },
+      { code: 'mask("secret", { maskChar: "•" })', result: '"••cret"' },
+      { code: 'mask("secret", { show: 0 })', result: '"******"' },
+    ],
+  },
+
+  wrap: {
+    description: "Word-wraps text to a specified width",
+    size: "180B",
+    params: [
+      {
+        name: "str",
+        type: "string",
+        default: "Hello world, how are you today?",
+      },
+      {
+        name: "options",
+        type: "WrapOptions | number",
+        optional: true,
+        default: "15",
+      },
+    ],
+    examples: [
+      {
+        code: 'wrap("Hello world, how are you today?", 15)',
+        result: '"Hello world,\\nhow are you\\ntoday?"',
+      },
+      {
+        code: 'wrap("one two three", 7)',
+        result: '"one two\\nthree"',
+      },
+      {
+        code: 'wrap("Supercalifragilisticexpialidocious", { width: 10, breakWords: true })',
+        result: '"Supercalif\\nragilistic\\nexpialidoc\\nious"',
+      },
+    ],
+  },
+
   excerpt: {
     description: "Creates an excerpt from text with word boundary awareness",
     size: "600B",

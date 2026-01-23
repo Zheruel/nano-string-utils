@@ -1,6 +1,11 @@
 export { slugify } from "./slugify.js";
 export { truncate } from "./truncate.js";
 export { capitalize } from "./capitalize.js";
+export { trim } from "./trim.js";
+export { trimStart } from "./trimStart.js";
+export { trimEnd } from "./trimEnd.js";
+export { mask, type MaskOptions } from "./mask.js";
+export { wrap, type WrapOptions } from "./wrap.js";
 export { camelCase } from "./camelCase.js";
 export { snakeCase } from "./snakeCase.js";
 export { kebabCase } from "./kebabCase.js";

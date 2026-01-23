@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-01-23
+
+### Added
+
+- **New Function: `trim()`** - Remove custom characters from both ends of a string
+  - Extends native `trim()` with support for custom character sets
+  - Default behavior removes whitespace (spaces, tabs, newlines)
+  - Use cases: cleaning paths, removing quotes, stripping punctuation
+  - Example: `trim('///path///', '/')` → `'path'`
+
+- **New Function: `trimStart()`** - Remove custom characters from the start of a string
+  - Companion to `trim()` for one-sided trimming
+  - Use cases: removing leading zeros, path prefixes, comment markers
+  - Example: `trimStart('///path', '/')` → `'path'`
+
+- **New Function: `trimEnd()`** - Remove custom characters from the end of a string
+  - Companion to `trim()` for one-sided trimming
+  - Use cases: removing trailing punctuation, suffixes, extensions
+  - Example: `trimEnd('path///', '/')` → `'path'`
+
+- **New Function: `mask()`** - UI-friendly string masking
+  - Show last N characters by default (ideal for credit cards, passwords)
+  - Option to show first N characters instead (`showStart: true`)
+  - Custom mask character support (default: `*`)
+  - Use cases: credit card display, password hints, API key preview
+  - Example: `mask('4532123456789010')` → `'************9010'`
+
+- **New Function: `wrap()`** - Word-wrap text to specified width
+  - Smart word boundary handling (doesn't break mid-word by default)
+  - `breakWords` option for forced breaking of long words
+  - Custom separator support (default: `\n`)
+  - Preserves existing newlines
+  - Use cases: terminal output, email formatting, text display
+  - Example: `wrap('Hello world, how are you?', 15)` → `'Hello world,\nhow are you?'`
+
+### Documentation
+
+- Updated function count from 55 to 60 utilities
+- Added all five functions to documentation site with interactive playground examples
+- Added CLI support for all new functions
+
 ## [0.27.0] - 2026-01-15
 
 ### Changed
