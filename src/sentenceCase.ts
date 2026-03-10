@@ -11,6 +11,7 @@ const I_PRONOUN = /\bi\b/g;
 const I_CONTRACTION = /\bi'([a-z])/g;
 const UPPERCASE_CHECK = /[A-Z]/;
 const LETTER_CHECK = /[a-z]/i;
+const WORD_SEPARATORS = /[-_]+/g;
 
 /**
  * Converts a string to sentence case (first letter of each sentence capitalized)
@@ -52,6 +53,9 @@ export function sentenceCase(str: string): string {
 
   // Convert to lowercase first
   let result = str.toLowerCase();
+
+  // Normalize common word separators to spaces for readable sentence output
+  result = result.replace(WORD_SEPARATORS, " ");
 
   // Capitalize first letter of the string (including if it starts with a quote)
   result = result.replace(SENTENCE_START, (_match, prefix, letter) => {
