@@ -2,10 +2,60 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/nano-string-utils/mark.svg" />
+    <link rel="apple-touch-icon" href="/nano-string-utils/mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Interactive documentation and playground for nano-string-utils - Ultra-lightweight string utilities with zero dependencies" />
-    <title>nano-string-utils - Interactive Playground</title>
+    <title>nano-string-utils — 61 zero-dependency string utilities for TypeScript</title>
+    <meta
+      name="description"
+      content="Interactive playground and API docs for nano-string-utils: 61 tree-shakeable string utilities for JavaScript and TypeScript. camelCase, slugify, truncate, email validation, XSS sanitization, fuzzy matching and Levenshtein distance — zero dependencies, under 1 KB each."
+    />
+    <link rel="canonical" href="https://zheruel.github.io/nano-string-utils/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="nano-string-utils" />
+    <meta property="og:url" content="https://zheruel.github.io/nano-string-utils/" />
+    <meta property="og:title" content="nano-string-utils — 61 zero-dependency string utilities for TypeScript" />
+    <meta
+      property="og:description"
+      content="Tree-shakeable string utilities for JavaScript and TypeScript. Case conversion, slugify, validation, XSS sanitization, fuzzy matching and Unicode helpers — zero dependencies, under 1 KB each."
+    />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/Zheruel/nano-string-utils/main/assets/social-preview.png"
+    />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta
+      property="og:image:alt"
+      content="nano-string-utils — 61 string utilities. Zero dependencies. Tree-shakeable. Under 1 KB each."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="nano-string-utils — 61 zero-dependency string utilities" />
+    <meta
+      name="twitter:description"
+      content="Tree-shakeable string utilities for JavaScript and TypeScript. Zero dependencies, under 1 KB each."
+    />
+    <meta
+      name="twitter:image"
+      content="https://raw.githubusercontent.com/Zheruel/nano-string-utils/main/assets/social-preview.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "nano-string-utils",
+        "description": "61 tree-shakeable string utilities for JavaScript and TypeScript with zero dependencies. Case conversion, slugify, validation, XSS sanitization, fuzzy matching, Levenshtein distance and Unicode helpers.",
+        "url": "https://zheruel.github.io/nano-string-utils/",
+        "codeRepository": "https://github.com/Zheruel/nano-string-utils",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": ["Node.js", "Deno", "Bun", "Browser"],
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Person", "name": "Zheruel" },
+        "keywords": "string utilities, camelCase, kebab-case, slugify, truncate, email validation, XSS sanitization, fuzzy match, Levenshtein, pluralize, tree-shakeable, zero dependencies, lodash alternative"
+      }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
@@ -16,7 +66,7 @@
           <div class="header-content">
             <h1 class="logo">
               <span class="logo-text">nano-string-utils</span>
-              <span class="version">v0.28.0</span>
+              <span class="version">v0.28.1</span>
             </h1>
             <nav class="nav">
               <a href="#playground" class="nav-link active">Playground</a>
@@ -115,6 +165,7 @@
                       <li class="function-item" data-function="templateSafe">templateSafe</li>
                       <li class="function-item" data-function="fuzzyMatch">fuzzyMatch</li>
                       <li class="function-item" data-function="levenshtein">levenshtein</li>
+                      <li class="function-item" data-function="levenshteinNormalized">levenshteinNormalized</li>
                       <li class="function-item" data-function="diff">diff</li>
                       <li class="function-item" data-function="highlight">highlight</li>
                       <li class="function-item" data-function="deburr">deburr</li>

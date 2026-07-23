@@ -1,6 +1,6 @@
 {
   "name": "nano-string-utils",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "description": "Modern string utilities with zero dependencies. Tree-shakeable (<1KB each), TypeScript-first, type-safe. Validation, XSS prevention, case conversion, fuzzy matching & more.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -44,6 +44,7 @@
     "docs:build": "cd docs-src && npm run build",
     "docs:preview": "cd docs-src && npm run preview",
     "size": "size-limit",
+    "assets": "node scripts/render-assets.mjs",
     "prepublishOnly": "npm run build"
   },
   "repository": {

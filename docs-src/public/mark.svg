@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="mark-title">
+  <title id="mark-title">nano-string-utils mark: a string threading a precision node</title>
+  <rect width="256" height="256" rx="56" fill="#0f172a"/>
+  <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#334155" stroke-width="3"/>
+
+  <!-- messy string entering from the left -->
+  <path d="M26 128c14-26 26 24 40-2s24 22 34 2" fill="none" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- clean ordered output leaving to the right -->
+  <path d="M156 106h74" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+  <path d="M156 128h74" fill="none" stroke="#34d399" stroke-width="7" stroke-linecap="round"/>
+  <path d="M156 150h74" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+
+  <!-- the precision node -->
+  <circle cx="128" cy="128" r="38" fill="#0f172a" stroke="#34d399" stroke-width="7"/>
+  <circle cx="128" cy="128" r="13" fill="#60a5fa"/>
+</svg>
