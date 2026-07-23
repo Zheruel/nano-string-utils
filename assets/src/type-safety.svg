@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="tsf-title tsf-desc">
+  <title id="tsf-title">Compile-time guarantees: branded types and template literal types</title>
+  <desc id="tsf-desc">Branded types make a validated Email unforgeable, so passing a raw string is a type error until isValidEmail narrows it. Template literal types compute exact return values, so camelCase of hello-world has the literal type helloWorld rather than string.</desc>
+  <style>
+    .eyebrow{font:650 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:1.8px;fill:#60a5fa}
+    .title{font:600 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+    .panel-label{font:650 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:1.6px;fill:#94a3b8}
+    .c{font:500 15px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#cbd5e1}
+    .kw{fill:#60a5fa}
+    .str{fill:#34d399}
+    .typ{fill:#f59e0b}
+    .com{fill:#64748b}
+    .bad{fill:#f87171}
+    .good{fill:#34d399}
+    .note{font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  </style>
+
+  <rect width="1200" height="640" rx="24" fill="#0f172a"/>
+  <rect x="1" y="1" width="1198" height="638" rx="23" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <text x="56" y="56" class="eyebrow">TYPE SAFETY</text>
+  <text x="56" y="94" class="title">Types that carry proof, not just shape</text>
+
+  <!-- ── panel A: branded types ── -->
+  <rect x="56" y="132" width="524" height="452" rx="16" fill="#131f36" stroke="#334155" stroke-width="1.5"/>
+  <text x="80" y="170" class="panel-label">BRANDED TYPES</text>
+  <line x1="80" y1="188" x2="556" y2="188" stroke="#1e293b" stroke-width="1.5"/>
+
+  <text x="80" y="228" class="c"><tspan class="kw">declare function</tspan> send(to: <tspan class="typ">Email</tspan>): <tspan class="typ">void</tspan>;</text>
+  <text x="80" y="284" class="c"><tspan class="kw">const</tspan> input: <tspan class="typ">string</tspan> = form.get(<tspan class="str">"email"</tspan>);</text>
+
+  <text x="80" y="340" class="c">send(input);</text>
+  <path d="M125 348q4.5 6 9 0t9 0t9 0t9 0t9 0" fill="none" stroke="#f87171" stroke-width="2"/>
+  <text x="80" y="372" class="note bad">✗  string is not assignable to Email</text>
+
+  <text x="80" y="440" class="c"><tspan class="kw">if</tspan> (<tspan class="good">isValidEmail</tspan>(input)) {</text>
+  <text x="80" y="468" class="c" xml:space="preserve">  send(input);</text>
+  <text x="80" y="496" class="c">}</text>
+  <text x="80" y="536" class="note good">✓  input narrowed to Email</text>
+
+  <!-- ── panel B: template literal types ── -->
+  <rect x="620" y="132" width="524" height="452" rx="16" fill="#131f36" stroke="#334155" stroke-width="1.5"/>
+  <text x="644" y="170" class="panel-label">TEMPLATE LITERAL TYPES</text>
+  <line x1="644" y1="188" x2="1120" y2="188" stroke="#1e293b" stroke-width="1.5"/>
+
+  <text x="644" y="228" class="c">camelCase(<tspan class="str">"hello-world"</tspan>)</text>
+  <text x="644" y="256" class="c"><tspan class="com">//  ^? </tspan><tspan class="typ">"helloWorld"</tspan></text>
+
+  <text x="644" y="312" class="c">kebabCase(<tspan class="str">"backgroundColor"</tspan>)</text>
+  <text x="644" y="340" class="c"><tspan class="com">//  ^? </tspan><tspan class="typ">"background-color"</tspan></text>
+
+  <text x="644" y="396" class="c">constantCase(<tspan class="str">"user id"</tspan>)</text>
+  <text x="644" y="424" class="c"><tspan class="com">//  ^? </tspan><tspan class="typ">"USER_ID"</tspan></text>
+
+  <line x1="644" y1="472" x2="1120" y2="472" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="644" y="508" class="note" fill="#94a3b8">Exact literal types, not just string.</text>
+  <text x="644" y="536" class="note" fill="#64748b">Resolved by the compiler. Zero runtime cost.</text>
+</svg>

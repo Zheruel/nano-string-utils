@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="sp-title sp-desc">
+  <title id="sp-title">nano-string-utils</title>
+  <desc id="sp-desc">61 string utilities. Zero dependencies, tree-shakeable, under 1 KB each.</desc>
+  <defs>
+    <radialGradient id="vig" cx="34%" cy="46%" r="78%">
+      <stop offset="0%" stop-color="#152238"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </radialGradient>
+    <linearGradient id="fadeR" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="72%" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fadeL" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity=".9"/>
+    </linearGradient>
+    <mask id="mr"><rect x="820" y="0" width="460" height="640" fill="url(#fadeR)"/></mask>
+    <mask id="ml"><rect x="640" y="0" width="200" height="640" fill="url(#fadeL)"/></mask>
+  </defs>
+  <style>
+    .eyebrow{font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:3.4px;fill:#34d399}
+    .word{font:700 60px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-1.4px;fill:#f8fafc}
+    .tag{font:500 25px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
+    .meta{font:500 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}
+  </style>
+
+  <rect width="1280" height="640" fill="url(#vig)"/>
+
+  <!-- faint grid -->
+  <g stroke="#1e293b" stroke-width="1" opacity=".55">
+    <path d="M0 80h1280M0 240h1280M0 400h1280M0 560h1280"/>
+    <path d="M160 0v640M480 0v640M800 0v640M1120 0v640"/>
+  </g>
+
+  <!-- mark -->
+  <g transform="translate(80 170) scale(0.328)">
+    <rect width="256" height="256" rx="56" fill="#111c33"/>
+    <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#334155" stroke-width="3"/>
+    <path d="M26 128c14-26 26 24 40-2s24 22 34 2" fill="none" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+    <path d="M156 106h74" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+    <path d="M156 128h74" fill="none" stroke="#34d399" stroke-width="7" stroke-linecap="round"/>
+    <path d="M156 150h74" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+    <circle cx="128" cy="128" r="38" fill="#0f172a" stroke="#34d399" stroke-width="7"/>
+    <circle cx="128" cy="128" r="13" fill="#60a5fa"/>
+  </g>
+
+  <text x="80" y="292" class="eyebrow">61 STRING UTILITIES</text>
+  <text x="80" y="356" class="word">nano-string-utils</text>
+  <text x="80" y="404" class="tag">Zero dependencies. Tree-shakeable. Under 1 KB each.</text>
+  <text x="80" y="462" class="meta">TypeScript · ESM + CJS · Node · Deno · Bun · 1,686 tests</text>
+
+  <!-- decorative motif: chaos in, node, order out -->
+  <g mask="url(#ml)" fill="none" stroke="#475569" stroke-width="2" opacity=".75">
+    <path d="M640 268c26-22 44 20 70 2s44 16 66 4"/>
+    <path d="M640 300c30-16 40 14 68 4s46 10 68 6"/>
+    <path d="M640 332c24 18 48-16 72 0s44 8 64 0"/>
+    <path d="M640 364c28 20 42-14 70 2s44 12 66 2"/>
+    <path d="M640 396c26-20 46 18 72 4s42 14 64 6"/>
+  </g>
+
+  <g transform="translate(848 332)">
+    <circle r="66" fill="none" stroke="#334155" stroke-width="1.5"/>
+    <circle r="50" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+    <circle r="34" fill="none" stroke="#34d399" stroke-width="2"/>
+    <circle r="10" fill="#60a5fa"/>
+    <g fill="#34d399">
+      <circle cx="0" cy="-50" r="4"/><circle cx="50" cy="0" r="4"/>
+      <circle cx="0" cy="50" r="4"/><circle cx="-50" cy="0" r="4"/>
+    </g>
+  </g>
+
+  <g mask="url(#mr)" fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M920 236c80-14 150 14 230 0s90-10 130-4" stroke="#60a5fa"/>
+    <path d="M920 284c80 12 150-14 230 0s90 10 130 4" stroke="#34d399"/>
+    <path d="M920 332h360" stroke="#60a5fa"/>
+    <path d="M920 380c80-12 150 14 230 0s90-10 130-4" stroke="#34d399"/>
+    <path d="M920 428c80 14 150-14 230 0s90 10 130 4" stroke="#60a5fa"/>
+  </g>
+</svg>

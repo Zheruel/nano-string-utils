@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.28.1] - 2026-07-23
+
+Documentation and discoverability release. No runtime code changed.
+
+### Added
+
+- Illustrated README with a hero image, tree-shaking, bundle-size and type-safety diagrams (`assets/`, generated from SVG sources by `npm run assets`)
+- Social preview card for GitHub and link unfurls
+- Open Graph, Twitter card, canonical and JSON-LD `SoftwareSourceCode` metadata on the docs site
+- `robots.txt` and a `sitemap.xml` covering all 61 function deep links
+- `levenshteinNormalized` in the docs site sidebar, which had metadata but no entry
+
+### Changed
+
+- README condensed from 1,823 to ~410 lines; the per-function API reference now lives in the [playground](https://zheruel.github.io/nano-string-utils/), with every function listed and deep-linked from the README
+- Corrected the benchmark claims. The previous "wins 47 of 48 tested functions" counted functions with no lodash or es-toolkit counterpart at all. The honest figures: nano is 7–19× smaller than lodash on all 10 functions both ship, within a few bytes of es-toolkit on the 7 they share, and leads on 8 of 16 throughput benchmarks (lodash 4, es-toolkit 4)
+- Corrected the function count from 60 to 61
+- Corrected the "100% test coverage" claim. No coverage threshold is configured and actual coverage is 96.5% of statements; the README now states the real figure (1,686 tests across 69 files) and the Node versions CI actually runs (20, 22, 24 — not 18, 20, 22)
+- Corrected the "all functions are null-safe" claim. `levenshtein`, `levenshteinNormalized`, `redact` and `humanizeList` throw on nullish input; the README now documents them explicitly
+- Regenerated `benchmarks/bundle-sizes.json`, which was missing the 9 functions added since v0.26.0
+- Expanded JSR keywords from 12 to 26 to match the npm set
+- Docs site favicon is now the project mark rather than the Vite default
+
 ## [0.28.0] - 2026-01-23
 
 ### Added

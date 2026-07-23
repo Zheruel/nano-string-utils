@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="ts-title ts-desc">
+  <title id="ts-title">Tree shaking: you ship only what you import</title>
+  <desc id="ts-desc">Importing slugify, camelCase and isEmail ships 595 bytes gzipped. The other 58 functions in the library contribute zero bytes because nothing references them.</desc>
+  <style>
+    .eyebrow{font:650 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:1.8px;fill:#60a5fa}
+    .title{font:600 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+    .label{font:650 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:1.6px;fill:#64748b}
+    .code{font:500 16px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#cbd5e1}
+    .kw{fill:#60a5fa}
+    .str{fill:#34d399}
+    .fn{font:500 16px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e2e8f0}
+    .size{font:500 16px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#94a3b8}
+    .total{font:700 17px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#34d399}
+    .totlab{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+    .cap{font:500 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#94a3b8}
+    .zero{font:700 17px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#64748b}
+  </style>
+
+  <rect width="1200" height="500" rx="24" fill="#0f172a"/>
+  <rect x="1" y="1" width="1198" height="498" rx="23" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <text x="56" y="56" class="eyebrow">TREE SHAKING</text>
+  <text x="56" y="94" class="title">You ship only what you import</text>
+
+  <line x1="688" y1="132" x2="688" y2="452" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- left: the import and its cost -->
+  <rect x="56" y="132" width="564" height="86" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="80" y="166" class="code"><tspan class="kw">import</tspan> { slugify, camelCase, isEmail }</text>
+  <text x="80" y="194" class="code" xml:space="preserve">  <tspan class="kw">from</tspan> <tspan class="str">"nano-string-utils"</tspan>;</text>
+
+  <text x="56" y="256" class="label">WHAT LANDS IN YOUR BUNDLE</text>
+
+  <text x="56" y="292" class="fn">slugify</text>
+  <text x="620" y="292" class="size" text-anchor="end">138 B</text>
+  <text x="56" y="324" class="fn">camelCase</text>
+  <text x="620" y="324" class="size" text-anchor="end">235 B</text>
+  <text x="56" y="356" class="fn">isEmail</text>
+  <text x="620" y="356" class="size" text-anchor="end">222 B</text>
+
+  <line x1="56" y1="378" x2="620" y2="378" stroke="#334155" stroke-width="1.5"/>
+  <text x="56" y="410" class="totlab">Total shipped</text>
+  <text x="620" y="410" class="total" text-anchor="end">595 B gzipped</text>
+
+  <!-- right: everything you did not import -->
+  <text x="776" y="172" class="label">ALL 61 FUNCTIONS · 3 IMPORTED</text>
+    <rect x="776" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="210" width="24" height="24" rx="6" fill="#34d399" stroke="#34d399" stroke-width="1.5"/>
+    <rect x="872" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1000" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1032" y="210" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="242" width="24" height="24" rx="6" fill="#34d399" stroke="#34d399" stroke-width="1.5"/>
+    <rect x="1000" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1032" y="242" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1000" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1032" y="274" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1000" y="306" width="24" height="24" rx="6" fill="#34d399" stroke="#34d399" stroke-width="1.5"/>
+    <rect x="1032" y="306" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1000" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1032" y="338" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1000" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="1032" y="370" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="776" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="808" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="840" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="872" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="904" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="936" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="968" y="402" width="24" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="776" y="466" class="cap">The other 58 are never referenced &#8212; <tspan class="zero">0 B</tspan></text>
+</svg>

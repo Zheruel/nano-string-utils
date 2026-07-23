@@ -1,7 +1,23 @@
 {
-  "generated": "2026-01-23T17:48:39.168Z",
-  "totalFunctions": 52,
+  "generated": "2026-07-23T16:41:31.985Z",
+  "totalFunctions": 65,
   "functions": [
+    {
+      "name": "assertIntegerString",
+      "nano": {
+        "bundled": {
+          "raw": 298,
+          "gzip": 238
+        },
+        "treeShaken": {
+          "raw": 298,
+          "gzip": 238
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
     {
       "name": "camelCase",
       "nano": {
@@ -90,6 +106,22 @@
         "treeShaken": {
           "raw": 341,
           "gzip": 228
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "countSubstrings",
+      "nano": {
+        "bundled": {
+          "raw": 131,
+          "gzip": 134
+        },
+        "treeShaken": {
+          "raw": 131,
+          "gzip": 134
         }
       },
       "lodash": null,
@@ -328,6 +360,22 @@
       "winner": "nano"
     },
     {
+      "name": "isBlank",
+      "nano": {
+        "bundled": {
+          "raw": 45,
+          "gzip": 65
+        },
+        "treeShaken": {
+          "raw": 45,
+          "gzip": 65
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
       "name": "isEmail",
       "nano": {
         "bundled": {
@@ -353,6 +401,22 @@
         "treeShaken": {
           "raw": 157,
           "gzip": 138
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "isInteger",
+      "nano": {
+        "bundled": {
+          "raw": 99,
+          "gzip": 115
+        },
+        "treeShaken": {
+          "raw": 99,
+          "gzip": 115
         }
       },
       "lodash": null,
@@ -408,6 +472,22 @@
       "winner": "nano"
     },
     {
+      "name": "isValidInteger",
+      "nano": {
+        "bundled": {
+          "raw": 130,
+          "gzip": 135
+        },
+        "treeShaken": {
+          "raw": 130,
+          "gzip": 135
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
       "name": "kebabCase",
       "nano": {
         "bundled": {
@@ -456,6 +536,22 @@
         "treeShaken": {
           "raw": 919,
           "gzip": 472
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "mask",
+      "nano": {
+        "bundled": {
+          "raw": 289,
+          "gzip": 229
+        },
+        "treeShaken": {
+          "raw": 289,
+          "gzip": 229
         }
       },
       "lodash": null,
@@ -861,6 +957,70 @@
       "winner": "nano"
     },
     {
+      "name": "toIntegerString",
+      "nano": {
+        "bundled": {
+          "raw": 164,
+          "gzip": 147
+        },
+        "treeShaken": {
+          "raw": 164,
+          "gzip": 147
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "trim",
+      "nano": {
+        "bundled": {
+          "raw": 212,
+          "gzip": 179
+        },
+        "treeShaken": {
+          "raw": 212,
+          "gzip": 179
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "trimEnd",
+      "nano": {
+        "bundled": {
+          "raw": 184,
+          "gzip": 170
+        },
+        "treeShaken": {
+          "raw": 184,
+          "gzip": 170
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "trimStart",
+      "nano": {
+        "bundled": {
+          "raw": 182,
+          "gzip": 165
+        },
+        "treeShaken": {
+          "raw": 182,
+          "gzip": 165
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
       "name": "truncate",
       "nano": {
         "bundled": {
@@ -881,6 +1041,38 @@
       "percentSavings": 91
     },
     {
+      "name": "unescapeHtml",
+      "nano": {
+        "bundled": {
+          "raw": 170,
+          "gzip": 155
+        },
+        "treeShaken": {
+          "raw": 170,
+          "gzip": 155
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
+      "name": "unsafeIntegerString",
+      "nano": {
+        "bundled": {
+          "raw": 57,
+          "gzip": 77
+        },
+        "treeShaken": {
+          "raw": 57,
+          "gzip": 77
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
+    },
+    {
       "name": "wordCount",
       "nano": {
         "bundled": {
@@ -895,14 +1087,30 @@
       "lodash": null,
       "esToolkit": null,
       "winner": "nano"
+    },
+    {
+      "name": "wrap",
+      "nano": {
+        "bundled": {
+          "raw": 500,
+          "gzip": 329
+        },
+        "treeShaken": {
+          "raw": 500,
+          "gzip": 329
+        }
+      },
+      "lodash": null,
+      "esToolkit": null,
+      "winner": "nano"
     }
   ],
   "summary": {
-    "totalNanoWins": 49,
+    "totalNanoWins": 62,
     "totalEsToolkitWins": 3,
     "totalLodashWins": 0,
-    "averageSavings": 6,
-    "smallestFunction": "stripHtml",
+    "averageSavings": 5,
+    "smallestFunction": "isBlank",
     "largestFunction": "toASCII"
   }
 }

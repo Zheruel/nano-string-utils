@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zheruel.github.io/nano-string-utils/sitemap.xml
