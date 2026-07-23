@@ -1,0 +1,93 @@
+name: Publish
+
+# Publishes to npm and JSR using OIDC trusted publishing — no tokens are stored
+# anywhere. Both registries verify the identity of this workflow directly, which
+# also produces provenance attestations on each package page.
+#
+# One-time setup, per registry:
+#   npm  — npmjs.com → package → Settings → Trusted Publisher:
+#            organization/user `Zheruel`, repository `nano-string-utils`,
+#            workflow filename `publish.yml`, allowed action `npm publish`
+#   JSR  — jsr.io → @zheruel/nano-string-utils → Settings → link the GitHub
+#            repository, which enables OIDC publishing from its Actions
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # required for OIDC
+
+jobs:
+  verify:
+    name: Verify version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check package.json and jsr.json agree with the tag
+        id: v
+        run: |
+          pkg=$(node -p "require('./package.json').version")
+          jsr=$(node -p "require('./jsr.json').version")
+
+          if [ "$pkg" != "$jsr" ]; then
+            echo "::error::package.json ($pkg) and jsr.json ($jsr) disagree"
+            exit 1
+          fi
+
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "${GITHUB_REF_NAME}" != "v$pkg" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match version v$pkg"
+            exit 1
+          fi
+
+          echo "version=$pkg" >> "$GITHUB_OUTPUT"
+          echo "Publishing $pkg"
+
+  npm:
+    name: Publish to npm
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      # Trusted publishing needs npm >= 11.5.1
+      - name: Ensure a recent npm
+        run: npm install -g npm@latest
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run size
+
+      - name: Publish
+        run: npm publish
+
+  jsr:
+    name: Publish to JSR
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run typecheck
+
+      - name: Publish
+        run: npx jsr publish
