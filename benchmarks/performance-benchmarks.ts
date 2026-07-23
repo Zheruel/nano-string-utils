@@ -70,11 +70,22 @@ async function runBenchmark(
 
   await bench.run();
 
-  const results = bench.tasks.map((task) => ({
-    library: task.name as "nano" | "lodash" | "es-toolkit",
-    opsPerSecond: task.result?.hz || 0,
-    margin: task.result?.rme || 0,
-  }));
+  const results = bench.tasks.map((task) => {
+    // tinybench >= 4 reports ops/sec under result.throughput.{mean,rme};
+    // older versions exposed result.hz / result.rme.
+    const r = task.result as
+      | {
+          hz?: number;
+          rme?: number;
+          throughput?: { mean?: number; rme?: number };
+        }
+      | undefined;
+    return {
+      library: task.name as "nano" | "lodash" | "es-toolkit",
+      opsPerSecond: r?.throughput?.mean ?? r?.hz ?? 0,
+      margin: r?.throughput?.rme ?? r?.rme ?? 0,
+    };
+  });
 
   const nanoResult = results.find((r) => r.library === "nano");
   const lodashResult = results.find((r) => r.library === "lodash");
