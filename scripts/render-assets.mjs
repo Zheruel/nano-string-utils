@@ -42,10 +42,16 @@ ${svg}`
   execFileSync(
     CHROME,
     [
-      "--headless",
+      // New headless honours --default-background-color for a transparent
+      // export; the old headless mode silently flattens alpha to white.
+      "--headless=new",
       "--disable-gpu",
       "--hide-scrollbars",
       "--no-sandbox",
+      // Transparent canvas so SVGs without a full-bleed background rect export
+      // with alpha — the rounded panels then blend onto GitHub's light or dark
+      // page instead of reading as a hard-edged box.
+      "--default-background-color=00000000",
       `--force-device-scale-factor=${SCALE}`,
       `--window-size=${w},${h}`,
       `--screenshot=${out}`,
