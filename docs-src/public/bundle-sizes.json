@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23T16:41:31.985Z",
+  "generated": "2026-07-23T22:04:43.760Z",
   "totalFunctions": 65,
   "functions": [
     {
@@ -31,8 +31,8 @@
         }
       },
       "lodash": {
-        "raw": 8506,
-        "gzip": 3514
+        "raw": 8539,
+        "gzip": 3536
       },
       "esToolkit": {
         "raw": 367,
@@ -54,8 +54,8 @@
         }
       },
       "lodash": {
-        "raw": 3782,
-        "gzip": 1761
+        "raw": 3815,
+        "gzip": 1780
       },
       "esToolkit": {
         "raw": 97,
@@ -141,12 +141,12 @@
         }
       },
       "lodash": {
-        "raw": 4663,
-        "gzip": 1872
+        "raw": 4696,
+        "gzip": 1892
       },
       "esToolkit": {
         "raw": 626,
-        "gzip": 331
+        "gzip": 332
       },
       "winner": "nano",
       "percentSavings": 18
@@ -500,8 +500,8 @@
         }
       },
       "lodash": {
-        "raw": 6856,
-        "gzip": 2889
+        "raw": 6889,
+        "gzip": 2909
       },
       "esToolkit": {
         "raw": 238,
@@ -603,15 +603,15 @@
         }
       },
       "lodash": {
-        "raw": 5920,
-        "gzip": 2636
+        "raw": 5953,
+        "gzip": 2655
       },
       "esToolkit": {
         "raw": 109,
-        "gzip": 118
+        "gzip": 120
       },
       "winner": "es-toolkit",
-      "percentSavings": -81
+      "percentSavings": -78
     },
     {
       "name": "padEnd",
@@ -626,8 +626,8 @@
         }
       },
       "lodash": {
-        "raw": 5853,
-        "gzip": 2609
+        "raw": 5886,
+        "gzip": 2628
       },
       "esToolkit": null,
       "winner": "nano",
@@ -646,8 +646,8 @@
         }
       },
       "lodash": {
-        "raw": 5853,
-        "gzip": 2609
+        "raw": 5886,
+        "gzip": 2628
       },
       "esToolkit": null,
       "winner": "nano",
@@ -862,8 +862,8 @@
         }
       },
       "lodash": {
-        "raw": 6856,
-        "gzip": 2889
+        "raw": 6889,
+        "gzip": 2909
       },
       "esToolkit": {
         "raw": 238,
@@ -901,8 +901,8 @@
         }
       },
       "lodash": {
-        "raw": 13483,
-        "gzip": 5812
+        "raw": 13310,
+        "gzip": 5734
       },
       "esToolkit": null,
       "winner": "nano",
@@ -1033,8 +1033,8 @@
         }
       },
       "lodash": {
-        "raw": 6590,
-        "gzip": 2929
+        "raw": 6623,
+        "gzip": 2947
       },
       "esToolkit": null,
       "winner": "nano",

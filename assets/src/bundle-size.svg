@@ -55,7 +55,7 @@
   <rect x="200" y="174" width="314" height="16" rx="4" fill="#60a5fa"/>
   <text x="524" y="187" class="val">273 B</text>
   <rect x="200" y="196" width="867" height="16" rx="4" fill="#f59e0b"/>
-  <text x="1077" y="209" class="val">3.4 KB</text>
+  <text x="1077" y="209" class="val">3.5 KB</text>
 
   <!-- kebabCase -->
   <text x="180" y="270" class="fn" text-anchor="end">kebabCase</text>
@@ -80,7 +80,7 @@
   <rect x="200" y="404" width="314" height="16" rx="4" fill="#34d399"/>
   <text x="524" y="417" class="val-win">273 B</text>
   <rect x="200" y="426" width="356" height="16" rx="4" fill="#60a5fa"/>
-  <text x="566" y="439" class="val">331 B</text>
+  <text x="566" y="439" class="val">332 B</text>
   <rect x="200" y="448" width="731" height="16" rx="4" fill="#f59e0b"/>
   <text x="941" y="461" class="val">1.8 KB</text>
 
