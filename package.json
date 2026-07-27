@@ -112,7 +112,7 @@
     "tinybench": "^6.1.2",
     "tsup": "^8.5.1",
     "tsx": "^4.23.1",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
   "engines": {
