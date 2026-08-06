@@ -6,6 +6,8 @@ describe("sentenceCase", () => {
   it("should convert lowercase to sentence case", () => {
     expect(sentenceCase("hello world")).toBe("Hello world");
     expect(sentenceCase("this is a test")).toBe("This is a test");
+    expect(sentenceCase("hello-world")).toBe("Hello world");
+    expect(sentenceCase("INVALID_USER_INPUT")).toBe("Invalid user input");
   });
 
   it("should convert uppercase to sentence case", () => {
